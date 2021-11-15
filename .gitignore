@@ -1,6 +1,7 @@
 # Ignor misc. files
 test_script.R
 
+
 # History files
 .Rhistory
 .Rapp.history

@@ -1,9 +1,3 @@
-#
-# Author:     Jesse Lecy
-# Maintainer: Cristian Nuno
-# Date:       March 21, 2021
-# Purpose:    Create custom functions to pre-process the LTDB raw data files
-#
 
 # load necessary functions ----
 # note: all of these are R objects that will be used throughout this .rmd file
@@ -13,7 +7,7 @@ import::here("build_year",
              "create_final_metadata_file",
              # notice the use of here::here() that points to the .R file
              # where all these R objects are created
-             .from = here::here("labs/labs_wk03_utilities.R"),
+             .from = here::here("labs/utilities.R"),
              .character_only = TRUE)
 
 # for each relevant file, run the build_year() function ----
@@ -38,5 +32,7 @@ cw <- obtain_crosswalk()
 # note: this stores a copy within the data/rodeo/ directory
 create_final_metadata_file(file_names = RELEVANT_FILES,
                            crosswalk = cw)
+
+
 
 # end of script #
