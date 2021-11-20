@@ -55,6 +55,10 @@ Following steps needed :
 
 The end goal of data wrangling is for the data to be clean and easy to use during the analytical stage of the project. For this lab you will add meaningful metadata about the LTDB dataset to a machine-readable concordance file that will be used to greatly improve the usability of the data.
 
+Data wrangling includes all of the steps in building, restructuring, and fixing the data through cleaning or reformatting. These processes should all occur during the data engineering steps. Feature engineering, the process of creating new measures by applying algorithms or mathematical models to existing data, often using advanced tools like geo-spatial algorithms or machine-learning models,is another kind of data engineering step.
+
+Variable transformations, however, are an important component of the modeling process that often require interative processes of testing multiple specifications for model fit and to identify issues related to outliers, etc. As such, variable transformations are typically a part of the analysis dataset. So there is not a pure distinction between the two. Use your judgement about where to draw the line to keep the process well-organized and file delineation clear.
+
 ### Lab Steps
 
 **Part 1: Data Concordance**
@@ -103,4 +107,12 @@ if I searched for “income” I would want variables like median household inco
 ***Output*** Function will identify all variables that have measures for those periods. 
 
 For example, I if I want to use the data for a study that covers 1990, 2000, and 2010 which variables are available for all three periods
+
+#### Loading funtions from source files
+
+source(here::here("analysis/utilities.R"))
+
+For More info about [here package](https://here.r-lib.org)
+
+
 
