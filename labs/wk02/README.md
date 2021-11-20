@@ -66,3 +66,41 @@ Using the LTDB Codebook copy and paste the Census definitions of each field into
 Using the category column in the file, create meaningful groups for the variables by assigning a group label to each. The LTDB codebook includes some, such as “Variable Group 1: Race and Age by Race” on page 5. Use these as a guide, but feel free to create your own taxonomy that helps you make sense of the variables.
 
 When you are done save the Excel file as a CSV file with in this location: **"data/rodeo/ltdb_data_dictionary.csv**
+
+If you are unsure what the data/rodeo directory is, [please go back to the data directory structure](https://watts-college.github.io/cpp-528-fall-2021/labs/lab-02-instructions.html#data-directory-structure)
+
+We now have a machine-readable data dictionary. This allows us to create some tools that make the full database easier to use.
+
+**Part 2: Build a Variable Filter**
+
+**Separate data processing steps within a separate file**
+
+Create a couple of filters for your data dictionary that make the meta-data easier to access and easier to use. These functions will live in a separate file called utilties.R.
+
+Import objects within that .R file into your .rmd file
+You will then import your functions within that file into a .rmd file, where you will hide how you created these functions and merely show the user what they do. In your .rmd file, you need to use the source() function to import your functions within the utilties.R file.
+
+**We will create the following custom functions:**
+
+**ONE:** Filter variables by theme or group. function that takes as 
+
+***Input:*** an argument one or more of the groups that you just created in the concordance file under the “category” field
+
+***Output*** The function should return all of the rows of the dataframe that belong to the group.
+
+**TWO:** Function that searches variable descriptions for a specific string
+
+***Input:*** variable descriptions for a specific string 
+
+***Output*** returns any variables that match. For example 
+
+if I searched for “income” I would want variables like median household income and per capita income.
+
+**THREE:** Function to filter variables by time periods.
+
+***Input:*** User will specify the time periods of interest for the study and the 
+
+***Output*** Function will identify all variables that have measures for those periods. 
+
+For example, I if I want to use the data for a study that covers 1990, 2000, and 2010 which variables are available for all three periods
+
