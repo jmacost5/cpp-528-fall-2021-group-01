@@ -88,23 +88,23 @@ You will then import your functions within that file into a .rmd file, where you
 
 **ONE:** Filter variables by theme or group. function that takes as 
 
-***Input:*** an argument one or more of the groups that you just created in the concordance file under the “category” field
+- Input: an argument one or more of the groups that you just created in the concordance file under the “category” field
 
-***Output*** The function should return all of the rows of the dataframe that belong to the group.
+- Output: The function should return all of the rows of the dataframe that belong to the group.
 
 **TWO:** Function that searches variable descriptions for a specific string
 
-***Input:*** variable descriptions for a specific string 
+- Input: variable descriptions for a specific string 
 
-***Output*** returns any variables that match. For example 
+- Output: returns any variables that match. For example 
 
 if I searched for “income” I would want variables like median household income and per capita income.
 
 **THREE:** Function to filter variables by time periods.
 
-***Input:*** User will specify the time periods of interest for the study and the 
+- Input: User will specify the time periods of interest for the study and the 
 
-***Output*** Function will identify all variables that have measures for those periods. 
+- Output Function will identify all variables that have measures for those periods. 
 
 For example, I if I want to use the data for a study that covers 1990, 2000, and 2010 which variables are available for all three periods
 
