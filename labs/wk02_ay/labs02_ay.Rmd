@@ -38,7 +38,7 @@ ltdb.data <- as.data.frame(sapply(ltdb.data, tolower))
 
 ```{r}
 # load function source files
-source(here("labs/wk02_ay/lab02_utilities_ay.R"))
+source(here("labs/wk02_ay/labs02_utilities_ay.R"))
 
 ```
 
