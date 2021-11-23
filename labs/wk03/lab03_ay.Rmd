@@ -61,7 +61,7 @@ import::here("clean_d",
              "jplot",
              # notice the use of here::here() that points to the .R file
              # where all these R objects are created
-             .from = here::here("labs/wk03/utilities-ay.R"),
+             .from = here::here("labs/wk03_ay/lab03_utilities_ay.R"),
              .character_only = TRUE)
 ```
 
