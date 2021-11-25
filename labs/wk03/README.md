@@ -108,7 +108,7 @@ d2 <- readRDS( here::here( "data/rodeo/LTDB-2010.rds" ) )
 
 md <- readRDS( here::here( "data/rodeo/LTDB-META-DATA.rds" ) 
 
-**we will follow below steps then :
+**we will follow below steps then :**
 
 1- Filter Rural Districts
 
@@ -125,7 +125,23 @@ md <- readRDS( here::here( "data/rodeo/LTDB-META-DATA.rds" )
 7- Find Group Growth Rates By Metro Area using dplyr makes this easy by grouping then summarizing the data
 
 
-#### Part 02 - Measuring Gentrification
+#### Part 02 - Measuring Gentrification Steps
+
+1- Select Gentrification Variables
+
+2- Descriptive Statistics of Change Variables
+
+3- Operationalizing Gentrification
+
+
+#### Part 03 - Spatial Visualization
+
+
+we will pick one city that we can use as examples in your report. we will create a dorling cartogram for reporting since Census tracts introduce visual bias by over-empasizing lower density tracts and hiding a lot of the data where the greatest number of people reside in the city.Dorling cartograms correct for this by re-sizing administrative units proportion to the size of the population they represent.
+
+![download](https://user-images.githubusercontent.com/77247268/143398681-5fe4ac91-05d7-4bef-9103-0df90fcdaeda.png)
+
+The lab from CPP 528 that covers creating Dorling cartograms is located [here](https://ds4ps.org/cpp-529-master/labs/lab-04-instructions.html)
 
 
 
