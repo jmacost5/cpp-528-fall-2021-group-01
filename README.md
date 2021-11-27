@@ -43,3 +43,39 @@ brew install ruby@2.7
 sudo gem install jekyll bundler
 ```
 
+Installing Requierd Pacakges 
+
+ ```Pacakges
+ 
+install.packages(tidyverse)        # Package assists with data wrangling
+install.packages(here)             # Package allows for relative file path references in code , enable easy file referencing in project-oriented workflows
+install.packages( httr)            # Provides a wrapper for the curl package
+install.packages(jsonlite)         # Simple and Robust JSON Parser and Generator for R
+install.packages( geojsonio )      # read shapefiles
+install.packages( sp )             # work with shapefiles
+install.packages( sf )             # work with shapefiles - simple features format
+install.packages( tmap )           # theme maps                   
+install.packages( dplyr )          # data wrangling
+install.packages( pander )         # nice tables 
+install.packages( mclust )         # cluster analysis 
+install.packagesy( ggplot2 )       # graphing 
+install.packages( ggthemes )       # nice formats for ggplots
+install.packages( maptools )       # spatial object manipulation 
+
+install.packages( DT )             # provides an R interface to the JavaScript library DataTables
+install.packages( knitr )          # Provides a general-purpose tool for dynamic report generation
+install.packages( stargazer )      # create a summary statistics table
+install.packages( scales )         # inverse of scaling, making guides (legends and axes) 
+
+# maps
+install.packages( ggmap )         # to retrieve raster map tiles from popular online mapping services
+install.packages( leaflet )       # open-source JavaScript libraries for interactive maps
+install.packages( viridis )       # viridisLite provides the base functions for generating the color maps
+install.packages( tidycensus)     # help R users get Census data that is pre-prepared for exploration
+install.packages( pals )          # Memory use is reduced by compressing colormaps to fewer colors
+install.packages( cartogram )     # spatial maps w/ tract size bias reduction
+install.packages( tidyverse)      # tidyverse makes data science faster, easier and more fun with
+install.packages( gtools)         # developing, updating, and maintaining R and R packages
+```
+
+
