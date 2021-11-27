@@ -10,7 +10,7 @@ We'll gather the data needed for the research, run various models, and write a f
 
 **Low-Income Housing Tax Credits (Program 1)**
 
-Low-income housing tax credits (LIHTC) are one of the most common policy tools used in the United States to encourage the building of new affordable housing units. Learn more about the LIHTC:
+Low-income housing tax credits (LIHTC) are one of the most common policy tools used in the United States to encourage the building of new affordable housing units.
 
 **Tax Credits for New Markets (Program 2)**
 
