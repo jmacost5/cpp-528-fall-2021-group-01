@@ -43,10 +43,10 @@ brew install ruby@2.7
 sudo gem install jekyll bundler
 ```
 
-Installing Requierd Pacakges 
+## Installing Requierd Pacakges 
 
  ```Pacakges
- 
+# Data wrangling 
 install.packages(tidyverse)        # Package assists with data wrangling
 install.packages(here)             # Package allows for relative file path references in code , enable easy file referencing in project-oriented workflows
 install.packages( httr)            # Provides a wrapper for the curl package
@@ -60,14 +60,17 @@ install.packages( pander )         # nice tables
 install.packages( mclust )         # cluster analysis 
 install.packagesy( ggplot2 )       # graphing 
 install.packages( ggthemes )       # nice formats for ggplots
-install.packages( maptools )       # spatial object manipulation 
 
+
+# Tables
 install.packages( DT )             # provides an R interface to the JavaScript library DataTables
 install.packages( knitr )          # Provides a general-purpose tool for dynamic report generation
 install.packages( stargazer )      # create a summary statistics table
 install.packages( scales )         # inverse of scaling, making guides (legends and axes) 
+install.packages(formattable)      # creating nice tables 
 
-# maps
+
+# Maps
 install.packages( ggmap )         # to retrieve raster map tiles from popular online mapping services
 install.packages( leaflet )       # open-source JavaScript libraries for interactive maps
 install.packages( viridis )       # viridisLite provides the base functions for generating the color maps
@@ -76,6 +79,7 @@ install.packages( pals )          # Memory use is reduced by compressing colorma
 install.packages( cartogram )     # spatial maps w/ tract size bias reduction
 install.packages( tidyverse)      # tidyverse makes data science faster, easier and more fun with
 install.packages( gtools)         # developing, updating, and maintaining R and R packages
+install.packages( maptools )      # spatial object manipulation 
 ```
 
 
