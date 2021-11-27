@@ -2,6 +2,22 @@
 
 Template GitHub repo for CPP 528.
 
+## Overview Of Project for Change in the Neighborhood
+
+To conduct a thorough evaluation of the program's effectiveness. We'll look at whether two huge government initiatives aimed at revitalizing blighted areas in American cities have been effective.
+
+We'll gather the data needed for the research, run various models, and write a final report outlining our findings on the impact of two programs, We'll look at general patterns in neighborhood transformation from 2000 to 2010, then see if the communities targeted by the programs have had any greater success than they would have had without the billions in government subsidies.
+
+**Low-Income Housing Tax Credits (Program 1)**
+
+Low-income housing tax credits (LIHTC) are one of the most common policy tools used in the United States to encourage the building of new affordable housing units. Learn more about the LIHTC:
+
+**Tax Credits for New Markets (Program 2)**
+
+New Market Tax Credits (NMTC) are a type of tax credit aimed to spur economic development in underserved areas by encouraging private-sector investment.
+
+**This Project will help to Answer this Research Question:  Has each government program been successful in assisting troubled towns with economic development?**
+
 ## Context
 
 The [`index.html`](index.html) file serves a purpose which is to ensure that the `README.md` file does not get displayed back to the user on the home page of the website.
