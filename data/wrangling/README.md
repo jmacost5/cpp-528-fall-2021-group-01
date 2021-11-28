@@ -12,3 +12,19 @@ Feature engineering, the process of creating new measures by applying algorithms
 
 Variable transformations, however, are an important component of the modeling process that often require interative processes of testing multiple specifications for model fit and to identify issues related to outliers, etc. As such, variable transformations are typically a part of the analysis dataset. So there is not a pure distinction between the two.
 Use your judgement about where to draw the line to keep the process well-organized and file delineation clear.
+
+**This folder documents the process of converting raw data into the “rodeo” dataset you use for your models and descriptive statistics. Data steps include:**
+
+- Data cleaning
+
+- Recoding
+
+- Variable transformations
+
+- Data aggregation
+
+- Merging files
+
+- Filters
+
+- Conversion from long to wide formats or vice-versa
