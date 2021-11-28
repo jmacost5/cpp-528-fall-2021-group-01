@@ -55,6 +55,8 @@ Important Data Cleaning Steps we need follow :
 
 - Creating Meta-Data Table : Each file has redundant meta-data in it. We can eliminate it to make merges easier, and we can combine all of the meta-data (county and census tract information) into a single file for convenience.
 
+- You can find more about [Data Steps Requierd](https://watts-college.github.io/cpp-528-fall-2021/labs/PROJECT-DATA-STEPS.html)
+
 
 ## Context
 
