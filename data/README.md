@@ -17,5 +17,20 @@ Start creating a guide to use of the data in this project , will have the follow
 - Wrangling : This folder documents the process of converting raw data into the “rodeo” dataset you use for your models and descriptive statistics
 
 - Rodeo : This folder contains datasets that have been cleaned and processed, and are ready for analysis.
+Data Preparation
+
+As we all know, bad input inevitably leads to bad output. Therefore no matter what you do in modeling — if you made major mistakes while preparing the data — you will end up returning to this stage and doing it over again.
+
+- Select Data :The rationale for Inclusion/Exclusion
+
+- Clean Data :Data Cleaning Report
+
+- Construct Data :Derived Attributes
+
+- Generated Records :Integrate Data
+
+- Merged Data : Format Data
+
+- Reformatted Data :Dataset Description
 
 
