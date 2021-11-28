@@ -26,17 +26,24 @@ When someone else on your team wants to familiarize themselves with code, it's f
 **Example of using import specific functions from your R File.**
 
 ```
-# import specific functions
-# note: all of these are R objects that will be used throughout this .rmd file , we import the functions/Objects we need to run our models with from R file.
-import::here("clean_d",
-             "tidy_up_data",
-             "build_year",
-             "RELEVANT_FILES",
-             "obtain_crosswalk",
-             "create_final_metadata_file",
+# set randomization seed ----
+set.seed( 1234 )
+# load necessary functions and objects ----
+# note: all of these are R objects that will be used throughout this .rmd file
+import::here("S_TYPE",
+             "INFLATION_RATE",
+             "panel.cor",
+             "panel.smooth",
+             "jplot",
+             "d1",
+             "d2",
+             "d",
+             "df",
+             "md",
+             "cbsa_stats_df",
              # notice the use of here::here() that points to the .R file
              # where all these R objects are created
-             .from = here::here("labs/wk03/utilities.R"),
+             .from = here::here("labs/wk06/Unified_Data_Steps.R"),
              .character_only = TRUE)
 ```
 
