@@ -18,6 +18,37 @@ New Market Tax Credits (NMTC) are a type of tax credit aimed to spur economic de
 
 **This Project will help to Answer this Research Question:  Has each government program been successful in assisting troubled towns with economic development?**
 
+### Overview Of Project Code
+
+The import::here() function operates similarly to the source() function, with the extra benefit of allowing you to designate particular objects to be made available in the Global Environment , This is recommended practice since the Global Environment will only have the relevant objects, not all of the objects produced in your.R file.
+When someone else on your team wants to familiarize themselves with code, it's far easier to provide them a GitHub link to a.R file than than a.rmd file.
+
+**Example of using import specific functions from your R File.**
+
+```
+# import specific functions
+# note: all of these are R objects that will be used throughout this .rmd file , we import the functions/Objects we need to run our models with from R file.
+import::here("clean_d",
+             "tidy_up_data",
+             "build_year",
+             "RELEVANT_FILES",
+             "obtain_crosswalk",
+             "create_final_metadata_file",
+             # notice the use of here::here() that points to the .R file
+             # where all these R objects are created
+             .from = here::here("labs/wk03/utilities.R"),
+             .character_only = TRUE)
+```
+
+Important Data Cleaning Steps we need follow : 
+
+- Inspecting Data : To Avoid problems with missing data coded will need to make sure to remove missing value codes, which will cause issues with any analysis .
+
+- Tidy Up Dataframes : We'd want to standardize datasets across all years so that they're all clean, have the same structure, and use the same variable names.
+
+- Creating Meta-Data Table : Each file has redundant meta-data in it. We can eliminate it to make merges easier, and we can combine all of the meta-data (county and census tract information) into a single file for convenience.
+
+
 ## Context
 
 The [`index.html`](index.html) file serves a purpose which is to ensure that the `README.md` file does not get displayed back to the user on the home page of the website.
