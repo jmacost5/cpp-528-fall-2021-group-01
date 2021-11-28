@@ -18,3 +18,14 @@ Data Files is used in this Project can be found below links to be downloaded and
 
 [Codebook](https://watts-college.github.io/cpp-528-fall-2021/data/LTDB-codebook.pdf)
 
+**If you see the following, you know the raw data is in the correct format:**
+
+- No program was used to analyze the data.
+
+- None of the data values were changed.
+
+- There was no data removed from the data set.
+
+- You made no attempt to summarize the data.
+
+If you changed the raw data in any way, it is no longer in its original state. Reporting changed data as raw data is a popular strategy to slow down the analysis process.
