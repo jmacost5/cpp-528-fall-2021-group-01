@@ -26,6 +26,9 @@ And finally we have moved all census tract meta-data into on a single file which
 
 - LTDB-META-DATA.rds
 
+#### What is a rodeo dataset? 
+
+These are the files that will be utilized to create the analysis for your reports or publications. They're nicknamed "rodeo" datasets because they're ready for the big show - usage in models - once they've been wrangled. Typically, you should only read files from the rodeo folder throughout your analysis.
 
 #### RDS vs CSV formats Why to Use RDS Format ?
 
