@@ -57,6 +57,15 @@ Important Data Cleaning Steps we need follow :
 
 - You can find more about [Data Steps Requierd](https://watts-college.github.io/cpp-528-fall-2021/labs/PROJECT-DATA-STEPS.html)
 
+#### Reading Data As RDS Format 
+
+```
+d1 <- readRDS( here::here( "data/rodeo/LTDB-2000.rds" ) )
+d2 <- readRDS( here::here( "data/rodeo/LTDB-2010.rds" ) )
+md <- readRDS( here::here( "data/rodeo/LTDB-META-DATA.rds" ) )
+
+```
+**RDS files by default are compressed, which means they take up less space on your hard drive and are easier to share. On average they are less than one-third the size of equivalent CSV files**
 
 ## Context
 
