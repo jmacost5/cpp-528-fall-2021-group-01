@@ -47,7 +47,7 @@ import::here("S_TYPE",
              .character_only = TRUE)
 ```
 
-Important Data Cleaning Steps we need follow : 
+**Important Data Cleaning Steps we need follow :** 
 
 - Inspecting Data : To Avoid problems with missing data coded will need to make sure to remove missing value codes, which will cause issues with any analysis .
 
@@ -66,6 +66,8 @@ md <- readRDS( here::here( "data/rodeo/LTDB-META-DATA.rds" ) )
 
 ```
 **RDS files by default are compressed, which means they take up less space on your hard drive and are easier to share. On average they are less than one-third the size of equivalent CSV files**
+
+
 
 ## Context
 
