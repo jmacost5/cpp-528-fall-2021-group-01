@@ -1,4 +1,4 @@
-**renv is an R dependency manager. Use renv to make your projects more:**
+**"renv" is an R dependency manager. Use renv to make your projects more:**
 
 - Isolated: Each project gets its own library of R packages, so you can feel free to upgrade and change package versions in one project without worrying about breaking your other projects.
 
