@@ -20,12 +20,10 @@ today <- function() {
 
 # filter data by category ----
 
-category_search <- function( data, search_term )
-{
-  keyword.search <- grepl( search_term, data$category, ignore.case = TRUE)
-  data.category <- data[ keyword.search, c("root", "root2", "category", "definition") ]
-  
-  return(data.category)
+cat_filter <- function(data , search.cat ){
+  cat_filter <- data%>%
+    filter(category == search.cat )
+      return(cat_filter)
 }
 
 # TWO: Create a function that searches variable descriptions for a specific string and returns 
@@ -34,12 +32,10 @@ category_search <- function( data, search_term )
 
 # search for data with keyword ----
 
-search_word <- function( data, keyword )
-{
-  keyword.search <- grepl( keyword, data$definition, ignore.case = TRUE)
-  data.keywords <- data[ keyword.search, c("root", "root2", "category", "definition")]
-  
-  return( data.keywords)
+search_description <- function(data , keywords) {
+  search_description <- grepl(keywords , data$definition , ignore.case =T )
+     search.keywords <- data[search_description , c("root","root2", "category" ,"definition" )]
+        return(search.keywords)
 }
 
 
@@ -61,12 +57,68 @@ search_word <- function( data, keyword )
 search_years <- function(data, years)
 {
   
-  df.years <- data %>%
-    select(root, root2, category, definition, contains(years))
+  # set column names to lowercase
+  colnames(data) <- tolower(colnames(data))
   
-  return(df.years)
+  # set variables to lowercase
+  data <- mutate_all(data, .funs = tolower)
+  
+  # remove empty strings and white spaces
+  data <- data[!grepl("^\\s+$", data)]
+  
+  # replace missing values with NA
+  data[ data == ""] <- NA
+  
+  # select root, root2, category, and definition columns to keep in data set
+  columns <- c("root", "root2", "category", "definition")
+  
+  #list strings that we want to remove from our time period column names
+  prefix <- c("x")
+  suffix <- c(".f", ".s")
+  
+  # select data to keep
+  df.years <- data %>%
+  select(root, root2, category, definition, contains(years))
+  
+  #subset data to keep root, root2, and the columns that contain the names of our time period
+  #data_cleaned <- data[, c(grepl( paste( c( time.periods, columns), collapse = "|"), colnames(data) )) ]
+  
+  # remove prefix and suffix from column names
+  names <- colnames(df.years) %>%
+    str_remove(prefix) %>%
+    str_remove(suffix)
+  
+  # rename columns
+  colnames(df.years) <- names
+  
+  # change years columns to long
+  df.years.long <- df.years %>% pivot_longer( !columns, names_to = "year", values_to = "variable" ) %>% 
+    na.omit() %>%
+    distinct( root, year, variable)
+  
+  # create data sets of distinct root and year variables and combine for reference of all possible root/year combinations
+  root <- df.years.long %>% distinct(root) %>% select(root)
+  year <- df.years.long %>% distinct(year) %>% select(year)
+  root_list <- crossing( root, year )
+  
+  # Left join root_list and df.years.long to identify variables for each year.
+  root_variables <- left_join( root_list, df.years.long, by = c( "root", "year"))
+  
+  # List of roots with missing variables
+  root_missing <- root_variables %>% filter( is.na( variable ) )
+  
+  # create final dataset
+  data_final <- subset(df.years.long, !(df.years.long$root %in% root_missing$root))
+  
+  # join back to original dataset to add category and definition (and verify accuracy)
+  data_final <- left_join(data_final, data, by = "root") %>%
+    select(root, year, variable, category, definition)
+  
+  return(data_final)
+  
   
 }
+
 
 
 ### Lab 03 Functions
