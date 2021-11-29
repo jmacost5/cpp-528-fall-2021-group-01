@@ -24,6 +24,7 @@ library( tmap )       # thematic maps
 library( tmaptools )   # spatial object manipulation 
 library( sf )         # 'simple features' flavor of shapefiles
 library( tidyverse )
+library(ggplot2)
 library( RColorBrewer )
 
 # set stargazer type
@@ -41,7 +42,7 @@ import::here("build_year",
              "jplot",
              # notice the use of here::here() that points to the .R file
            # where all these R objects are created
-             .from = here::here("analysis/utilities_amp.R"),
+             .from = here::here("analysis/utilities_master.R"),
              .character_only = TRUE)
 ```
 
@@ -643,11 +644,31 @@ Do you find any meaningful patterns in where gentrification occurs?
 # Palette of 30 colors
 library(RColorBrewer)
 
-sf.ca$gentrified <- sf.ca$pct.change.full > 100
+pct.change.rank <- ntile(pct.change.full, 15)
 
 
-tm_shape( sf.ca, bbox=bb ) + 
-  tm_polygons( col="gentrified", style="cat", title = "MHV Change > 100%", palette=get_brewer_pal(palette="Blues", n = 2, plot=FALSE) ) +
-  tm_layout( "Dorling Cartogram", title.position=c("right","top") )
+### 
+# Distribution of the population per country?
+my_colors <- brewer.pal(9, "Blues") 
+my_colors <- colorRampPalette(my_colors)(15)
+ 
+# Attribute the appropriate color to each country
+likelihood_of_gentrification <- cut(pct.change.rank, 15)
+my_colors <- my_colors[pct.change.rank]
+ 
+# Make the plot
+plot(sf.ca, col=my_colors)
+
+legend(x = "topright",          # Position
+       legend = pct.change.rank,  # Legend texts
+       fill = sort(my_colors))     
+###
+
+  
+#ggplot() +
+#  geom_polygon(data = sf.ca, aes( x = long, y = lat, group = group), fill="white", color="grey") +
+#  theme_void() +
+#  coord_map()
+
 ```
 

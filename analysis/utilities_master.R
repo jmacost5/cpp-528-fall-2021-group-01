@@ -1,6 +1,7 @@
 #
-# Author:   April Peck
-# Date:     October 21, 2021
+# Author:   Cristian Nuno
+# Maintainers: April Peck, Ahmed Rashwan, Erin McIntyre, Alev Yuldasiz
+# Date:     March 14, 2021
 # Purpose:  Create a function that will be sourced within another file
 #
 
@@ -67,101 +68,8 @@ search_years <- function(data, years)
   
 }
 
-# create custom cleaning function ----
-# convert variables to numeric
-# and remove missing values placeholders;
-# impute missing values with mean
-clean_x <- function( x )
-{
-  x <- as.numeric( x )
-  x[ x == -999 ] <- NA
-  mean.x <- mean( x, na.rm=T )
-  x[ is.na(x) ] <- mean.x
-  return(x)
-}
 
-# apply the clean var x function to all columns 
-clean_d <- function( d, start_column )
-{
-  these <- start_column:ncol(d)
-  d[ these ] <- lapply( d[ these ], clean_x )
-  
-  return( d )
-}
-
-# FIX VARIABLE NAMES
-# input dataframe
-# standardize variable names 
-# output data frame with fixed names
-fix_names <- function( d )
-{
-  nm <- names( d )
-  nm <- tolower( nm )
-  
-  nm[ nm == "statea"  ] <- "state"
-  nm[ nm == "countya" ] <- "county"
-  nm[ nm == "tracta"  ] <- "tract"
-  nm[ nm == "trtid10" ] <- "tractid"
-  nm[ nm == "mar-70"  ] <- "mar70"
-  nm[ nm == "mar-80"  ] <- "mar80"
-  nm[ nm == "mar-90"  ] <- "mar90"
-  nm[ nm == "mar.00"  ] <- "mar00"
-  nm[ nm == "x12.mar" ] <- "mar12"  
-  nm <- gsub( "sp1$", "", nm )
-  nm <- gsub( "sp2$", "", nm )
-  nm <- gsub( "sf3$", "", nm )
-  nm <- gsub( "sf4$", "", nm )
-  
-  # nm <- gsub( "[0-9]{2}$", "", nm )
-  
-  names( d ) <- nm
-  return( d )
-}
-
-# FIX TRACT IDS
-# put into format: SS-CCC-TTTTTT
-fix_ids <- function( x )
-{
-  x <- stringr::str_pad( x, 11, pad = "0" )
-  state <- substr( x, 1, 2 )
-  county <- substr( x, 3, 5 )
-  tract <- substr( x, 6, 11 )
-  x <- paste( "fips", state, county, tract, sep="-" )
-  return(x)
-}
-
-
-tidy_up_data <- function( file.name )
-{
-  # store the file path as a character vector
-  path <- paste0( "data/raw/", file.name )
-  # read in the file path using here::here()
-  d <- read.csv( here::here(path), colClasses="character" ) 
-  type <- ifelse( grepl( "sample", file.name ), "sample", "full" )
-  year <- substr( file.name, 10, 13 )
-  
-  # fix names 
-  d <- fix_names( d )
-  
-  # fix leading zero problem in tract ids
-  d$tractid <- fix_ids( d$tractid )
-  
-  # drop meta-vars
-  drop.these <- c("state", "county", "tract", "placefp10",
-                  "cbsa10", "metdiv10", "ccflag10", 
-                  "globd10", "globg10","globd00", "globg00",
-                  "globd90", "globg90","globd80", "globg80")
-  d <- d[ ! names(d) %in% drop.these ]
-  
-  # column position where variables start after IDs
-  d <- clean_d( d, start_column=2 )
-  
-  # add year and type (sample/full)
-  d <- data.frame( year, type, d, stringsAsFactors=F )
-  
-  return( d )
-}
-
+### Lab 03 Functions
 build_year <- function( fn1, fn2, year )
 {
   
@@ -179,6 +87,7 @@ build_year <- function( fn1, fn2, year )
   saveRDS( d3, here::here( file.name ) )
   
 }
+
 
 # store relevant raw data files
 relevant_files = list.files(here::here("data/raw"), pattern = "(s|S)td.*.csv")
@@ -208,6 +117,7 @@ for (year in YEARS) {
   )
 }
 
+
 obtain_crosswalk = function() {
   # store crosswalk URL
   URL <- "https://data.nber.org/cbsa-msa-fips-ssa-county-crosswalk/cbsatocountycrosswalk.csv"
@@ -232,6 +142,7 @@ obtain_crosswalk = function() {
   # return to user
   return(cw)
 }
+
 
 extract_metadata <- function( file.name )
 {
@@ -294,54 +205,6 @@ create_final_metadata_file = function(file_names, crosswalk) {
   saveRDS( md_complete_with_cw, here::here( "data/rodeo/LTDB-META-DATA.rds" ) )
 }
 
-# load necessary functions ----
-
-
-# load all data as character vecs
-d.2010.samp <- read.csv( here::here("data/raw/ltdb_std_2010_sample.csv"),
-                         colClasses="character" )
-
-# Remove missing value codes -999 and replace with variable mean or NAs.
-d.2010.samp <- clean_d( d.2010.samp, start_column=5 )
-
-# tidy up dataframes
-file.name <- "ltdb_std_2010_sample.csv"
-d.2010.s <- tidy_up_data( file.name )
-file.name <- "LTDB_Std_2010_fullcount.csv"
-d.2010.f <- tidy_up_data( file.name )
-d2 <- bind_rows( d.2010.s, d.2010.f )
-file.name <- "ltdb_std_2000_sample.csv"
-d.2010.s <- tidy_up_data( file.name )
-file.name <- "LTDB_Std_2000_fullcount.csv"
-d.2010.f <- tidy_up_data( file.name )
-d2 <- bind_rows( d.2010.s, d.2010.f )
-
-
-# for each relevant file, run the build_year() function ----
-# note: this populates the data/rodeo/ directory with clean files
-for (relevant_file in RELEVANT_FILES) {
-  print(paste0("Starting on ", relevant_file[["year"]]))
-  build_year(fn1 = relevant_file[["fullcount"]],
-             fn2 = relevant_file[["sample"]],
-             year = relevant_file[["year"]])
-  if (relevant_file[["year"]] < 2010) {
-    print("Finished! Moving onto the next decade.")
-  } else {
-    print("Finished! No more data to parse.")
-  }
-}
-
-# import the clean file 
-d <- readRDS( here::here( "data/rodeo/LTDB-2000.rds" ) )
-
-# load the crosswalk ----
-# note: this stores a copy in the data/raw/ directory
-cw <- obtain_crosswalk()
-
-# create the final meta data file ----
-# note: this stores a copy within the data/rodeo/ directory
-create_final_metadata_file(file_names = RELEVANT_FILES,
-                           crosswalk = cw)
 
 # find common variables that are in two datasets
 compare_dfs <- function( df1, df2 )
@@ -371,6 +234,7 @@ compare_dfs <- function( df1, df2 )
   
   return( dd )
 }
+
 
 # function to control plot() formatting 
 jplot <- function( x1, x2, lab1="", lab2="", draw.line=T, ... )
