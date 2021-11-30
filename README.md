@@ -27,6 +27,45 @@ New Market Tax Credits (NMTC) are a type of tax credit aimed to spur economic de
 - Week 05: Adding federal program data to your predictive models
 - Week 06: Test reproducible work flow with a parameter change
 
+### Table of Contents
+
+1- Executive Summary :
+- Overview / Research Question Program Details
+- Data
+- Methods
+- Results
+
+2 -Part I: Neighborhood Change :
+- Data sources
+- Median Home Value
+- Gentrification
+
+Descriptive Analysis of Neighborhood Change : 
+- Average change in MHV from 2000 to 2010
+
+Predicting Change Based on 2000 Neighborhood characteristics : 
+- Neighborhood demographics
+- Spatial characteristics (population density, adjacent tracts)
+
+3-Part II: Evaluation of Tax Credits :
+- Overview of Programs:
+- New Market Tax Credits(NMTC)
+- Low Income Housing Tax Credit(LIHTC)
+
+Data sources
+
+Descriptive Statistics For :
+- Dollars given out
+- Characteristics of neighborhoods that received them
+- Characteristics of those that did not
+
+Predictive Analysis :
+- Aggregate credits given between 2000 and 2010
+- Update models by adding tax credit amounts
+
+4- Part III – Results and Conclusion
+
+
 ### Overview Of Project Code
 
 The import::here() function operates similarly to the source() function, with the extra benefit of allowing you to designate particular objects to be made available in the Global Environment , This is recommended practice since the Global Environment will only have the relevant objects, not all of the objects produced in your.R file.
@@ -75,23 +114,7 @@ md <- readRDS( here::here( "data/rodeo/LTDB-META-DATA.rds" ) )
 
 ```
 
-### Table of Contents
-
-1- Executive Summary 
-- Overview / Research Question Program Details
-- Data
-- Methods
-- Results
-
-2 -Part I: Neighborhood Change
-- Data sources
-- Median Home Value
-- Gentrification
-
-
-
 **RDS files by default are compressed, which means they take up less space on your hard drive and are easier to share. On average they are less than one-third the size of equivalent CSV files**
-
 
 
 ## Context
