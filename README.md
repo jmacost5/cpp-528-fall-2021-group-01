@@ -23,9 +23,9 @@ New Market Tax Credits (NMTC) are a type of tax credit aimed to spur economic de
 **This Project will Present the following chapters :**
 
 - Descriptive analysis of neighborhood change
-- Week 04: Predicting median home value change, 2000 to 2010
-- Week 05: Adding federal program data to your predictive models
-- Week 06: Test reproducible work flow with a parameter change
+- Predicting median home value change, 2000 to 2010
+- Adding federal program data to your predictive models
+- Test reproducible work flow with a parameter change
 
 ### Table of Contents
 
