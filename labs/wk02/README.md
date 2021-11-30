@@ -116,3 +116,10 @@ For More info about [here package](https://here.r-lib.org)
 
 
 
+## References 
+
+- Bryan , Jenny . "Naming things" , Reproducible Science Workshop, 2014.Web. 20 November 2021. [PDF file]. Available from "https://www2.stat.duke.edu/~rcs46/lectures_2015/01-markdown-git/slides/naming-slides/naming-slides.pdf"
+
+
+
+
