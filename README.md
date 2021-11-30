@@ -66,6 +66,17 @@ Predictive Analysis :
 4- Part III – Results and Conclusion
 
 
+**Source of truth for your data cleaning:**
+
+Data Files is used in this Project can be found below links to be downloaded and exctracted :
+
+[Harmonized Census Data Part-01](https://watts-college.github.io/cpp-528-fall-2021/data/LTDB_Std_All_Sample.zip)
+
+[Harmonized Census Data Part-02](https://watts-college.github.io/cpp-528-fall-2021/data/LTDB_Std_All_fullcount.zip)
+
+[Codebook](https://watts-college.github.io/cpp-528-fall-2021/data/LTDB-codebook.pdf)
+
+
 ### Overview Of Project Code
 
 The import::here() function operates similarly to the source() function, with the extra benefit of allowing you to designate particular objects to be made available in the Global Environment , This is recommended practice since the Global Environment will only have the relevant objects, not all of the objects produced in your.R file.
