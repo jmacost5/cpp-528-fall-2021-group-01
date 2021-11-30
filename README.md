@@ -114,7 +114,8 @@ import::here("S_TYPE",
 
 - Creating Meta-Data Table : Each file has redundant meta-data in it. We can eliminate it to make merges easier, and we can combine all of the meta-data (county and census tract information) into a single file for convenience.
 
-- You can find more about [Data Steps Requierd](https://watts-college.github.io/cpp-528-fall-2021/labs/PROJECT-DATA-STEPS.html)
+- You can find more about [Data Steps Requierd](https://watts-college.github.io/cpp-528-fall-2021/labs/PROJECT-DATA-STEPS.html) Or Find Project [Utilities Master File](https://github.com/R-Class/cpp-528-fall-2021-group-01/blob/main/analysis/utilities_master.R) to load necessary Functions used thorough this project 
+
 
 #### Reading Data As RDS Format 
 
