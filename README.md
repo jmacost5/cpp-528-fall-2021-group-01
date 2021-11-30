@@ -20,6 +20,13 @@ New Market Tax Credits (NMTC) are a type of tax credit aimed to spur economic de
 
 **This Project will help to Answer this Research Question:  Has each government program been successful in assisting troubled towns with economic development?**
 
+**This Project will Present the following chapters :**
+
+- Descriptive analysis of neighborhood change
+- Week 04: Predicting median home value change, 2000 to 2010
+- Week 05: Adding federal program data to your predictive models
+- Week 06: Test reproducible work flow with a parameter change
+
 ### Overview Of Project Code
 
 The import::here() function operates similarly to the source() function, with the extra benefit of allowing you to designate particular objects to be made available in the Global Environment , This is recommended practice since the Global Environment will only have the relevant objects, not all of the objects produced in your.R file.
@@ -67,6 +74,22 @@ d2 <- readRDS( here::here( "data/rodeo/LTDB-2010.rds" ) )
 md <- readRDS( here::here( "data/rodeo/LTDB-META-DATA.rds" ) )
 
 ```
+
+### Table of Contents
+
+1- Executive Summary 
+- Overview / Research Question Program Details
+- Data
+- Methods
+- Results
+
+2 -Part I: Neighborhood Change
+- Data sources
+- Median Home Value
+- Gentrification
+
+
+
 **RDS files by default are compressed, which means they take up less space on your hard drive and are easier to share. On average they are less than one-third the size of equivalent CSV files**
 
 
