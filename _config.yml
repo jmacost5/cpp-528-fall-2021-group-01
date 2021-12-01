@@ -21,7 +21,7 @@ navigation:                  # show navigation links in the header
   - part_2.md
   - part_3.md
   - data_manifest.md
-  - about.md
+  - about_us.md
 
 
 icons:                       # show icons in the header, for all possible icons see http://fontawesome.io/icons/
