@@ -3,7 +3,7 @@ title: About the team
 subtitle: The humans behind this project
 team:
   - name: Alev Yildiz
-    img: ../assets/img/about/alev_img.jpg
+    img: ../assets/img/about/alev_img.JPG
     desc: Alev has a BS in Political Science/Spanish and a LLM in Human Rights 
           Law. She is currently enrolled in masters of Program Evaluation and Data           Analytics degree at ASU.
   - name: Erin McIntyre
