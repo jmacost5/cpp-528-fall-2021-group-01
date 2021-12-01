@@ -26,7 +26,6 @@ today <- function() {
 cat_filter <- function(data , search.cat ){
   cat_filter <- data%>%
     filter(category == search.cat )
-  return(cat_filter)
 }
 
 # TWO: Create a function that searches variable descriptions for a specific string and returns 
@@ -37,8 +36,6 @@ cat_filter <- function(data , search.cat ){
 
 search_description <- function(data , keywords) {
   search_description <- grepl(keywords , data$definition , ignore.case =T )
-  search.keywords <- data[search_description , c("root","root2", "category" ,"definition" )]
-  return(search.keywords)
 }
 
 
@@ -81,7 +78,7 @@ search_years <- function(data, years)
   
   # select data to keep
   df.years <- data %>%
-    select(root, root2, category, definition, contains(years))
+  select(root, root2, category, definition, contains(years))
   
   #subset data to keep root, root2, and the columns that contain the names of our time period
   #data_cleaned <- data[, c(grepl( paste( c( time.periods, columns), collapse = "|"), colnames(data) )) ]
@@ -312,32 +309,6 @@ jplot <- function( x1, x2, lab1="", lab2="", draw.line=T, ... )
   
 }
 
-
-# Wrangle data to create shapefile for chloropleth map
-# load data
-crosswalk <- read.csv( "https://raw.githubusercontent.com/DS4PS/cpp-529-master/master/data/cbsatocountycrosswalk.csv",  stringsAsFactors=F, colClasses="character" )
-
-# search for cities names by strings, use the ^ anchor for "begins with" 
-
-grep( "^SAN FRAN", crosswalk$msaname, value=TRUE ) 
-these.sf <- crosswalk$msaname == "SAN FRANCISCO, CA"   # Find San Francisco (T/F)
-these.fips <- crosswalk$fipscounty[ these.sf ]         # Find SF counties
-these.fips <- na.omit( these.fips )
-
-state.fips <- substr( these.fips, 1, 2 )                    # Substring state code
-county.fips <- substr( these.fips, 3, 5 )                   # substring county codes
-
-sf.pop <-
-  get_acs( geography = "tract", variables = "B01003_001",
-           state = "06", county = county.fips[state.fips=="06"], geometry = TRUE ) %>% 
-  select( GEOID, estimate ) %>%
-  rename( POP=estimate )
-#sanfran.pop$GEOID<-substr(sanfran.pop$GEOID,2,length(sf.pop$GEOID)) # remove leading 0's
-
-
-
-
-# End of Lab 03 Functions--------------------------------------------------------------
 
 # Lab 04 Functions--------------------------------------------------------------
 

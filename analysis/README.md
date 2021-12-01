@@ -79,6 +79,22 @@ Above, the `FILE_INFO` object is a list that stores two character vectors:
 
 #### Remember `here::here()` only takes one relative path
 
+The import::here() works nearly the same as the source() function with the added bonus that you get to declare specific objects you would like to be made available within the Global Environment.
+
+This is best practice because no the Global Environment will only contain the necessary objects rather than every object that was created within your .R file.
+
+**The reason why import::here is required for every lab from here on out is for two reasons:**
+
+- For you to grow the skill of separating source code from your .rmd files; and
+
+- For you to grow the skill of scaling your work.
+
+A great supervisor will be interested in both; however, you should gain experience separating R logic in a different file and importing into your .rmd files. Additionally, it makes it much easier to forward a GitHub link to a .R file when someone else on your team needs to familiarize themselves with code rather than sending them a .rmd file.
+
+The second skill, however, will become readily apparent in the next few labs. You’ll learn to minimize copying and pasting logic and instead rely on import::here() to not only save you time, but allow you to begin to use inline R code to dynamically embed within the narrative portion of your .rmd files.
+
+With that said, here is the rest of the tutorial that uses import::here().
+
 As you add more relative paths to both your `FILE_INFO` object, the length of `FILE_INFO$rmd_files` and `FILE_INFO$yaml_files` will grow to reflect the additions. Currently, the length of both of these character vectors is one.
 
 However, if you add two more chapters, the length of each of those vectors will be three. By comma separating each `here::here()` statement for each chapter you want added onto your website, you can safely use the code as is to see your work live on the website.

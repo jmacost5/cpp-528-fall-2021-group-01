@@ -13,7 +13,7 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-```{r load packages, include=FALSE}
+```{r load packages, message=FALSE, warning=FALSE}
 
 # load necessary packages ----
 library( dplyr )
@@ -35,7 +35,7 @@ import::here("S_TYPE",
              "cbsa_stats_df",
              # notice the use of here::here() that points to the .R file
              # where all these R objects are created
-             .from = here::here("labs/wk04/lab_04_source_em.R"),
+             .from = here::here("analysis/utilities_master.R"),
              .character_only = TRUE)
 
 ```
@@ -201,24 +201,16 @@ stargazer( m1, m2, m3, m4,
 
 ```
 
-The higher the poverty rate in a metro area, the more growth they will experience
-in median home value. This result makes the most sense to me based on what we
-have learned about gentrification. Median home value will grow at a quicker rate
-(or higher percentage) in a metropolitan area where the poverty rate was already
-high compared to a richer area. 
 
-The higher the percentage of whites in the population in 2000, the less growth in 
-median home value a tract or metro area will experience.However, upon adding the 
-cbsa variable to create a metro-level fixed effect, the coefficient decreases
-immensely. This indicates that the percent of white in the population has
-different effects on median home value growth depending on the tract. This 
-should be investigated further.
+# Reflection
 
-The higher the percentage of professional employees in the population in 2000, 
-the more growth they will experience in median home value. This result makes 
-less sense to me since it conceptually contradicts the trend seen with poverty
-rates. The increase in the coefficient in the fourth model is also concerning.
 
-It is also interesting to see that all the variables I selected are significant.
+**The higher the poverty rate in a metro area, the more growth they will experience in median home value. Specifically, a 1% growth in poverty rate results in a 12.93% growth in median home value. This result makes the most sense based on what we know about gentrification. Median home value will grow at a quicker rate (or higher percentage) in a metropolitan area where the poverty rate was already high compared to a richer area.**
+
+**The higher the percentage of whites in the population in 2000, the less growth in median home value a tract or metro area will experience. Specifically, a 1% increase in percent white results in a 14.82% decrease in median home value growth. However, upon adding the cbsa variable to create a metro-level fixed effect, the coefficient decreases immensely. This indicates that the percent of white in the population has different effects on median home value growth depending on the tract. This should be investigated further.**
+
+**The higher the percentage of professional employees in the population in 2000, the more growth they will experience in median home value. Specifically, a 1% increase in percent professional will result in a 4.27% growth in median home value. This result makes less sense since it conceptually contradicts the trend seen with poverty rates. The increase in the coefficient in the fourth model is also concerning. This indicates some sort of difference in the effects of percent professional on mhv.growth in separate tracts.**
+
+**It is also interesting to note that all the control variables selected are significant.**
 
 

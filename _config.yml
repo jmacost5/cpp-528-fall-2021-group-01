@@ -1,5 +1,5 @@
-title: "CPP 528 Template Website"
-author: "Blog Author"
+title: "CPP 528 2021 Group 1 Website"
+author: "Ahmed Rashwan, Alev Yildiz, April Peck, and Erin McIntyre"
 description: "This is short description of the CPP 528 Template Website"
 
 # Jekyll settings
@@ -16,6 +16,11 @@ minimal_theme: true          # radically minimalistic theme
 
 navigation:                  # show navigation links in the header	
   - index.html
+  - exec.md
+  - part_1.md
+  - part_2.md
+  - part_3.md
+  - data_manifest.md
   - about.md
 
 
@@ -35,3 +40,5 @@ plugins:
  - jekyll-feed
  - jekyll-paginate
  - jekyll-default-layout
+
+theme: jekyll-theme-time-machine
