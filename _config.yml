@@ -18,6 +18,9 @@ navigation:                  # show navigation links in the header
   - index.html
   - exec.md
   - part_1.md
+  - part_2.md
+  - part_3.md
+  - data_manifest.md
   - about.md
 
 
