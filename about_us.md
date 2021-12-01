@@ -14,7 +14,7 @@ team:
     desc: Graduate Of Software Engineering, Enrolled to masters of data analytics            program at ASU   
     github: https://github.com/AhmedRashwanASU
   - name: April Peck
-    img: ../assets/img/about/peck.jpg
+    img: ../assets/img/about/Aprils_Sq.jpg
     desc: April has her BS in Public Administration and will graduate with her MS      in program Evaluation and Data Analytics in May, 2022.               
     github: https://github.com/AprilPeck
 
