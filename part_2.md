@@ -3,7 +3,7 @@ layout: page
 title: "Part II"
 ---
 
-# Evaluation of Tax Credits
+## Evaluation of Tax Credits
 
 Right now the links for each chapter are set to the example page. Replace the end of each link with the file name of it's respective .md file name. Modeling the Intervention 
 should be lab 05.
