@@ -1,5 +1,6 @@
 ---
 title: "Predicting MHV Change"
+subtitle: "Creating a Hedonic Pricing Model to predict neighborhood change."
 author: "Erin McIntyre"
 date: "11/13/2021"
 output:
@@ -11,11 +12,8 @@ output:
     variant: gfm
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
 
-```{r load packages, message=FALSE, warning=FALSE}
+```{r}
 
 # load necessary packages ----
 library( dplyr )
@@ -39,6 +37,8 @@ import::here("S_TYPE",
              # where all these R objects are created
              .from = here::here("analysis/utilities_master.R"),
              .character_only = TRUE)
+
+S_TYPE <- "html"
 
 ```
 
