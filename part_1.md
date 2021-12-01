@@ -10,4 +10,4 @@ should be lab 02, Neighborhood Change should be lab 03, and Predicting Neighborh
 
   - [Data Management](https://r-class.github.io/cpp-528-fall-2021-group-01/_posts/2021-03-14-ch01-example_page/)
   - [Neighborhood Change](https://r-class.github.io/cpp-528-fall-2021-group-01/_posts/2021-03-14-ch01-example_page/)
-  - [Predicting Neighborhood Change](https://r-class.github.io/cpp-528-fall-2021-group-01/_chapters/2021-11-13-ch03-predicting_change.md/)
+  - [Predicting Neighborhood Change](https://r-class.github.io/cpp-528-fall-2021-group-01/_chapters/2021-11-13-ch03-predicting_change/)
