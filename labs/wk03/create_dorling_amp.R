@@ -1,3 +1,9 @@
+library(here)
+library( sp )
+library ( sf )
+library ( dplyr )
+library ( tidycensus )
+
 # load data
 crosswalk <- read.csv( "https://raw.githubusercontent.com/DS4PS/cpp-529-master/master/data/cbsatocountycrosswalk.csv",  stringsAsFactors=F, colClasses="character" )
 
@@ -5,7 +11,7 @@ crosswalk <- read.csv( "https://raw.githubusercontent.com/DS4PS/cpp-529-master/m
 
 grep( "^SAN FRAN", crosswalk$msaname, value=TRUE ) 
 these.sf <- crosswalk$msaname == "SAN FRANCISCO, CA"   # Find San Francisco (T/F)
-these.fips <- crosswalk$fipscounty[ these.sanfran ]         # Find SF counties
+these.fips <- crosswalk$fipscounty[ these.sf ]         # Find SF counties
 these.fips <- na.omit( these.fips )
 
 state.fips <- substr( these.fips, 1, 2 )                    # Substring state code
@@ -18,13 +24,16 @@ sf.pop <-
   rename( POP=estimate )
 #sanfran.pop$GEOID<-substr(sanfran.pop$GEOID,2,length(sf.pop$GEOID)) # remove leading 0's
 
+census.dat <- readRDS(here("data/rodeo/ltdb-2010.rds"))
+
 # convert tractid to geoid
-d.full$geoid <- gsub( "-", "", d.full$tractid)    # remove dashes
-d.full$geoid <- substr( d.full$geoid, 5, 16 )
+census.dat$geoid <- gsub( "-", "", census.dat$tractid)    # remove dashes
+census.dat$geoid <- substr( census.dat$geoid, 5, 16 )
 
 
 # merge with census data
-sf <- merge(sf.pop, d.full, by.x = "GEOID", by.y = "geoid")
+sf <- merge(sf.pop, census.dat, by.x = "GEOID", by.y = "geoid")
+sf <- sf[ ! st_is_empty( sf ) , ]
 
 # convert sf map object to an sp version
 sf.sp <- as_Spatial( sf )

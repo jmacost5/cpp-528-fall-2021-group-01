@@ -5,6 +5,9 @@
 # Purpose:  Create a function that will be sourced within another file
 #
 
+
+# Lab 02 Functions--------------------------------------------------------------
+
 # create function ----
 today <- function() {
   # store today's date
@@ -23,7 +26,6 @@ today <- function() {
 cat_filter <- function(data , search.cat ){
   cat_filter <- data%>%
     filter(category == search.cat )
-      return(cat_filter)
 }
 
 # TWO: Create a function that searches variable descriptions for a specific string and returns 
@@ -34,8 +36,6 @@ cat_filter <- function(data , search.cat ){
 
 search_description <- function(data , keywords) {
   search_description <- grepl(keywords , data$definition , ignore.case =T )
-     search.keywords <- data[search_description , c("root","root2", "category" ,"definition" )]
-        return(search.keywords)
 }
 
 
@@ -119,9 +119,11 @@ search_years <- function(data, years)
   
 }
 
+# End of Lab 02 Functions--------------------------------------------------------------
 
 
-### Lab 03 Functions
+# Lab 03 Functions--------------------------------------------------------------
+
 build_year <- function( fn1, fn2, year )
 {
   
