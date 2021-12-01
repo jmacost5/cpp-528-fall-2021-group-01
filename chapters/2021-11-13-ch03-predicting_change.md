@@ -1,19 +1,30 @@
 ---
 title: "Predicting MHV Change"
-subtitle: "Creating a Hedonic Pricing Model to predict neighborhood change."
 author: "Erin McIntyre"
 date: "11/13/2021"
 output:
-   html_document:
-    theme: readable
-    df_print: paged
+  rmdformats::downcute:
+    self_contained: true
+    thumbnails: true
+    lightbox: true
+    gallery: false
     highlight: tango
-   md_document:
+    df_print: paged
+  md_document:
     variant: gfm
 ---
 
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
 
-```{r}
+# "Creating a Hedonic Pricing Model to predict neighborhood change."
+
+## Author: Erin McIntyre
+
+## Date: 12/1/2021
+
+```{r load packages, message=FALSE, warning=FALSE}
 
 # load necessary packages ----
 library( dplyr )
@@ -22,8 +33,10 @@ library( knitr )
 library( pander )
 library( stargazer )
 library( scales )
+
 # set randomization seed ----
 set.seed( 1234 )
+
 # load necessary functions and objects ----
 # note: all of these are R objects that will be used throughout this .rmd file
 import::here("S_TYPE",
@@ -38,12 +51,10 @@ import::here("S_TYPE",
              .from = here::here("analysis/utilities_master.R"),
              .character_only = TRUE)
 
-S_TYPE <- "html"
-
 ```
 
 
-# Part 1 - Data
+### Part 1 - Data
 
 
 ```{r}
@@ -89,7 +100,7 @@ head(d_clean) %>% pander()
 
 
 
-# Part 2 - Predict MHV Change
+### Part 2 - Predict MHV Change
 
 
 ```{r}
@@ -204,7 +215,7 @@ stargazer( m1, m2, m3, m4,
 ```
 
 
-# Reflection
+### Reflection
 
 
 **The higher the poverty rate in a metro area, the more growth they will experience in median home value. Specifically, a 1% growth in poverty rate results in a 12.93% growth in median home value. This result makes the most sense based on what we know about gentrification. Median home value will grow at a quicker rate (or higher percentage) in a metropolitan area where the poverty rate was already high compared to a richer area.**
