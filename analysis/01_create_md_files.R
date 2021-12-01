@@ -14,11 +14,11 @@ library(stringr)
 FILE_INFO <- list(
   # note: all .rmd files must live in the analysis/ directory
   "rmd_files" = c(
-    here::here("analysis/2021-03-14-ch01-example_page.rmd"),
+  #  here::here("analysis/2021-03-14-ch01-example_page.rmd"),
     here::here("analysis/2021-11-13-ch03-predicting_change.rmd")
   ),
   "yaml_files" = c(
-    here::here("assets/yaml/2021-03-14-ch01-example_page.yaml"),
+ #   here::here("assets/yaml/2021-03-14-ch01-example_page.yaml"),
     here::here("assets/yaml/2021-11-13-ch03-predicting_change.yaml")
   )
 )
