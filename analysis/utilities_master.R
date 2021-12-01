@@ -1,6 +1,6 @@
 #
 # Author:   Cristian Nuno
-# Maintainers: April Peck, Ahmed Rashwan, Erin McIntyre, Alev Yuldasiz
+# Maintainers: April Peck, Ahmed Rashwan, Erin McIntyre, Alev Yildiz
 # Date:     March 14, 2021
 # Purpose:  Create a function that will be sourced within another file
 #
@@ -118,6 +118,7 @@ search_years <- function(data, years)
   
   
 }
+# End of Lab 02 Functions--------------------------------------------------------------
 
 # End of Lab 02 Functions--------------------------------------------------------------
 
@@ -308,6 +309,30 @@ jplot <- function( x1, x2, lab1="", lab2="", draw.line=T, ... )
     lines( lowess(x2[ok]~x1[ok]), col="red", lwd=3 ) }
   
 }
+
+
+# Wrangle data to create shapefile for chloropleth map
+# load data
+crosswalk <- read.csv( "https://raw.githubusercontent.com/DS4PS/cpp-529-master/master/data/cbsatocountycrosswalk.csv",  stringsAsFactors=F, colClasses="character" )
+
+# search for cities names by strings, use the ^ anchor for "begins with" 
+
+grep( "^SAN FRAN", crosswalk$msaname, value=TRUE ) 
+these.sf <- crosswalk$msaname == "SAN FRANCISCO, CA"   # Find San Francisco (T/F)
+these.fips <- crosswalk$fipscounty[ these.sf ]         # Find SF counties
+these.fips <- na.omit( these.fips )
+
+state.fips <- substr( these.fips, 1, 2 )                    # Substring state code
+county.fips <- substr( these.fips, 3, 5 )                   # substring county codes
+
+sf.pop <-
+  get_acs( geography = "tract", variables = "B01003_001",
+           state = "06", county = county.fips[state.fips=="06"], geometry = TRUE ) %>% 
+  select( GEOID, estimate ) %>%
+  rename( POP=estimate )
+#sanfran.pop$GEOID<-substr(sanfran.pop$GEOID,2,length(sf.pop$GEOID)) # remove leading 0's
+
+# End of Lab 03 Functions--------------------------------------------------------------
 
 
 # Lab 04 Functions--------------------------------------------------------------
