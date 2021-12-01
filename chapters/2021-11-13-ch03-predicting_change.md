@@ -1,22 +1,10 @@
 ---
 title: "Predicting MHV Change"
+subtitle: "Creating a Hedonic Pricing Model to predict neighborhood change."
 author: "Erin McIntyre"
 date: "11/13/2021"
-output:
-  rmdformats::downcute:
-    self_contained: true
-    thumbnails: true
-    lightbox: true
-    gallery: false
-    highlight: tango
-    df_print: paged
-  md_document:
-    variant: gfm
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
 
 # "Creating a Hedonic Pricing Model to predict neighborhood change."
 
@@ -24,7 +12,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## Date: 12/1/2021
 
-```{r load packages, message=FALSE, warning=FALSE}
+```r
 
 # load necessary packages ----
 library( dplyr )
@@ -57,26 +45,26 @@ import::here("S_TYPE",
 ### Part 1 - Data
 
 
-```{r}
+```r
 
 head(df) %>% pander()
 
 ```
 
-```{r}
+```r
 
 head(d) %>% pander()
 
 ```
 
-```{r}
+```r
 
 head(cbsa_stats_df) %>% pander()
 
 ```
 
 
-```{r}
+```r
 
 stargazer( df, 
            type=S_TYPE, 
@@ -86,7 +74,7 @@ stargazer( df,
 ```
 
 
-```{r}
+```r
 # Omit cases that have a median home value less than $10,000 in 2000.
 # Omit cases with growth rates above 200%.
 
@@ -103,7 +91,7 @@ head(d_clean) %>% pander()
 ### Part 2 - Predict MHV Change
 
 
-```{r}
+```r
 
 # Check variables available for regression model
 colnames(d)
@@ -112,7 +100,7 @@ colnames(d)
 
   
 
-```{r scatter plot 1}
+```r scatter plot 1
 # Select predictors of change in MHV or mhv.growth
 
 d_predict <- select(d_clean, mhv.growth, pov.rate, p.unemp, hinc00, p.white, p.col, p.prof)
@@ -128,7 +116,7 @@ pairs(d1, panel = panel.cor, lower.panel = panel.smooth )
 
 
 
-```{r scatter plot 2}
+```r scatter plot 2
 # Perform log transformation to get rid of varibale skew.
 
 # reduce data density for visualization
@@ -150,9 +138,9 @@ pairs(d2, panel = panel.cor, lower.panel = panel.smooth )
 
 ```
 
+#### Multicollinearity Test
 
-
-```{r muticollinearity test 1}
+```r
 
 # Test for multicollinearity
 
@@ -169,8 +157,9 @@ stargazer( m1, m2, m3, m4, m5,
 
 ```
 
+#### Multicollinearity Test 2
 
-```{r multicollinearity test 2}
+```r
 # Remove p.unemp and run the regression model again. 
 
 m6 <- lm( mhv.growth ~  pov.rate + p.white + p.prof, data=d_predict )
@@ -182,7 +171,9 @@ stargazer( m1, m3, m4, m6,
 
 ```
 
-```{r final regression model}
+#### Final Regression Model
+
+```r
 # Add a metro-level control
 
 d_fixed <- 
