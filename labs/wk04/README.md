@@ -10,3 +10,10 @@ This lab was performed to create a baseline model of neighborhood change in medi
 
 **Lab-04-McIntyre.html**: a knitted html file of the Rmd file. 
 
+### References
+
+- Monson, Matt, Cornell MBA and PRE . "Valuation Using Hedonic Pricing Models" , 2009,.Web. 7 November 2021. [PDF file]. Available from "https://watts-college.github.io/cpp-528-fall-2021/articles/home-value-change/valuation-using-hedonic-pricing.pdf"
+
+- "Hedonic Pricing Method" , 1/1/2015  , Web. 7 November 2021. [PDF file]. Available from "https://watts-college.github.io/cpp-528-fall-2021/articles/home-value-change/hedonic-pricing-method.pdf"
+
+

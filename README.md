@@ -20,6 +20,64 @@ New Market Tax Credits (NMTC) are a type of tax credit aimed to spur economic de
 
 **This Project will help to Answer this Research Question:  Has each government program been successful in assisting troubled towns with economic development?**
 
+**This Project will Present the following chapters :**
+
+- Descriptive analysis of neighborhood change
+- Predicting median home value change, 2000 to 2010
+- Adding federal program data to your predictive models
+- Test reproducible work flow with a parameter change
+
+### Table of Contents
+
+1- Executive Summary :
+- Overview / Research Question Program Details
+- Data
+- Methods
+- Results
+
+2 -Part I: Neighborhood Change :
+- Data sources
+- Median Home Value
+- Gentrification
+
+Descriptive Analysis of Neighborhood Change : 
+- Average change in MHV from 2000 to 2010
+
+Predicting Change Based on 2000 Neighborhood characteristics : 
+- Neighborhood demographics
+- Spatial characteristics (population density, adjacent tracts)
+
+3-Part II: Evaluation of Tax Credits :
+- Overview of Programs:
+- New Market Tax Credits(NMTC)
+- Low Income Housing Tax Credit(LIHTC)
+
+Data sources
+
+Descriptive Statistics For :
+- Dollars given out
+- Characteristics of neighborhoods that received them
+- Characteristics of those that did not
+
+Predictive Analysis :
+- Aggregate credits given between 2000 and 2010
+- Update models by adding tax credit amounts
+
+4- Part III – Results and Conclusion
+
+
+
+#### Source of truth for your data cleaning:
+
+Data Files is used in this Project can be found below links to be downloaded and exctracted :
+
+[Harmonized Census Data Part-01](https://watts-college.github.io/cpp-528-fall-2021/data/LTDB_Std_All_Sample.zip)
+
+[Harmonized Census Data Part-02](https://watts-college.github.io/cpp-528-fall-2021/data/LTDB_Std_All_fullcount.zip)
+
+[Codebook](https://watts-college.github.io/cpp-528-fall-2021/data/LTDB-codebook.pdf)
+
+
 ### Overview Of Project Code
 
 The import::here() function operates similarly to the source() function, with the extra benefit of allowing you to designate particular objects to be made available in the Global Environment , This is recommended practice since the Global Environment will only have the relevant objects, not all of the objects produced in your.R file.
@@ -57,7 +115,8 @@ import::here("S_TYPE",
 
 - Creating Meta-Data Table : Each file has redundant meta-data in it. We can eliminate it to make merges easier, and we can combine all of the meta-data (county and census tract information) into a single file for convenience.
 
-- You can find more about [Data Steps Requierd](https://watts-college.github.io/cpp-528-fall-2021/labs/PROJECT-DATA-STEPS.html)
+- You can find more about [Data Steps Requierd](https://watts-college.github.io/cpp-528-fall-2021/labs/PROJECT-DATA-STEPS.html) Or Find Project [Utilities Master File](https://github.com/R-Class/cpp-528-fall-2021-group-01/blob/main/analysis/utilities_master.R) to load necessary Functions used thorough this project 
+
 
 #### Reading Data As RDS Format 
 
@@ -67,8 +126,8 @@ d2 <- readRDS( here::here( "data/rodeo/LTDB-2010.rds" ) )
 md <- readRDS( here::here( "data/rodeo/LTDB-META-DATA.rds" ) )
 
 ```
-**RDS files by default are compressed, which means they take up less space on your hard drive and are easier to share. On average they are less than one-third the size of equivalent CSV files**
 
+**RDS files by default are compressed, which means they take up less space on your hard drive and are easier to share. On average they are less than one-third the size of equivalent CSV files**
 
 
 ## Context
@@ -151,4 +210,52 @@ install.packages( gtools)         # developing, updating, and maintaining R and 
 install.packages( maptools )      # spatial object manipulation 
 ```
 
+## References 
 
+- Bryan , Jenny . "Naming things" , Reproducible Science Workshop, 2014.Web. 2 November 2021. [PDF file]. Available from "https://www2.stat.duke.edu/~rcs46/lectures_2015/01-markdown-git/slides/naming-slides/naming-slides.pdf"
+
+- Quantum , "Data Science project management methodologies" , Aug 20, 2019 , Web. 3 November 2021 , Available from "https://medium.datadriveninvestor.com/data-science-project-management-methodologies-f6913c6b29eb"
+
+-  IBM Corporation ,"IBM SPSS Modeler CRISP-DM Guide" 1994, 2011 , Web. 3 November 2021. [PDF file]. Available from "https://inseaddataanalytics.github.io/INSEADAnalytics/CRISP_DM.pdf"
+
+-  R-bloggers , "CRISP-DM and why you should know about it" 2017 , Web. 4 November 2021 , Available from "https://www.r-bloggers.com/2017/01/crisp-dm-and-why-you-should-know-about-it/"
+
+- Kappal , Sunil "Useful R Packages that Aligns with The CRISP DM Methodology" February 6, 2017 ,  Web. 4 November 2021 , Available from "https://www.datasciencecentral.com/profiles/blogs/userful-r-packages-that-aligns-with-the-crisp-dm-methodology"
+
+- Watts-College , "Descriptive Analysis" , October 29, 2021 ,  Web. 16 November 2021. Available from "https://watts-college.github.io/cpp-528-fall-2021/labs/lab-03-instructions.html"
+
+- Urban Displacement , "UDP-Gentrification-Methodology" , 2012 , Web. 16 November 2021. [PDF File] Available from "https://watts-college.github.io/cpp-528-fall-2021/articles/gentrification/udp-gentrification-methodology-austin.pdf"
+
+- Urban Displacement , "Urban Displacement Project’s Methodology for San Francisco Bay Area, California, USA" , 2012 , Web. 16 November 2021. [PDF File] Available from "https://watts-college.github.io/cpp-528-fall-2021/articles/gentrification/udp-gentrification-methodology-sf.pdf"
+
+- Mychal Cohen , Kathryn L.S. Pettit , "GUIDE TO MEASURING NEIGHBORHOOD CHANGE TO UNDERSTAND AND PREVENT DISPLACEMENT", APRIL 2019 Web. 23 November 2021. Available from https://watts-college.github.io/cpp-528-fall-2021/articles/gentrification/guide_to_measuring_neighborhood_change_to_understand_and_prevent_displacement.pdf"
+
+- Monson, Matt, Cornell MBA and PRE . "Valuation Using Hedonic Pricing Models" , 2009,.Web. 7 November 2021. [PDF file]. Available from "https://watts-college.github.io/cpp-528-fall-2021/articles/home-value-change/valuation-using-hedonic-pricing.pdf"
+
+- "Hedonic Pricing Method" , 1/1/2015  , Web. 7 November 2021. [PDF file]. Available from "https://watts-college.github.io/cpp-528-fall-2021/articles/home-value-change/hedonic-pricing-method.pdf"
+
+- HUD User Datasets , "LOW-INCOME HOUSING TAX CREDIT (LIHTC)" , 2018 , Web. 15 November 2021. Available from "https://www.huduser.gov/portal/datasets/lihtc.html"
+
+- OFFICE OF POLICY DEVELOPMENT AND RESEARCH (PD&R), "Income limit information for LIHTC projects" , April 1, 2021  , Web. 15 November 2021. Available from "https://www.huduser.gov/portal/datasets/il.html#2021_faq"
+
+- LIHTC database , 1997 , Web. 15 November 2021, Available from "https://github.com/DS4PS/cpp-528-spr-2020/blob/master/labs/data/raw/NMTC/nmtc-sheet-01.csv"
+
+- COMMUNITY DEVELOPMENT FINANCIAL INSTITUTIONS FUND , "New Markets Tax Credit (NMTC)Public Data Release", November 2019 , Web. 16 November 2021. [PDF File] Available from "https://github.com/DS4PS/cpp-528-spr-2020/blob/master/labs/data/raw/NMTC/2019%20NMTC%20Public%20Data%20Release_FY_17-comments%20incorporated_BL%20Edits%20incorporated_Final.pdf"
+
+- Novocradac , "Affordable Housing Resource Center" , 1993 , Web. 16 November 2021, Available from "https://www.novoco.com/resource-centers/affordable-housing-tax-credits/lihtc-basics/about-lihtc"
+
+- GitHub , "GitHub Pages themes" , Web. 21 November 2021. Available from "https://github.com/pages-themes"
+
+- GitHub , "Quickstart for GitHub Pages" , Web. 22 November 2021. Available from "https://docs.github.com/en/pages/quickstart"
+
+- Birnbaum  , David J , "Configuring GitHub Pages" , 2020-01-19 , Web. 22 November 2021, Available from "https://dh.obdurodon.org/jekyll.xhtml"
+
+- GitHub , "Transform your plain text into static websites and blogs", Web. 23 November 2021. Available from "https://jekyllrb.com/"
+
+- Made Mistakes , "Mastering Jekyll" , Sep 10th, 2021 , Web. 24 November 2021, Available from "https://mademistakes.com/mastering-jekyll"
+
+- w3schools , "Sass Introduction" , Web. 24 November 2021, Available from "https://www.w3schools.com/sass/sass_intro.php"
+
+- Watts-College "Building a Neighborhood Change Database" Web. 2 November 2021. Available from "https://watts-college.github.io/cpp-528-fall-2021/sched/week-02/"
+
+- Watts-College , "cleaning the LTDB" . Web. 2 November 2021. Available from "https://watts-college.github.io/cpp-528-fall-2021/labs/PROJECT-DATA-STEPS.html"

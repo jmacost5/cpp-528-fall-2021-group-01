@@ -2,6 +2,9 @@
 title: Predicting MHV Change
 subtitle: "Creating a Hedonic Pricing Model to predict neighborhood change."
 ---
+
+Load necessary packages and use import::here() to load needed functions, objects, and data sets.
+
 ``` r
 # load necessary packages ----
 library( dplyr )
@@ -10,8 +13,10 @@ library( knitr )
 library( pander )
 library( stargazer )
 library( scales )
+
 # set randomization seed ----
 set.seed( 1234 )
+
 # load necessary functions and objects ----
 # note: all of these are R objects that will be used throughout this .rmd file
 import::here("S_TYPE",
@@ -29,29 +34,9 @@ import::here("S_TYPE",
 
 # Part 1 - Data
 
-``` r
-head(df) %>% pander()
-```
+Preview the data sets (**d**, **df**, and **cbsa_stats_df**).
 
-| MedianHomeValue2000 | MedianHomeValue2010 | MHV.Change.00.to.10 |
-| :-----------------: | :-----------------: | :-----------------: |
-|        98703        |       121500        |        22797        |
-|        93935        |       130500        |        36565        |
-|       102955        |       118700        |        15745        |
-|       115712        |       133500        |        17788        |
-|       150237        |       174500        |        24263        |
-|        90714        |       129600        |        38886        |
-
-Table continues below
-
-| MHV.Growth.00.to.12 |
-| :-----------------: |
-|        23.1         |
-|        38.93        |
-|        15.29        |
-|        15.37        |
-|        16.15        |
-|        42.87        |
+**d** contains select variables from the census tract data. The data set was cleaned and created in the **utilities_master.R file**. 
 
 ``` r
 head(d) %>% pander()
@@ -121,6 +106,36 @@ Table continues below
 | 150237 | 174500 |   24263    |   16.15    |
 | 90714  | 129600 |   38886    |   42.87    |
 
+
+**df** was created using the *mhv.00*, *mhv.10*, *mhv.change*, and *mhv.growth* variables from data set **d**. 
+
+``` r
+head(df) %>% pander()
+```
+
+| MedianHomeValue2000 | MedianHomeValue2010 | MHV.Change.00.to.10 |
+| :-----------------: | :-----------------: | :-----------------: |
+|        98703        |       121500        |        22797        |
+|        93935        |       130500        |        36565        |
+|       102955        |       118700        |        15745        |
+|       115712        |       133500        |        17788        |
+|       150237        |       174500        |        24263        |
+|        90714        |       129600        |        38886        |
+
+Table continues below
+
+| MHV.Growth.00.to.12 |
+| :-----------------: |
+|        23.1         |
+|        38.93        |
+|        15.29        |
+|        15.37        |
+|        16.15        |
+|        42.87        |
+
+
+**cbsa_stats_df** displays the median median home value change and growth for each metropolitan area.
+
 ``` r
 head(cbsa_stats_df) %>% pander()
 ```
@@ -133,6 +148,9 @@ head(cbsa_stats_df) %>% pander()
 |         Albany, GA          |       5547       |      645.6       |
 |       Albuquerque, NM       |      27947       |       1849       |
 |       Alexandria, LA        |      23329       |       3274       |
+
+
+Look at the summary statistics for **df**. 
 
 ``` r
 stargazer( df, 
@@ -150,11 +168,14 @@ stargazer( df,
     ## MHV.Change.00.to.10 -1,228,651  7,187   36,268  60,047   94,881  1,000,001
     ## MHV.Growth.00.to.12    -97        6       25      33       50      6,059  
     ## --------------------------------------------------------------------------
+    
+Complete one final step to clean the data. 
+
+  1) Omit cases that have a median home value less than $10,000 in 2000.
+
+  2) Omit cases with growth rates above 200%.
 
 ``` r
-# Omit cases that have a median home value less than $10,000 in 2000.
-# Omit cases with growth rates above 200%.
-
 d_clean <-
   d %>% 
   filter(mhv.00 > 10000) %>% 
@@ -229,8 +250,22 @@ Table continues below
 
 # Part 2 - Predict MHV Change
 
+ The next step is to create a regression model using control variables which can predict changes in median home value. There are a few tests which need
+ to be completed before finalizing the regression model to predict MHV change. The code below will review the following steps:
+ 
+ 1) Select control variables.
+
+ 2) Check for variable skew and perform log transformation if needed.
+
+ 3) Check for multicolinearity.
+
+ 4) Add a metro-level control.
+
+
+ 
+ Check variables available for the regression model.
+
 ``` r
-# Check variables available for regression model
 colnames(d)
 ```
 
@@ -249,9 +284,11 @@ colnames(d)
     ## [37] "pov.rate"            "mhv.00"              "mhv.10"             
     ## [40] "mhv.change"          "mhv.growth"
 
+
+Select variables to predict MHV change. Compare the scatter plots of the variables.
+
 ``` r
 # Select predictors of change in MHV or mhv.growth
-
 d_predict <- select(d_clean, mhv.growth, pov.rate, p.unemp, hinc00, p.white, p.col, p.prof)
 
 # reduce data density for visualization
@@ -262,10 +299,14 @@ d1 <- sample_n( d_predict, 10000 ) %>% na.omit()
 pairs(d1, panel = panel.cor, lower.panel = panel.smooth )
 ```
 
-![](C:\\Users\\ekmci\\Documents\\CPP%20528\\cpp-528-fall-2021-group-01\\assets\\img\\2021-11-13-ch03-predicting_change_files/figure-gfm/scatter%20plot%201-1.png)<!-- -->
+![](../assets/img/2021-11-13-ch03-predicting_change_files/figure-gfm/scatter%20plot%201-1.png)<!-- -->
+
+There is skew . . .
+
+
+Perform log transformations to get rid of varibale skew. Compare the scatter plots again. 
 
 ``` r
-# Perform log transformation to get rid of varibale skew.
 
 # reduce data density for visualization
 set.seed( 1234 )
@@ -285,11 +326,13 @@ d2 <- sample_n( d_predict, 5000 ) %>% na.omit()
 pairs(d2, panel = panel.cor, lower.panel = panel.smooth )
 ```
 
-![](C:\\Users\\ekmci\\Documents\\CPP%20528\\cpp-528-fall-2021-group-01\\assets\\img\\2021-11-13-ch03-predicting_change_files/figure-gfm/scatter%20plot%202-1.png)<!-- -->
+![](../assets/img/2021-11-13-ch03-predicting_change_files/figure-gfm/scatter%20plot%202-1.png)<!-- -->
+
+These scatter plots look a bit better. 
+
+Next, test for multicollinearity by running a regression model comparing selected variables. (mention why hinc00 and p.col were not selected)
 
 ``` r
-# Test for multicollinearity
-
 m1 <- lm( mhv.growth ~  pov.rate, data=d_predict )
 m2 <- lm( mhv.growth ~  p.unemp, data=d_predict )
 m3 <- lm( mhv.growth ~  p.white, data=d_predict )
@@ -330,11 +373,15 @@ stargazer( m1, m2, m3, m4, m5,
     ## ==================================================================================================================
     ## Note:                                                                                  *p<0.1; **p<0.05; ***p<0.01
 
-``` r
-# Remove p.unemp and run the regression model again. 
 
+The coefficient for *p.unemp* drops significantly from m1 to m5. This indicates that (quote from lab instructions?). 
+Remove *p.unemp* and run the regression model again.
+
+``` r
+# Create a new model with p.unemp removed.
 m6 <- lm( mhv.growth ~  pov.rate + p.white + p.prof, data=d_predict )
 
+# Run the regression model with m6 instead of m5 and do not include m2.
 stargazer( m1, m3, m4, m6,
            type=S_TYPE, digits=2,
            omit.stat = c("rsq","f") )
@@ -366,9 +413,12 @@ stargazer( m1, m3, m4, m6,
     ## ===============================================================================================
     ## Note:                                                               *p<0.1; **p<0.05; ***p<0.01
 
-``` r
-# Add a metro-level control
 
+Now, add a metro-level control to (quote lab instructions)
+
+
+``` r
+# Add metro-level control
 d_fixed <- 
   d_clean %>%
   group_by( cbsaname ) %>%
@@ -426,31 +476,31 @@ stargazer( m1, m2, m3, m4,
 
 # Reflection
 
-**The higher the poverty rate in a metro area, the more growth they will
+The higher the poverty rate in a metro area, the more growth they will
 experience in median home value. Specifically, a 1% growth in poverty
 rate results in a 12.93% growth in median home value. This result makes
 the most sense based on what we know about gentrification. Median home
 value will grow at a quicker rate (or higher percentage) in a
 metropolitan area where the poverty rate was already high compared to a
-richer area.**
+richer area.
 
-**The higher the percentage of whites in the population in 2000, the
+The higher the percentage of whites in the population in 2000, the
 less growth in median home value a tract or metro area will experience.
 Specifically, a 1% increase in percent white results in a 14.82%
 decrease in median home value growth. However, upon adding the cbsa
 variable to create a metro-level fixed effect, the coefficient decreases
 immensely. This indicates that the percent of white in the population
 has different effects on median home value growth depending on the
-tract. This should be investigated further.**
+tract. This should be investigated further.
 
-**The higher the percentage of professional employees in the population
+The higher the percentage of professional employees in the population
 in 2000, the more growth they will experience in median home value.
 Specifically, a 1% increase in percent professional will result in a
 4.27% growth in median home value. This result makes less sense since it
 conceptually contradicts the trend seen with poverty rates. The increase
 in the coefficient in the fourth model is also concerning. This
 indicates some sort of difference in the effects of percent professional
-on mhv.growth in separate tracts.**
+on mhv.growth in separate tracts.
 
-**It is also interesting to note that all the control variables selected
-are significant.**
+It is also interesting to note that all the control variables selected
+are significant.

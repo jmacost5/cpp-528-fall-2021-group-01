@@ -1,9 +1,15 @@
 #
 # Author:   Cristian Nuno
-# Maintainers: April Peck, Ahmed Rashwan, Erin McIntyre, Alev Yuldasiz
+# Maintainers: April Peck, Ahmed Rashwan, Erin McIntyre, Alev Yildiz
 # Date:     March 14, 2021
 # Purpose:  Create a function that will be sourced within another file
 #
+
+
+# Set stargazer type
+s.type <- "html"
+
+# Lab 02 Functions--------------------------------------------------------------
 
 # create function ----
 today <- function() {
@@ -20,12 +26,9 @@ today <- function() {
 
 # filter data by category ----
 
-category_search <- function( data, search_term )
-{
-  keyword.search <- grepl( search_term, data$category, ignore.case = TRUE)
-  data.category <- data[ keyword.search, c("root", "root2", "category", "definition") ]
-  
-  return(data.category)
+cat_filter <- function(data , search.cat ){
+  cat_filter <- data%>%
+    filter(category == search.cat )
 }
 
 # TWO: Create a function that searches variable descriptions for a specific string and returns 
@@ -34,12 +37,8 @@ category_search <- function( data, search_term )
 
 # search for data with keyword ----
 
-search_word <- function( data, keyword )
-{
-  keyword.search <- grepl( keyword, data$definition, ignore.case = TRUE)
-  data.keywords <- data[ keyword.search, c("root", "root2", "category", "definition")]
-  
-  return( data.keywords)
+search_description <- function(data , keywords) {
+  search_description <- grepl(keywords , data$definition , ignore.case =T )
 }
 
 
@@ -61,15 +60,74 @@ search_word <- function( data, keyword )
 search_years <- function(data, years)
 {
   
-  df.years <- data %>%
-    select(root, root2, category, definition, contains(years))
+  # set column names to lowercase
+  colnames(data) <- tolower(colnames(data))
   
-  return(df.years)
+  # set variables to lowercase
+  data <- mutate_all(data, .funs = tolower)
+  
+  # remove empty strings and white spaces
+  data <- data[!grepl("^\\s+$", data)]
+  
+  # replace missing values with NA
+  data[ data == ""] <- NA
+  
+  # select root, root2, category, and definition columns to keep in data set
+  columns <- c("root", "root2", "category", "definition")
+  
+  #list strings that we want to remove from our time period column names
+  prefix <- c("x")
+  suffix <- c(".f", ".s")
+  
+  # select data to keep
+  df.years <- data %>%
+  select(root, root2, category, definition, contains(years))
+  
+  #subset data to keep root, root2, and the columns that contain the names of our time period
+  #data_cleaned <- data[, c(grepl( paste( c( time.periods, columns), collapse = "|"), colnames(data) )) ]
+  
+  # remove prefix and suffix from column names
+  names <- colnames(df.years) %>%
+    str_remove(prefix) %>%
+    str_remove(suffix)
+  
+  # rename columns
+  colnames(df.years) <- names
+  
+  # change years columns to long
+  df.years.long <- df.years %>% pivot_longer( !columns, names_to = "year", values_to = "variable" ) %>% 
+    na.omit() %>%
+    distinct( root, year, variable)
+  
+  # create data sets of distinct root and year variables and combine for reference of all possible root/year combinations
+  root <- df.years.long %>% distinct(root) %>% select(root)
+  year <- df.years.long %>% distinct(year) %>% select(year)
+  root_list <- crossing( root, year )
+  
+  # Left join root_list and df.years.long to identify variables for each year.
+  root_variables <- left_join( root_list, df.years.long, by = c( "root", "year"))
+  
+  # List of roots with missing variables
+  root_missing <- root_variables %>% filter( is.na( variable ) )
+  
+  # create final dataset
+  data_final <- subset(df.years.long, !(df.years.long$root %in% root_missing$root))
+  
+  # join back to original dataset to add category and definition (and verify accuracy)
+  data_final <- left_join(data_final, data, by = "root") %>%
+    select(root, year, variable, category, definition)
+  
+  return(data_final)
+  
   
 }
+# End of Lab 02 Functions--------------------------------------------------------------
+
+# End of Lab 02 Functions--------------------------------------------------------------
 
 
-### Lab 03 Functions
+# Lab 03 Functions--------------------------------------------------------------
+
 build_year <- function( fn1, fn2, year )
 {
   
@@ -256,6 +314,30 @@ jplot <- function( x1, x2, lab1="", lab2="", draw.line=T, ... )
 }
 
 
+# Wrangle data to create shapefile for chloropleth map
+# load data
+crosswalk <- read.csv( "https://raw.githubusercontent.com/DS4PS/cpp-529-master/master/data/cbsatocountycrosswalk.csv",  stringsAsFactors=F, colClasses="character" )
+
+# search for cities names by strings, use the ^ anchor for "begins with" 
+
+grep( "^SAN FRAN", crosswalk$msaname, value=TRUE ) 
+these.sf <- crosswalk$msaname == "SAN FRANCISCO, CA"   # Find San Francisco (T/F)
+these.fips <- crosswalk$fipscounty[ these.sf ]         # Find SF counties
+these.fips <- na.omit( these.fips )
+
+state.fips <- substr( these.fips, 1, 2 )                    # Substring state code
+county.fips <- substr( these.fips, 3, 5 )                   # substring county codes
+
+sf.pop <-
+  get_acs( geography = "tract", variables = "B01003_001",
+           state = "06", county = county.fips[state.fips=="06"], geometry = TRUE ) %>% 
+  select( GEOID, estimate ) %>%
+  rename( POP=estimate )
+#sanfran.pop$GEOID<-substr(sanfran.pop$GEOID,2,length(sf.pop$GEOID)) # remove leading 0's
+
+# End of Lab 03 Functions--------------------------------------------------------------
+
+
 # Lab 04 Functions--------------------------------------------------------------
 
 # load necessary packages ----
@@ -335,33 +417,6 @@ d <- merge( d, md, by="tractid" )
 # filter rural districts
 d <- dplyr::filter( d, urban == "urban" )
 
-d <- dplyr::select( d, tractid, 
-                    mhmval00, mhmval12, 
-                    hinc00, 
-                    hu00, vac00, own00, rent00, h30old00,
-                    empclf00, clf00, unemp00, prof00,  
-                    dpov00, npov00,
-                    ag25up00, hs00, col00, 
-                    pop00.x, nhwht00, nhblk00, hisp00, asian00,
-                    cbsa, cbsaname )
-
-
-d <- 
-  d %>%
-  dplyr::mutate( p.white = 100 * nhwht00 / pop00.x,
-                 p.black = 100 * nhblk00 / pop00.x,
-                 p.hisp = 100 * hisp00 / pop00.x, 
-                 p.asian = 100 * asian00 / pop00.x,
-                 p.hs = 100 * (hs00+col00) / ag25up00,
-                 p.col = 100 * col00 / ag25up00,
-                 p.prof = 100 * prof00 / empclf00,
-                 p.unemp = 100 * unemp00 / clf00,
-                 p.vacant = 100 * vac00 / hu00,
-                 mhv.change.00.to.10 = mhmval12 - mhmval00,
-                 p.mhv.change = 100 * (mhmval12 - mhmval00) / mhmval00,
-                 pov.rate = 100 * npov00 / dpov00 )
-
-
 # adjust 2000 home values for inflation 
 mhv.00 <- d$mhmval00 * INFLATION_RATE 
 mhv.10 <- d$mhmval12
@@ -385,6 +440,37 @@ d$mhv.10 <- mhv.10
 d$mhv.change <- mhv.change
 d$mhv.growth <- mhv.growth 
 
+d.full <- d
+
+d <- dplyr::select( d, tractid, 
+                    mhmval00, mhmval12, 
+                    hinc00, 
+                    hu00, vac00, own00, rent00, h30old00,
+                    empclf00, clf00, unemp00, prof00,  
+                    dpov00, npov00,
+                    ag25up00, hs00, col00, 
+                    pop00.x, nhwht00, nhblk00, hisp00, asian00,
+                    cbsa, cbsaname,
+                    mhv.00, mhv.10, mhv.change, mhv.growth)
+
+
+d <- 
+  d %>%
+  dplyr::mutate( p.white = 100 * nhwht00 / pop00.x,
+                 p.black = 100 * nhblk00 / pop00.x,
+                 p.hisp = 100 * hisp00 / pop00.x, 
+                 p.asian = 100 * asian00 / pop00.x,
+                 p.hs = 100 * (hs00+col00) / ag25up00,
+                 p.col = 100 * col00 / ag25up00,
+                 p.prof = 100 * prof00 / empclf00,
+                 p.unemp = 100 * unemp00 / clf00,
+                 p.vacant = 100 * vac00 / hu00,
+                 mhv.change.00.to.10 = mhmval12 - mhmval00,
+                 p.mhv.change = 100 * (mhmval12 - mhmval00) / mhmval00,
+                 pov.rate = 100 * npov00 / dpov00 )
+
+
+
 # create mini data frame
 df <- data.frame( MedianHomeValue2000=mhv.00, 
                   MedianHomeValue2010=mhv.10, 
@@ -401,3 +487,289 @@ cbsa_stats_df <-
 
 # End of Lab 04 Functions-------------------------------------------------------
 
+# Lab 05 Functions--------------------------------------------------------------
+
+# obtain NMTC data
+NMTC_URL <- "https://raw.githubusercontent.com/DS4PS/cpp-528-spr-2020/master/labs/data/raw/NMTC/nmtc-sheet-01.csv"
+nmtc <- read.csv( NMTC_URL, stringsAsFactors=F )
+
+# obtain LIHTC data
+LIHTC_URL <- "https://raw.githubusercontent.com/DS4PS/cpp-528-spr-2020/master/labs/data/raw/LIHTC/LIHTCPUB.csv"
+lihtc <- read.csv( LIHTC_URL, stringsAsFactors=F )
+
+# load census data
+d.lab05 <- d.full
+
+# Create the Difference In Difference dataset
+
+
+# create a key that will allow us to obtain federal data for each tract ----
+# remove anything not a number from the string
+d.lab05$id2 <- gsub( "[^0-9]", "", d.lab05$tractid )
+
+# fix IDs so they are match
+d.lab05$id2 <- as.numeric( d.lab05$id2 )
+
+# aggregate federal programs such that there is one record per tract ----
+lihtc.dollars <-
+  lihtc %>% 
+  dplyr::filter( yr_alloc >= 2000 & yr_alloc <= 2010 ) %>%
+  dplyr::group_by( fips2010 ) %>%
+  dplyr::summarize( num.lihtc = dplyr::n(), lihtc.total = sum( allocamt, na.rm=T ) )
+
+# remove dollar sign and commas
+nmtc$amount <- gsub( "[,$]", "", nmtc$QLICI.Amount ) %>%
+  as.numeric( nmtc$amount ) %>% round(0)
+
+nmtc.dollars <- 
+  nmtc %>% 
+  dplyr::filter( Origination.Year >= 2000 & Origination.Year <= 2010 ) %>%
+  dplyr::group_by( X2010.Census.Tract ) %>% 
+  dplyr::summarize( num.nmtc = dplyr::n(), nmtc.total = sum( amount, na.rm=T ) )
+
+# merge federal data onto census tracts ----
+d.lab05 <- merge( d.lab05, nmtc.dollars, by.x="id2", by.y="X2010.Census.Tract", all.x=T )
+d.lab05 <- merge( d.lab05, lihtc.dollars, by.x="id2", by.y="fips2010", all.x=T )
+
+
+# recode tracts that had no grants from NA to 0 ---
+d.lab05$num.nmtc[ is.na(d.lab05$num.nmtc) ] <- 0
+d.lab05$nmtc.total[ is.na(d.lab05$nmtc.total) ] <- 0
+
+d.lab05$num.lihtc[ is.na(d.lab05$num.lihtc) ] <- 0 
+d.lab05$lihtc.total[ is.na(d.lab05$lihtc.total) ] <- 0
+
+# adjust 2000 home values for inflation 
+mhv.00 <- d.lab05$mhmval00 * INFLATION_RATE  
+mhv.10 <- d.lab05$mhmval12
+
+# change in MHV in dollars
+mhv.change <- mhv.10 - mhv.00
+
+# drop low year 2000 median home values
+# to avoid unrealistic growth rates.
+#
+# tracts with homes that cost less than
+# $10,000 are outliers
+# approximately 200 out of 59,000 cases 
+mhv.00[ mhv.00 < 10000 ] <- NA
+
+# change in MHV in percent
+mhv.growth <- 100 * ( mhv.change / mhv.00 )
+
+# add variables to the main data frame ----
+d.lab05$mhv.00 <- mhv.00
+d.lab05$mhv.10 <- mhv.10
+d.lab05$mhv.change <- mhv.change
+d.lab05$mhv.growth <- mhv.growth 
+
+# save copy of full d.lab05
+d.lab05.full <- d.lab05
+
+# select a few variables ----
+d.lab05 <- dplyr::select( d.lab05.full, 
+                          
+                          tractid, cbsa, cbsaname,            # ids / units of analysis
+                          
+                          mhv.00, mhv.10, mhv.change, mhv.growth,    # home value 
+                          
+                          hs00, hs12,  col00, col12, ag25up00, ag25up12,                # education
+                          
+                          unemp00, unemp12, clf00, clf12,            # employment
+                          
+                          vac00, vac10, hu00, hu10,                     # housing vacancies
+                          
+                          mhmval12, mhmval00,                   #median home values (for mutate)
+                          
+                          npov00, npov12, dpov00, dpov12, hinc00, hinc12,        # income/poverty
+                          
+                          pop00.x, pop10,  nhwht00, nhwht10,  # population/race
+                          
+                          num.nmtc, nmtc.total,              # tax policy data
+                          num.lihtc, lihtc.total             # aggregated by census tract
+                          
+) # end select
+
+# add control variables
+d.lab05 <- 
+  d.lab05 %>%
+  dplyr::mutate( p.hs.00 = 100 * (hs00+col00) / ag25up00,
+                 p.hs.12 = 100 * (hs12 + col12) / ag25up12,
+                 p.unemp.00 = 100 * unemp00 / clf00,
+                 p.unemp.12 = 100 * unemp12 / clf12,
+                 p.vacant.00 = 100 * vac00 / hu00,
+                 p.vacant.10 = 100 * vac10 / hu10,
+                 p.white.00 = 100 * nhwht00 / pop00.x,
+                 p.white.10 = 100 * nhwht10 / pop10,
+                 mhv.change.00.to.10 = mhmval12 - mhmval00,
+                 p.mhv.change = 100 * (mhmval12 - mhmval00) / mhmval00,
+                 pov.rate.00 = 100 * npov00 / dpov00,
+                 pov.rate.12 = 100 * npov12 / dpov12) %>%
+  # remove any NA or Inf values
+  na.omit(use = "everything")
+
+# create new variables by cbsa ----
+d.lab05 <-
+  d.lab05 %>%
+  dplyr::group_by( cbsaname ) %>%
+  dplyr::mutate( # metro rank of home value in 2000
+    metro.mhv.pct.00 = dplyr::ntile( mhv.00, 100 ),
+    # metro rank of home value in 2010
+    metro.mhv.pct.10 = dplyr::ntile( mhv.10, 100 ),
+    # median pay for metro area 2000
+    metro.median.pay.00 = median( hinc00, na.rm=T ),
+    # median pay for metro area 2010
+    metro.median.pay.10 = median( hinc12, na.rm=T ),
+    # tract rank in metro area for diversity (% non-white) 2000
+    metro.diversity.rank.00 = dplyr::ntile( (100-p.white.00), 100 ),
+    # tract rank in metro area for diversity (% non-white) 2010
+    metro.diversity.rank.10 = dplyr::ntile( (100-p.white.10), 100 ),
+    # metro total population 2000
+    metro.pop.total.00 = sum( pop00.x, na.rm=T ),
+    # metro total population 2010
+    metro.pop.total.10 = sum( pop10, na.rm=T ) ) %>%
+  dplyr::ungroup() %>%
+  dplyr::mutate( # change in relative rank of mhv in metro area 2000-2010
+    metro.mhv.pctile.change = metro.mhv.pct.10 - metro.mhv.pct.00,
+    # growth in ave pay in metro
+    metro.pay.change = metro.median.pay.10 - metro.median.pay.00,
+    # metro population growth 2000-2010
+    metro.pop.growth = ( metro.pop.total.10 - metro.pop.total.00 ) / metro.pop.total.00,
+    # increase in the proportion of whites in tract 
+    increase.p.white = p.white.10 - p.white.00  )
+
+
+# inflation adjust income  ----
+d.lab05$hinc00 <- INFLATION_RATE * d.lab05$hinc00
+
+# Create a true/false code for recipient tracts ----
+d.lab05$LIHTC <- ifelse( d.lab05$num.lihtc > 0, "YES", "NO" )
+d.lab05$NMTC <- ifelse( d.lab05$num.nmtc > 0, "YES", "NO" )
+
+# create a growth column within the data frame ----
+# omit cases with growth rates above 200%
+d.lab05$growth <- d.lab05$mhv.growth
+d.lab05$growth[ d.lab05$growth > 200 ] <- NA
+
+# store plots in a list for easy access ----
+PLOTS <-
+  list(
+    "pov_rate_2000" = list(
+      "nmtc" = ggplot2::ggplot( d.lab05, ggplot2::aes(x=pov.rate.00, fill=NMTC )) +
+        ggplot2::geom_density(alpha=0.4) + 
+        ggplot2::ggtitle("2000 Poverty Rate Comparison of \nRecipient and Non-Recipient Communities"),
+      "lihtc" = ggplot2::ggplot( d.lab05, ggplot2::aes(x=pov.rate.00, fill=LIHTC)) +
+        ggplot2::geom_density(alpha=0.4) +
+        ggplot2::ggtitle("2000 Poverty Rate Comparison of \nRecipient and Non-Recipient Communities")
+    ),
+    "mhv_2000" = list(
+      "nmtc" = ggplot2::ggplot( d.lab05, ggplot2::aes(x=log10(mhv.00), fill=NMTC )) +
+        ggplot2::geom_density( alpha=0.4 ) +
+        ggplot2::ggtitle("2000 Median Home Value Comparison of \nRecipient and Non-Recipient Communities"),
+      "lihtc" = ggplot2::ggplot( d.lab05, ggplot2::aes(x=log10(mhv.00), fill=LIHTC )) +
+        ggplot2::geom_density( alpha=0.4 )  +
+        ggplot2::ggtitle("2000 Median Home Value Comparison of \nRecipient and Non-Recipient Communities")
+    ),
+    "mhv_growth" = list(
+      "nmtc" = ggplot2::ggplot( d.lab05, ggplot2::aes(x=growth, fill=NMTC )) +
+        ggplot2::geom_density( alpha=0.4 )  +
+        ggplot2::ggtitle("Comparision of MHV Growth 2000 to 2010: \nRecipients vs Non-Recipients"),
+      "lihtc" = ggplot2::ggplot( d.lab05, ggplot2::aes(x=growth, fill=LIHTC )) +
+        ggplot2::geom_density( alpha=0.4 )  +
+        ggplot2::ggtitle("Comparision of MHV Growth 2000 to 2010: \nRecipients vs Non-Recipients")
+    )
+  )
+
+# prepare NMTC data
+# log the variables
+y1 <- log( d.lab05$mhv.00 )
+y2 <- log( d.lab05$mhv.10 )
+lp.vac.00 <- log10( d.lab05$p.vacant.00 + 1)
+lp.vac.10 <- log10( d.lab05$p.vacant.10 + 1)
+lp.hs.00 <- log10( d.lab05$p.hs.00 + 1)
+lp.hs.12 <- log10( d.lab05$p.hs.12 + 1)
+lp.unemp.00 <- log10( d.lab05$p.unemp.00 + 1)
+lp.unemp.12 <- log10( d.lab05$p.unemp.12 + 1)
+
+# create a variable that identifies if a tract received NMTC funding
+nmtc.treat <- as.numeric( d.lab05$num.nmtc > 0 )
+
+# store the year 2000 data
+d1 <- data.frame( y=y1, treat=nmtc.treat, post=0 )
+# store the year 2010 data
+d2 <- data.frame( y=y2, treat=nmtc.treat, post=1 )
+
+# stack the two time periods together
+d3 <- rbind( d1, d2 )
+
+# controls ---
+
+#p.vac
+d0 <- data.frame( lp.vac.00 = lp.vac.00, lp.vac.10 = lp.vac.10)
+
+d0 <- d0 %>% tidyr::gather(key = "variable_name",
+                           value = "p.vac")
+
+# diff-in-diff data
+d3$p.vac <- d0$p.vac
+
+
+#p.hs
+d0 <- data.frame( lp.hs.00 = lp.hs.00, lp.hs.12 = lp.hs.12)
+d0 <- d0 %>% tidyr::gather(key = "variable-name", value = "p.hs")
+
+# diff-in-diff data
+d3$p.hs <- d0$p.hs
+
+
+#p.unemp
+d0 <- data.frame( lp.unemp.00 = lp.unemp.00, lp.unemp.12 = lp.unemp.12)
+d0 <- d0 %>% tidyr::gather(key = "variable-name", value = "p.unemp")
+
+# diff-in-diff data
+d3$p.unemp <- d0$p.unemp
+
+# prepare LIHTC data
+# create a variable that identifies if a tract received LIHTC funding
+lihtc.treat <- as.numeric( d.lab05$num.lihtc > 0 )
+
+# store the year 2000 data
+l1 <- data.frame( y=y1, treat=lihtc.treat, post=0 )
+# store the year 2010 data
+l2 <- data.frame( y=y2, treat=lihtc.treat, post=1 )
+
+# stack the two time periods together
+l3 <- rbind( l1, l2 )
+
+# controls ---
+
+#p.vac
+l0 <- data.frame( lp.vac.00 = lp.vac.00, lp.vac.10 = lp.vac.10)
+
+l0 <- l0 %>% tidyr::gather(key = "variable_name",
+                           value = "p.vac")
+
+# diff-in-diff data
+l3$p.vac <- l0$p.vac
+
+
+#p.hs
+l0 <- data.frame( lp.hs.00 = lp.hs.00, lp.hs.12 = lp.hs.12)
+
+l0 <- l0 %>% tidyr::gather(key = "variable_name",
+                           value = "p.hs")
+
+# diff-in-diff data
+l3$p.hs <- l0$p.hs
+
+
+#p.unemp
+l0 <- data.frame( lp.unemp.00 = lp.unemp.00, lp.unemp.12 = lp.unemp.12)
+
+l0 <- l0 %>% tidyr::gather(key = "variable_name",
+                           value = "p.unemp")
+
+# diff-in-diff data
+l3$p.unemp <- l0$p.unemp
+
+# End of Lab 05 Functions-------------------------------------------------------

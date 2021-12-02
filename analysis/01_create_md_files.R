@@ -17,7 +17,7 @@ FILE_INFO <- list(
   "rmd_files" = c(
     here::here("analysis/2021-10-27-ch01-data_management.rmd"),
     here::here("analysis/2021-11-01-ch02-descriptive_analysis.rmd"),
-    here::here("2021-11-13-ch03-predicting_change.rmd"),
+    here::here("analysis/2021-11-13-ch03-predicting_change.rmd"),
     here::here("analysis/2021-11-14-ch04-evaluate_programs.rmd")
   ),
   "yaml_files" = c(
