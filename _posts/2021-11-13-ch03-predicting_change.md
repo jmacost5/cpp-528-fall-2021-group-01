@@ -382,7 +382,6 @@ Remove *p.unemp* and run the regression model again.
 m6 <- lm( mhv.growth ~  pov.rate + p.white + p.prof, data=d_predict )
 
 # Run the regression model with m6 instead of m5 and do not include m2.
-S_TYPE <- "html"
 stargazer( m1, m3, m4, m6,
            type=S_TYPE, digits=2,
            omit.stat = c("rsq","f") )
