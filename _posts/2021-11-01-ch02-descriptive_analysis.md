@@ -1772,11 +1772,11 @@ Change.90.to.00
 
 ### Histogram of MHV
 
-![](../assets/img/2021-1~2/figure-gfm/unnamed-chunk-10-1.png)<!-- -->
+![](../assets/img/2021-11-01-ch02-descriptive_analysis_files/figure-gfm/unnamed-chunk-10-1.png)<!-- -->
 
 Compare 1990 to 2000 distributions.
 
-![](../assets/img/2021-1~2/figure-gfm/unnamed-chunk-11-1.png)<!-- -->
+![](../assets/img/2021-11-01-ch02-descriptive_analysis_files/figure-gfm/unnamed-chunk-11-1.png)<!-- -->
 
 ### Change in MHV 1990-2000
 
@@ -1991,7 +1991,7 @@ Table continues below
 
 Plot the percent change variable:
 
-![](../assets/img/2021-1~2/figure-gfm/unnamed-chunk-15-1.png)<!-- -->
+![](../assets/img/2021-11-01-ch02-descriptive_analysis_files/figure-gfm/unnamed-chunk-15-1.png)<!-- -->
 
 ### Group Growth Rates By Metro Area
 
@@ -3732,7 +3732,7 @@ relationships in the data.
 
 I have created a dorling cartogram file of San Francisco, California.
 
-![](../assets/img/2021-1~2/figure-gfm/unnamed-chunk-24-1.png)<!-- -->
+![](../assets/img/2021-11-01-ch02-descriptive_analysis_files/figure-gfm/unnamed-chunk-24-1.png)<!-- -->
 
 *I did the following steps to merge the data before creating my geojson*
 
@@ -3765,7 +3765,7 @@ I have created a dorling cartogram file of San Francisco, California.
 Describe the distribution of home values in 1990 - where are high and
 low-value tracts located in the city/cities?
 
-![](../assets/img/2021-1~2/figure-gfm/unnamed-chunk-26-1.png)<!-- -->
+![](../assets/img/2021-11-01-ch02-descriptive_analysis_files/figure-gfm/unnamed-chunk-26-1.png)<!-- -->
 
 *As can be anticipated with most cities at this time, the inner city
 tracts had the lowest values and the farther from the city center the
@@ -3775,8 +3775,8 @@ Compare values in 2000 to changes in values from 1990-2000. Do the
 largest gains occur in tracts with above or below-average home prices in
 2000?
 
-![](../assets/img/\2021-1~2/figure-gfm/unnamed-chunk-27-1.png)<!-- -->
-![](../assets/img/2021-1~2/figure-gfm/unnamed-chunk-27-2.png)<!-- -->
+![](../assets/img/2021-11-01-ch02-descriptive_analysis_files/figure-gfm/unnamed-chunk-27-1.png)<!-- -->
+![](../assets/img/2021-11-01-ch02-descriptive_analysis_files/figure-gfm/unnamed-chunk-27-2.png)<!-- -->
 
 *The largest changes occur in tracts with above-average home prices in
 1990. Tracts with below-average prices continued to drop while those
@@ -3810,7 +3810,7 @@ sf.sp <- as_Spatial( sf )
 plot(sf.sp)
 ```
 
-![](../assets/img/2021-1~2/figure-gfm/unnamed-chunk-28-1.png)<!-- -->
+![](../assets/img/2021-11-01-ch02-descriptive_analysis_files/figure-gfm/unnamed-chunk-28-1.png)<!-- -->
 
 ``` r
 # Use RColorBrewer to create color pallette to show median home value distribution
@@ -3826,7 +3826,7 @@ my_colors <- my_colors[as.numeric(class_of_city)]
 plot(sf.sp, col=my_colors ,  bg = "#FFFFFF")
 ```
 
-![](../assets/img/2021-1~2/figure-gfm/unnamed-chunk-29-1.png)<!-- -->
+![](../assets/img/2021-11-01-ch02-descriptive_analysis_files/figure-gfm/unnamed-chunk-29-1.png)<!-- -->
 
 The tracts with the highest percentage growth between 1990 and 2000, as
 seen by the darkest colors (the brown and orange tracts) are right in
