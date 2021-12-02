@@ -3,10 +3,6 @@ title: "Predicting MHV Change"
 author: "Erin McIntyre"
 date: "11/13/2021"
 output:
-   html_document:
-    theme: readable
-    df_print: paged
-    highlight: tango
   md_document:
     variant: gfm
 ---
