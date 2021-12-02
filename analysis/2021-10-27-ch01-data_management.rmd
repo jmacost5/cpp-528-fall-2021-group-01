@@ -95,7 +95,7 @@ today()
 cat_filter(dd,c("age", "race")) %>% head(10) %>% pander 
 
 
-### search_description () function that searches variable descriptions for a specific string and returns any variables that match. For example, if I searched for “income” I would want variables like median household income and per capita income.
+#### search_description () function that searches variable descriptions for a specific string and returns any variables that match. For example, if I searched for “income” I would want variables like median household income and per capita income.
 
 search_description(dd , "*income*") %>% head() %>% pander
 
