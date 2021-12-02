@@ -1,0 +1,192 @@
+---
+title: "Lab-05-PECK"
+author: "April Peck"
+date: "11/14/2021"
+output:
+  md_document:
+    variant: gfm
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+
+library(pander)
+library(stargazer)
+library(here)
+library(dplyr)
+library(tidycensus)
+library(magrittr)
+
+import::here("%>%",
+             "s.type",
+             "d3",
+             "l3",
+             # notice the use of here::here() that points to the .R file
+             # where all these R objects are created
+             .from = here::here("analysis/utilities_master.R"),
+             .character_only = TRUE)
+
+```
+
+# Estimate impact of each program
+Use the difference-in-difference framework introduced in the tutorial to estimate the impact of each federal program: the NMTC and the LIHTC.
+
+Use your baseline model predicting tract change from Lab 04 as the starting point.
+Create a log-linear diff-in-diff model following these steps and add your control variables from Lab 04
+
+
+
+```{r, echo=FALSE}
+
+### NMTC
+
+# log the variables
+#y1 <- log( d$mhv.00 )
+#y2 <- log( d$mhv.10 )
+#lp.vac.00 <- log10( d$p.vacant.00 + 1)
+#lp.vac.10 <- log10( d$p.vacant.10 + 1)
+#lp.hs.00 <- log10( d$p.hs.00 + 1)
+#p.hs.12 <- log10( d$p.hs.12 + 1)
+#lp.unemp.00 <- log10( d$p.unemp.00 + 1)
+#lp.unemp.12 <- log10( d$p.unemp.12 + 1)
+
+# create a variable that identifies if a tract received NMTC funding
+#nmtc.treat <- as.numeric( d$num.nmtc > 0 )
+
+# store the year 2000 data
+#d1 <- data.frame( y=y1, treat=nmtc.treat, post=0 )
+# store the year 2010 data
+#d2 <- data.frame( y=y2, treat=nmtc.treat, post=1 )
+
+# stack the two time periods together
+#d3 <- rbind( d1, d2 )
+
+# controls ---
+
+#p.vac
+#d0 <- data.frame( lp.vac.00 = lp.vac.00, lp.vac.10 = lp.vac.10)
+
+#d0 <- d0 %>% tidyr::gather(key = "variable_name",
+#value = "p.vac")
+
+# diff-in-diff data
+#d3$p.vac <- d0$p.vac
+
+
+#p.hs
+#d0 <- data.frame( lp.hs.00 = lp.hs.00, lp.hs.12 = lp.hs.12)
+#d0 <- d0 %>% tidyr::gather(key = "variable-name", value = "p.hs")
+
+# diff-in-diff data
+#d3$p.hs <- d0$p.hs
+
+
+#p.unemp
+#d0 <- data.frame( lp.unemp.00 = lp.unemp.00, lp.unemp.12 = lp.unemp.12)
+#d0 <- d0 %>% tidyr::gather(key = "variable-name", value = "p.unemp")
+
+# diff-in-diff data
+#d3$p.unemp <- d0$p.unemp
+
+#d3 <- d3 %>% na.omit(use = "everything")
+
+
+```
+
+
+
+```{r, echo=FALSE}
+
+### LIHTC
+
+
+# variables are already logged
+#y1 <- log( d$mhv.00 )
+#y2 <- log( d$mhv.10 )
+#lp.vac.00 <- log10( d$p.vacant.00)
+#lp.vac.10 <- log10( d$p.vacant.10)
+#lp.hs.00 <- log10( d$p.hs.00)
+#lp.hs.12 <- log10( d$p.hs.12)
+#lp.unemp.00 <- log10( d$p.unemp.00)
+#lp.unemp.12 <- log10( d$p.unemp.12)
+
+# create a variable that identifies if a tract received LIHTC funding
+#lihtc.treat <- as.numeric( d$num.lihtc > 0 )
+
+# store the year 2000 data
+#l1 <- data.frame( y=y1, treat=lihtc.treat, post=0 )
+# store the year 2010 data
+#l2 <- data.frame( y=y2, treat=lihtc.treat, post=1 )
+
+# stack the two time periods together
+#l3 <- rbind( l1, l2 )
+
+# controls ---
+
+#p.vac
+#l0 <- data.frame( lp.vac.00 = lp.vac.00, lp.vac.10 = lp.vac.10)
+
+#l0 <- l0 %>% tidyr::gather(key = "variable_name",
+#value = "p.vac")
+
+# diff-in-diff data
+#l3$p.vac <- l0$p.vac
+
+
+#p.hs
+#l0 <- data.frame( lp.hs.00 = lp.hs.00, lp.hs.12 = lp.hs.12)
+
+#l0 <- l0 %>% tidyr::gather(key = "variable_name",
+#value = "p.hs")
+
+# diff-in-diff data
+#l3$p.hs <- l0$p.hs
+
+
+#p.unemp
+#l0 <- data.frame( lp.unemp.00 = lp.unemp.00, lp.unemp.12 = lp.unemp.12)
+
+#l0 <- l0 %>% tidyr::gather(key = "variable_name",
+#value = "p.unemp")
+
+# diff-in-diff data
+#l3$p.unemp <- l0$p.unemp
+
+#l3 <- l3 %>% na.omit(use = "everything")
+
+```
+
+# Report & Interpret
+Report and interpret the main results from the models. Are the programs effective at catalyzing neighborhood improvement? We are assuming median home value captures the increased market demand that reflects the desirability of improvements.
+
+### NMTC
+```{r, results = 'asis', echo = FALSE, warning=FALSE}
+
+# create the difference in difference model
+# note: treat = B1, post = B2, treat*post = B3
+m <- lm( y ~ treat + post + p.vac + p.hs + p.unemp + treat*post, data=d3, na.rm = TRUE )
+
+# display model results
+stargazer::stargazer(m,
+                     type = s.type,
+                     digits = 2)
+```
+
+Houses, on average, had a 51% increase during the treatment period (2000 - 2010). Although the post-treatment coefficient is different than 1, it is not statistically significant, indicating the NMTC program is not effective.
+
+
+### LIHTC
+```{r, results = 'asis', echo=FALSE, warning=FALSE}
+
+# create the difference in difference model
+# note: treat = B1, post = B2, treat*post = B3
+m <- lm( y ~ treat + post + p.vac + p.hs + p.unemp + treat*post, data=l3 )
+
+# display model results
+stargazer::stargazer(m,
+                     type = s.type,
+                     digits = 2)
+```
+
+With the LIHTC program, the post-treatment coefficient is statistically significant, but housing values rose, on average, by .03% less than houses in the control group.
