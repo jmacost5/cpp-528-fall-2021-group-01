@@ -10,7 +10,9 @@ output:
 ```{r setup, echo=FALSE}
 knitr::opts_chunk$set(echo = TRUE, message = FALSE)
 
+```
 
+```{r, message=FALSE, warning=FALSE}
 
 # load packages
 library( cartogram )  # spatial maps w/ tract size bias reduction
