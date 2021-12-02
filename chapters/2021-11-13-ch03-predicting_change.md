@@ -5,8 +5,11 @@ author: "Erin McIntyre"
 date: "11/13/2021"
 ---
 
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
 
-# "Creating a Hedonic Pricing Model to predict neighborhood change."
+# Creating a Hedonic Pricing Model to predict neighborhood change.
 
 ## Author: Erin McIntyre
 
@@ -38,6 +41,8 @@ import::here("S_TYPE",
              # where all these R objects are created
              .from = here::here("analysis/utilities_master.R"),
              .character_only = TRUE)
+             
+S_TYPE <- "html"
 
 ```
 
@@ -98,9 +103,9 @@ colnames(d)
 
 ```
 
-  
+#### Scatter Plot 1
 
-```r scatter plot 1
+```r 
 # Select predictors of change in MHV or mhv.growth
 
 d_predict <- select(d_clean, mhv.growth, pov.rate, p.unemp, hinc00, p.white, p.col, p.prof)
@@ -114,9 +119,9 @@ pairs(d1, panel = panel.cor, lower.panel = panel.smooth )
 
 ```
 
+#### Scatter Plot 2
 
-
-```r scatter plot 2
+```r
 # Perform log transformation to get rid of varibale skew.
 
 # reduce data density for visualization
