@@ -11,51 +11,50 @@ s.type <- "html"
 
 # Lab 02 Functions--------------------------------------------------------------
 
-# create function ----
-today <- function() {
-  # store today's date
-  today_date <- format(Sys.time(), '%B %d, %Y')
-  # return today's date back to Global Environment
+# create function to return current date info 
+
+today <- function(){
+  
+  # store todays date 
+  
+  today_date<- format(Sys.time() ,'%B %d, %Y' )
   return(today_date)
+  
 }
 
+# Function One----
 
-# ONE: Filter variables by theme or group. Write a function that takes as an argument one or more 
-# of the groups that you just created in the concordance file under the “category” field and returns 
-# all of the variables associated with that group.
-
-# filter data by category ----
+# function that filter the data by categories 
+# will need to load (tidyverse) library 
+# search.cat will work in combination of multiple search terms 
+# search.cat <- c("first search term" ,"second search term" , "third search term" )
+# example = search.cat <- c("family" , "nationality")
 
 cat_filter <- function(data , search.cat ){
   cat_filter <- data%>%
     filter(category == search.cat )
+  return(cat_filter)
 }
+#------------------------------------------------------------------------------------
 
-# TWO: Create a function that searches variable descriptions for a specific string and returns 
-# any variables that match. For example, if I searched for “income” I would want variables like 
-# median household income and per capita income.
+# Function Two---
 
-# search for data with keyword ----
+#  Function that searches variable descriptions for a specific string and returns any variables that match. 
+#  For example, if I searched for "income" I would want variables like median household income and per capita income.
 
 search_description <- function(data , keywords) {
   search_description <- grepl(keywords , data$definition , ignore.case =T )
+  search.keywords <- data[search_description , c("root", "category" ,"definition" )]
+  return(search.keywords)
 }
 
+#------------------------------------------------------------------------------------
 
-# THREE: Create a function to filter variables by time periods. Specifically, the user will 
-# specify the time periods of interest for the study and the function will identify all variables 
-# that have measures for those periods. For example, I if I want to use the data for a study that 
-# covers 1990, 2000, and 2010 which variables are available for all three periods?
+# Function Three---
 
-# Note that column names contain the time periods, so similar to the previous function you can use 
-# grepl() to identify all columns that meet your critera. Once you have selected the appropriate columns 
-# you need to write a logical statement that checks variable availability for each year. We do not care 
-# whether the measure comes from the full Census, the long form sample, or the ACS as long as at least 
-# one measure is availabe for each of the specified time periods.
-
-# Return a table with all of the variables that meet the criteria.
-
-# search by year(s) ----
+# Function to filter variables by time periods. Specifically, 
+# The user will specify the time periods of interest for the study and 
+# The function will identify all variables that have measures for those periods. 
 
 search_years <- function(data, years)
 {
@@ -81,7 +80,7 @@ search_years <- function(data, years)
   
   # select data to keep
   df.years <- data %>%
-  select(root, root2, category, definition, contains(years))
+    select(root, root2, category, definition, contains(years))
   
   #subset data to keep root, root2, and the columns that contain the names of our time period
   #data_cleaned <- data[, c(grepl( paste( c( time.periods, columns), collapse = "|"), colnames(data) )) ]
@@ -119,9 +118,7 @@ search_years <- function(data, years)
   
   return(data_final)
   
-  
 }
-# End of Lab 02 Functions--------------------------------------------------------------
 
 # End of Lab 02 Functions--------------------------------------------------------------
 
