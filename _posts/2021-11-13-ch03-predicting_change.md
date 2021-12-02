@@ -328,7 +328,7 @@ pairs(d2, panel = panel.cor, lower.panel = panel.smooth )
 
 ![](../assets/img/2021-11-13-ch03-predicting_change_files/figure-gfm/scatter%20plot%202-1.png)<!-- -->
 
-These scatter plots look much better. 
+These scatter plots look a bit better. 
 
 Next, test for multicollinearity by running a regression model comparing selected variables. (mention why hinc00 and p.col were not selected)
 
@@ -382,6 +382,7 @@ Remove *p.unemp* and run the regression model again.
 m6 <- lm( mhv.growth ~  pov.rate + p.white + p.prof, data=d_predict )
 
 # Run the regression model with m6 instead of m5 and do not include m2.
+S_TYPE <- "html"
 stargazer( m1, m3, m4, m6,
            type=S_TYPE, digits=2,
            omit.stat = c("rsq","f") )
