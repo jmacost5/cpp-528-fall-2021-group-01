@@ -2,8 +2,6 @@
 title: Data Management - Metrics of Neighborhood Change
 subtitle: "Building a neighborhood change database."
 ---
-
-
 ``` r
 # Install necessary packages
 install.packages("here")
@@ -127,6 +125,10 @@ import::here("today",
              .character_only = TRUE)
 ```
 
+    ## Getting data from the 2015-2019 5-year ACS
+
+    ## Downloading feature geometry from the Census website.  To cache shapefiles for use in future sessions, set `options(tigris_use_cache = TRUE)`.
+
 ### Run functions
 
 ``` r
@@ -185,7 +187,14 @@ Table continues below
 search_description(dd , "*income*") %>% head() %>% pander
 ```
 
-*FALSE*, *FALSE*, *FALSE*, *FALSE*, *FALSE* and *FALSE*
+|        | root  |       category       |         definition          |
+| :----: | :---: | :------------------: | :-------------------------: |
+| **77** | hinc  | socioeconomic status |   median hh income, total   |
+| **78** | hinca | socioeconomic status | median hh income, asian/pi  |
+| **79** | hincb | socioeconomic status |  median hh income, blacks   |
+| **80** | hinch | socioeconomic status | median hh income, hispanics |
+| **81** | hincw | socioeconomic status |  median hh income, whites   |
+| **89** | incpc | socioeconomic status |      per capita income      |
 
 ``` r
 search_years(dd, year = c("1990", "2000", "2010")) %>% head(20) %>% pander
