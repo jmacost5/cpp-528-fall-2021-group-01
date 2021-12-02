@@ -13,13 +13,18 @@ library(stringr)
 # load necessary constants ----
 FILE_INFO <- list(
   # note: all .rmd files must live in the analysis/ directory
+  # only files which are needed as chapters are included in this code. 
   "rmd_files" = c(
-  #  here::here("analysis/2021-03-14-ch01-example_page.rmd"),
-    here::here("analysis/2021-11-13-ch03-predicting_change.rmd")
+    here::here("analysis/2021-10-27-ch01-data_management.rmd"),
+    here::here("analysis/2021-11-01-ch02-descriptive_analysis.rmd"),
+    here::here("analysis/2021-11-13-ch03-predicting_change.rmd"),
+    here::here("analysis/2021-11-14-ch04-evaluate_programs.rmd")
   ),
   "yaml_files" = c(
- #   here::here("assets/yaml/2021-03-14-ch01-example_page.yaml"),
-    here::here("assets/yaml/2021-11-13-ch03-predicting_change.yaml")
+    here::here("assets/yaml/2021-10-27-ch01-data_management.yaml"),
+    here::here("assets/yaml/2021-11-01-ch02-descriptive_analysis.yaml"),
+    here::here("assets/yaml/2021-11-13-ch03-predicting_change.yaml"),
+    here::here("assets/yaml/2021-11-14-ch04-evaluate_programs.yaml")
   )
 )
 
