@@ -12,6 +12,9 @@ knitr::opts_chunk$set(echo = TRUE)
 library(pander)
 library(stargazer)
 library(here)
+library(dplyr)
+library(tidycensus)
+library(magrittr)
 
 import::here("%>%",
              "s.type",
@@ -19,7 +22,7 @@ import::here("%>%",
              "l3",
              # notice the use of here::here() that points to the .R file
              # where all these R objects are created
-             .from = here::here("labs/wk06/labs_04_05_source-amp.R"),
+             .from = here::here("analysis/utilities_master.R"),
              .character_only = TRUE)
 
 ```
@@ -156,7 +159,7 @@ Create a log-linear diff-in-diff model following these steps and add your contro
 Report and interpret the main results from the models. Are the programs effective at catalyzing neighborhood improvement? We are assuming median home value captures the increased market demand that reflects the desirability of improvements.
 
 ### NMTC
-```{r, results = 'asis'}
+```{r, results = 'asis', echo = FALSE, warning=FALSE}
 
 # create the difference in difference model
 # note: treat = B1, post = B2, treat*post = B3
@@ -172,7 +175,7 @@ Houses, on average, had a 51% increase during the treatment period (2000 - 2010)
 
 
 ### LIHTC
-```{r, results = 'asis'}
+```{r, results = 'asis', echo=FALSE, warning=FALSE}
 
 # create the difference in difference model
 # note: treat = B1, post = B2, treat*post = B3
