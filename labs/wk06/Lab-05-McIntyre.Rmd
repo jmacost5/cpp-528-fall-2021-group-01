@@ -1,0 +1,362 @@
+---
+title: "Lab 05 - Adding Federal Program Data (Lab 06)"
+author: "Erin McIntyre"
+date: "11/24/2021"
+output:
+   html_document:
+    theme: readable
+    df_print: paged
+    highlight: tango
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+```{r load packages, warning=FALSE, message=FALSE}
+
+library(here)
+library(import)
+library(tidyverse)
+library(pander)
+library(dplyr)
+library(knitr)
+library(stargazer)
+library(scales)
+
+```
+
+
+```{r load functions}
+
+# load necessary functions and objects ----
+# note: all of these are R objects that will be used throughout this .rmd file
+import::here("S_TYPE",
+             "d",
+             "df",
+             "d3",
+             "PLOTS",
+             "%>%",
+             # notice the use of here::here() that points to the .R file
+             # where all these R objects are created
+             .from = here::here("labs/wk06/lab_06_source_em.R"),
+             .character_only = TRUE)
+
+detach("package:import", unload = TRUE)
+
+```
+
+# Data
+
+```{r}
+
+# Preview of data set with NMTC and LIHTC variables
+d %>% head()
+
+```
+
+
+```{r}
+
+colnames(d)
+
+```
+
+
+```{r}
+
+# Smaller data set of change variables
+df %>% head()
+
+```
+
+
+```{r}
+
+# Data for diff-in-diff model
+d3 %>% head()
+
+```
+
+# Rodeo Data Set
+
+```{r}
+
+# Save data set to rodeo folder
+saveRDS(d, here("data/rodeo/lab-05-rodeo-data-em.rds"))
+
+```
+
+# Data Manifest
+
+```{r}
+
+# The following code creates a dataframe similar to d
+
+ltdb.raw.2000s <- read.csv(here("data/raw/ltdb_std_2000_sample.csv"))
+ltdb.raw.2000f <- read.csv(here("data/raw/LTDB_Std_2000_fullcount.csv"))
+ltdb.rodeo.2000 <- readRDS(here("data/rodeo/LTDB-2000.rds"))
+
+ltdb.raw.2010s <- read.csv(here("data/raw/ltdb_std_2010_sample.csv"))
+ltdb.raw.2010f <- read.csv(here("data/raw/LTDB_Std_2010_fullcount.csv"))
+ltdb.rodeo.2010 <- readRDS(here("data/rodeo/LTDB-2010.rds"))
+
+complete.rodeo <- readRDS(file = here("data/rodeo/lab-05-rodeo-data-em.rds"))
+  
+```
+
+
+```{r}
+
+nrow(ltdb.raw.2000s)
+
+```
+
+
+```{r}
+
+nrow(ltdb.raw.2000f)
+
+```
+
+
+```{r}
+
+nrow(ltdb.rodeo.2000)
+
+```
+
+
+**All LTDB datasets from 2000s have the same number of rows. This indicates that no changes were required to filter out tracts in the dataset.**
+
+
+
+```{r}
+
+nrow(ltdb.raw.2010s)
+
+```
+
+
+```{r}
+
+nrow(ltdb.raw.2010f)
+
+```
+
+
+```{r}
+
+nrow(ltdb.rodeo.2010)
+
+```
+
+
+**The difference in the number of rows in the 2010 datasets is caused by additional tracts in the fullcount and rodeo datasets. This indicates that some manipulation to filter certain tracts was performed.**
+
+
+```{r}
+
+nrow(complete.rodeo)
+
+```
+
+
+**Certain filters were applied to create the complete.rodeo dataset. The dataset contains only urban tracts. Tracts with median home values less than $10,000 and median home values growth greater than 200% were removed from the dataset.**
+
+
+
+# Descriptive Stats
+
+```{r}
+
+# show summary statistics
+stargazer::stargazer( df, 
+                      type=S_TYPE, 
+                      digits=0, 
+                      summary.stat = c("min", "p25","median","mean","p75","max") )
+
+```
+
+```{r}
+
+mhv.change <- df$MHV.Change.00.to.10
+
+hist( mhv.change/1000, breaks=500, 
+      xlim=c(-100,500), yaxt="n", xaxt="n",
+      xlab="Thousand of US Dollars (adjusted to 2010)", cex.lab=1.5,
+      ylab="", main="Change in Median Home Value 2000 to 2010",
+      col="gray20", border="white" )
+
+axis( side=1, at=seq( from=-100, to=500, by=100 ), 
+      labels=paste0( "$", seq( from=-100, to=500, by=100 ), "k" ) )
+        
+mean.x <- mean( mhv.change/1000, na.rm=T )
+abline( v=mean.x, col="darkorange", lwd=2, lty=2 )
+text( x=200, y=1500, 
+      labels=paste0( "Mean = ", dollar( round(1000*mean.x,0)) ), 
+      col="darkorange", cex=1.8, pos=3 )
+
+median.x <- median( mhv.change/1000, na.rm=T )
+abline( v=median.x, col="dodgerblue", lwd=2, lty=2 )
+text( x=200, y=2000, 
+      labels=paste0( "Median = ", dollar( round(1000*median.x,0)) ), 
+      col="dodgerblue", cex=1.8, pos=3 )
+
+```
+
+
+```{r}
+
+mhv.growth <- df$MHV.Growth.00.to.12
+
+hist( mhv.growth, breaks=3000, 
+      xlim=c(-100,200), yaxt="n", xaxt="n", xlab = "",
+      ylab="", main="Growth in Home Value by Census Tract 2000 to 2010",
+      col="gray20", border="white" )
+
+axis( side=1, at=seq( from=-100, to=200, by=50 ), 
+      labels=paste0( "%", seq( from=-100, to=200, by=50 ) ) )
+        
+mean.x <- mean( mhv.growth, na.rm=T )
+abline( v=mean.x, col="darkorange", lwd=2, lty=2 )
+text( x=150, y=500, 
+      labels=paste0( "Mean = ", percent( mean.x/100 )), 
+      col="darkorange", cex=1.8, pos=3 )
+
+median.x <- median( mhv.growth, na.rm=T )
+abline( v=median.x, col="dodgerblue", lwd=2, lty=2 )
+text( x=150, y=1000, 
+      labels=paste0( "Median = ", percent( median.x/100) ), 
+      col="dodgerblue", cex=1.8, pos=3 )
+
+```
+
+
+# Difference-in-Difference Models
+
+### NMTC Model
+
+```{r}
+
+d3 %>% head()
+
+```
+
+
+```{r NMTC Model}
+
+m <- lm(y ~ treat + post + treat*post, data = d3)
+
+# Note:
+# Y is mhv.00 and mhv.10
+# Treat is an indicator of whether the tract received any NMTC funding (1 = yes, 0 = no)
+# Post indicates whether y is a pre (2000) or post (2010) value
+# Treat*post indicates growth amount for tracts that received funding
+
+#display model results
+stargazer::stargazer(m,
+                     type = S_TYPE,
+                     digits = 2)
+
+```
+
+### LIHTC Model
+
+
+```{r}
+
+# dataset d6 was created in the "lab_06_source_em.R" file to create a diff-in-diff model for the LIHTC program
+# use import::here() to load the new d6 dataset
+
+
+import::here("d6",
+             .from = here::here("labs/wk06/lab_06_source_em.R"),
+             .character_only = TRUE)
+
+```
+
+```{r}
+
+d6 %>% head()
+
+```
+
+
+```{r LIHTC Model}
+
+# Create the same diff-in-diff model, this time with the d6 dataset 
+m2 <- lm(y ~ treat + post + treat*post, data = d6)
+
+# Note:
+# Y is mhv.00 and mhv.10
+# Treat is an indicator of whether the tract built LIHTC projects (1 = yes, 0 = no)
+# Post indicates whether y is a pre (2000) or post (2010) value
+# Treat*post indicates growth amount for tracts that received funding
+
+# Display model results
+stargazer::stargazer(m2,
+                     type = S_TYPE,
+                     digits = 2)
+
+
+```
+
+**The post coefficient in this model is the same as in the NMTC model. There is a 23% growth in Median Home Value whether tracts were a part of the LIHTC program or not. Tracts who participated in the LIHTC program experienced only an additional 1% growth beyond regular (non-intervention/control) growth rates.**
+
+
+
+### LIHTC + Control Variables Model
+
+```{r}
+
+# dataset d9 was created in the "lab_06_source_em.R" file to create a diff-in-diff model for the LIHTC program with control variables from lab 04 included
+# use import::here() to load the new d9 dataset
+
+
+import::here("d9",
+             .from = here::here("labs/wk06/lab_06_source_em.R"),
+             .character_only = TRUE)
+```
+
+
+```{r}
+
+d9 %>% head()
+
+```
+
+
+```{r LIHTC plus control model}
+
+# Create another diff-in-diff model with the d9 dataset
+m3 <- lm(y ~ pov.rate + p.white + p.prof, data = d9)
+
+m4 <- lm(y ~ treat + post + treat*post + pov.rate + p.white + p.prof, data = d9)
+
+# Note:
+# Y is mhv.00 and mhv.10
+# Treat is an indicator of whether the tract built LIHTC projects (1 = yes, 0 = no)
+# Post indicates whether y is a pre (2000) or post (2010) value
+# Treat*post indicates growth amount for tracts that received funding
+# pov.rate is the poverty rate of tracts in 2000
+# p.white is the percent white in 2000
+# p.prof is the percent professional employees in 2000
+
+# Display model results
+stargazer::stargazer(m2, m3, m4,
+                     type = S_TYPE,
+                     digits = 2)
+
+```
+
+### Reflection
+
+**After adding control variables to the model, the constant decreased from 11.98 to 10.22.**
+
+**The treat coefficient increased from -0.21 to -0.01.** 
+
+**Greater changes in median home value are experienced from the control variables. This indicates that poverty rate, percentage white, and percent professional employees explain changes in MHV better than whether tracts were a part of the LIHTC program.**
+
+**It is disconcerting that the standard errors for each variable are so small.**
