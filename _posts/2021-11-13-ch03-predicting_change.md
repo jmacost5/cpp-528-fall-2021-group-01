@@ -262,7 +262,7 @@ d1 <- sample_n( d_predict, 10000 ) %>% na.omit()
 pairs(d1, panel = panel.cor, lower.panel = panel.smooth )
 ```
 
-![](C:\\Users\\ekmci\\Documents\\CPP%20528\\cpp-528-fall-2021-group-01\\assets\\img\\2021-11-13-ch03-predicting_change_files/figure-gfm/scatter%20plot%201-1.png)<!-- -->
+![](../assets/img/2021-11-13-ch03-predicting_change_files/figure-gfm/scatter%20plot%201-1.png)<!-- -->
 
 ``` r
 # Perform log transformation to get rid of varibale skew.
@@ -426,31 +426,31 @@ stargazer( m1, m2, m3, m4,
 
 # Reflection
 
-**The higher the poverty rate in a metro area, the more growth they will
+The higher the poverty rate in a metro area, the more growth they will
 experience in median home value. Specifically, a 1% growth in poverty
 rate results in a 12.93% growth in median home value. This result makes
 the most sense based on what we know about gentrification. Median home
 value will grow at a quicker rate (or higher percentage) in a
 metropolitan area where the poverty rate was already high compared to a
-richer area.**
+richer area.
 
-**The higher the percentage of whites in the population in 2000, the
+The higher the percentage of whites in the population in 2000, the
 less growth in median home value a tract or metro area will experience.
 Specifically, a 1% increase in percent white results in a 14.82%
 decrease in median home value growth. However, upon adding the cbsa
 variable to create a metro-level fixed effect, the coefficient decreases
 immensely. This indicates that the percent of white in the population
 has different effects on median home value growth depending on the
-tract. This should be investigated further.**
+tract. This should be investigated further.
 
-**The higher the percentage of professional employees in the population
+The higher the percentage of professional employees in the population
 in 2000, the more growth they will experience in median home value.
 Specifically, a 1% increase in percent professional will result in a
 4.27% growth in median home value. This result makes less sense since it
 conceptually contradicts the trend seen with poverty rates. The increase
 in the coefficient in the fourth model is also concerning. This
 indicates some sort of difference in the effects of percent professional
-on mhv.growth in separate tracts.**
+on mhv.growth in separate tracts.
 
-**It is also interesting to note that all the control variables selected
-are significant.**
+It is also interesting to note that all the control variables selected
+are significant.
