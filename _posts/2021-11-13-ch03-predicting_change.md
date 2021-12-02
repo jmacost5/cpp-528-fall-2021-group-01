@@ -34,7 +34,7 @@ import::here("S_TYPE",
 
 # Part 1 - Data
 
-Preview the data sets (d, df, and cbsa_stats_df).
+Preview the data sets (**d**, **df**, and **cbsa_stats_df**).
 
 **d** contains select variables from the census tract data. The data set was cleaned and created in the **utilities_master.R file**. 
 
@@ -170,7 +170,9 @@ stargazer( df,
     ## --------------------------------------------------------------------------
     
 Complete one final step to clean the data. 
+
   1) Omit cases that have a median home value less than $10,000 in 2000.
+
   2) Omit cases with growth rates above 200%.
 
 ``` r
@@ -252,8 +254,11 @@ Table continues below
  to be completed before finalizing the regression model to predict MHV change. The code below will review the following steps:
  
  1) Select control variables.
+
  2) Check for variable skew and perform log transformation if needed.
+
  3) Check for multicolinearity.
+
  4) Add a metro-level control.
 
 
