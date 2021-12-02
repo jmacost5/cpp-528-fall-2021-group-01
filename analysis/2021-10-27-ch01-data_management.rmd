@@ -17,7 +17,11 @@ knitr::opts_chunk$set(echo = TRUE)
 install.packages("here")
 
 ```
-### Runing Needed Packages 
+
+
+### Running Needed Packages 
+
+
 ```{r , warning=FALSE}
 
 # load necessary packages
@@ -28,13 +32,16 @@ library( pander )
 
 ```
 
+
 ### Part 1: Data Concordance
+
+
 ```{r , , warning=FALSE}
 # Reading data files from specific file paths in my desktop
 
 
 # store data dictionary file path
-DD_FILEPATH <- here::here("data/rodeo/Ahmeds-ltdb_data_dictionary.csv")
+DD_FILEPATH <- here::here("data/raw/Ahmeds-ltdb_data_dictionary.csv")
 
 # import data dictionary
 dd <- read.csv(DD_FILEPATH , header=T,fill=T , stringsAsFactors=F)
@@ -55,20 +62,28 @@ ltdb.data <- as.data.frame( sapply( dd, tolower) )
 dd[ c(1:5,15:17), ] %>% pander()
 
 ```
+
+
 ### Part 2: Build a Variable Filter
 
 
-### Loading funtions from utilities.R file
+### Loading functions from utilities_master.R file
 
 ```{r , warning=FALSE}
 
-# Loading funtions from source files
+# Loading functions from source files
 
-source(here::here("analysis/utilities.R"))
-
+import::here("today",
+             "cat_filter",
+             "search_description",
+             "search_years",
+             # notice the use of here::here() that points to the .R file
+             # where all these R objects are created
+             .from = here::here("analysis/utilities_master.R"),
+             .character_only = TRUE)
 ```
 
-### Running functions 
+### Run functions 
 
 ```{r , warning=FALSE}
 # Run the date function
