@@ -142,6 +142,14 @@ today()
 #### cat_filter () function that takes as an argument one or more of the groups that we just created in the concordance file under the “category” field and returns all of the variables associated with that group.
 
 ``` r
+# will need to load (tidyverse) library 
+
+# search.cat will work in combination of multiple search terms 
+
+# search.cat <- c("first search term" ,"second search term" , "third search term" )
+
+# example = search.cat <- c("family" , "nationality")
+
 cat_filter(dd,c("age", "race")) %>% head(10) %>% pander 
 ```
 
@@ -189,6 +197,9 @@ Table continues below
 #### search_description () function that searches variable descriptions for a specific string and returns any variables that match. For example, if I searched for “income” I would want variables like median household income and per capita income.
 
 ``` r
+
+# For example, if I searched for "income" I would want variables like median household income and per capita income.
+
 search_description(dd , "*income*") %>% head() %>% pander
 ```
 
@@ -205,6 +216,11 @@ search_description(dd , "*income*") %>% head() %>% pander
 #### search_years() function to filter variables by time periods. Specifically, the user will specify the time periods of interest for the study and the function will identify all variables that have measures for those periods. For example, I if I want to use the data for a study that covers 1990, 2000, and 2010 which variables are available for all three periods.
 
 ``` r
+
+# The user will specify the time periods of interest for the study .
+
+# Function will identify all variables that have measures for those periods .
+
 search_years(dd, year = c("1990", "2000", "2010")) %>% head(20) %>% pander
 ```
 
