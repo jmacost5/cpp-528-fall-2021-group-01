@@ -17,7 +17,6 @@ minimal_theme: true          # radically minimalistic theme
 navigation:                  # show navigation links in the header	
   - index.html
   - exec.md
-  - part_3.md
   - data_manifest.md
   - about_us.md
 
