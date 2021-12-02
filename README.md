@@ -210,4 +210,52 @@ install.packages( gtools)         # developing, updating, and maintaining R and 
 install.packages( maptools )      # spatial object manipulation 
 ```
 
+## References 
 
+- Bryan , Jenny . "Naming things" , Reproducible Science Workshop, 2014.Web. 2 November 2021. [PDF file]. Available from "https://www2.stat.duke.edu/~rcs46/lectures_2015/01-markdown-git/slides/naming-slides/naming-slides.pdf"
+
+- Quantum , "Data Science project management methodologies" , Aug 20, 2019 , Web. 3 November 2021 , Available from "https://medium.datadriveninvestor.com/data-science-project-management-methodologies-f6913c6b29eb"
+
+-  IBM Corporation ,"IBM SPSS Modeler CRISP-DM Guide" 1994, 2011 , Web. 3 November 2021. [PDF file]. Available from "https://inseaddataanalytics.github.io/INSEADAnalytics/CRISP_DM.pdf"
+
+-  R-bloggers , "CRISP-DM and why you should know about it" 2017 , Web. 4 November 2021 , Available from "https://www.r-bloggers.com/2017/01/crisp-dm-and-why-you-should-know-about-it/"
+
+- Kappal , Sunil "Useful R Packages that Aligns with The CRISP DM Methodology" February 6, 2017 ,  Web. 4 November 2021 , Available from "https://www.datasciencecentral.com/profiles/blogs/userful-r-packages-that-aligns-with-the-crisp-dm-methodology"
+
+- Watts-College , "Descriptive Analysis" , October 29, 2021 ,  Web. 16 November 2021. Available from "https://watts-college.github.io/cpp-528-fall-2021/labs/lab-03-instructions.html"
+
+- Urban Displacement , "UDP-Gentrification-Methodology" , 2012 , Web. 16 November 2021. [PDF File] Available from "https://watts-college.github.io/cpp-528-fall-2021/articles/gentrification/udp-gentrification-methodology-austin.pdf"
+
+- Urban Displacement , "Urban Displacement Project’s Methodology for San Francisco Bay Area, California, USA" , 2012 , Web. 16 November 2021. [PDF File] Available from "https://watts-college.github.io/cpp-528-fall-2021/articles/gentrification/udp-gentrification-methodology-sf.pdf"
+
+- Mychal Cohen , Kathryn L.S. Pettit , "GUIDE TO MEASURING NEIGHBORHOOD CHANGE TO UNDERSTAND AND PREVENT DISPLACEMENT", APRIL 2019 Web. 23 November 2021. Available from https://watts-college.github.io/cpp-528-fall-2021/articles/gentrification/guide_to_measuring_neighborhood_change_to_understand_and_prevent_displacement.pdf"
+
+- Monson, Matt, Cornell MBA and PRE . "Valuation Using Hedonic Pricing Models" , 2009,.Web. 7 November 2021. [PDF file]. Available from "https://watts-college.github.io/cpp-528-fall-2021/articles/home-value-change/valuation-using-hedonic-pricing.pdf"
+
+- "Hedonic Pricing Method" , 1/1/2015  , Web. 7 November 2021. [PDF file]. Available from "https://watts-college.github.io/cpp-528-fall-2021/articles/home-value-change/hedonic-pricing-method.pdf"
+
+- HUD User Datasets , "LOW-INCOME HOUSING TAX CREDIT (LIHTC)" , 2018 , Web. 15 November 2021. Available from "https://www.huduser.gov/portal/datasets/lihtc.html"
+
+- OFFICE OF POLICY DEVELOPMENT AND RESEARCH (PD&R), "Income limit information for LIHTC projects" , April 1, 2021  , Web. 15 November 2021. Available from "https://www.huduser.gov/portal/datasets/il.html#2021_faq"
+
+- LIHTC database , 1997 , Web. 15 November 2021, Available from "https://github.com/DS4PS/cpp-528-spr-2020/blob/master/labs/data/raw/NMTC/nmtc-sheet-01.csv"
+
+- COMMUNITY DEVELOPMENT FINANCIAL INSTITUTIONS FUND , "New Markets Tax Credit (NMTC)Public Data Release", November 2019 , Web. 16 November 2021. [PDF File] Available from "https://github.com/DS4PS/cpp-528-spr-2020/blob/master/labs/data/raw/NMTC/2019%20NMTC%20Public%20Data%20Release_FY_17-comments%20incorporated_BL%20Edits%20incorporated_Final.pdf"
+
+- Novocradac , "Affordable Housing Resource Center" , 1993 , Web. 16 November 2021, Available from "https://www.novoco.com/resource-centers/affordable-housing-tax-credits/lihtc-basics/about-lihtc"
+
+- GitHub , "GitHub Pages themes" , Web. 21 November 2021. Available from "https://github.com/pages-themes"
+
+- GitHub , "Quickstart for GitHub Pages" , Web. 22 November 2021. Available from "https://docs.github.com/en/pages/quickstart"
+
+- Birnbaum  , David J , "Configuring GitHub Pages" , 2020-01-19 , Web. 22 November 2021, Available from "https://dh.obdurodon.org/jekyll.xhtml"
+
+- GitHub , "Transform your plain text into static websites and blogs", Web. 23 November 2021. Available from "https://jekyllrb.com/"
+
+- Made Mistakes , "Mastering Jekyll" , Sep 10th, 2021 , Web. 24 November 2021, Available from "https://mademistakes.com/mastering-jekyll"
+
+- w3schools , "Sass Introduction" , Web. 24 November 2021, Available from "https://www.w3schools.com/sass/sass_intro.php"
+
+- Watts-College "Building a Neighborhood Change Database" Web. 2 November 2021. Available from "https://watts-college.github.io/cpp-528-fall-2021/sched/week-02/"
+
+- Watts-College , "cleaning the LTDB" . Web. 2 November 2021. Available from "https://watts-college.github.io/cpp-528-fall-2021/labs/PROJECT-DATA-STEPS.html"
