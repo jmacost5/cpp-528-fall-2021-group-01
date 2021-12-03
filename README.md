@@ -4,7 +4,7 @@ This repository was created by Group 1 for the 2021 CPP 528 Project Management c
 
 ## Contributing Authors and Contact Information:
 
-Alez Yildiz: 
+Alev Yildiz: 
 
 Erin McIntyre:
 
