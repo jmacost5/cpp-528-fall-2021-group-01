@@ -17,7 +17,6 @@ minimal_theme: true          # radically minimalistic theme
 navigation:                  # show navigation links in the header	
   - index.html
   - about_us.md
-  - LICENSE
 
 
 icons:                       # show icons in the header, for all possible icons see http://fontawesome.io/icons/
