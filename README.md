@@ -4,13 +4,13 @@ This repository was created by Group 1 for the 2021 CPP 528 Project Management c
 
 ## Contributing Authors and Contact Information:
 
-Alev Yildiz: 
+Alev Yildiz: https://github.com/ayildiz84
 
-Erin McIntyre:
+Erin McIntyre: https://github.com/ekmcintyre
 
-Ahmed Rashwan:
+Ahmed Rashwan: https://github.com/AhmedRashwanASU
 
-April Peck: 
+April Peck: https://github.com/AprilPeck
 
 ## Overview Of Project for Change in the Neighborhood
 
