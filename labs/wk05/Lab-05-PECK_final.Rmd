@@ -6,10 +6,11 @@ output: html_document
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE, results = 'asis')
 ```
 
-```{r, message=FALSE, warning=FALSE}
+The following data and packages were loaded for the following analysis:
+```{r}
 
 
 library(pander)
@@ -22,7 +23,7 @@ library(scales)
 
 import::here("%>%",
              "S_TYPE",
-             "d",
+             "d.lab05",
              "df",
              "d3",
              "l3",
@@ -32,6 +33,7 @@ import::here("%>%",
              .from = here::here("analysis/utilities_master.R"),
              .character_only = TRUE)
 
+d <- d.lab05
 ```
 # Overview of Programs
 
@@ -230,7 +232,7 @@ LIHTC data was added to the dataset with the following code found in the data ma
 
 Let's take a look at the descriptive statistics for the data:
 
-```{r, results='asis'}
+```{r}
 stargazer::stargazer( df, 
                       type=S_TYPE, 
                       digits=0, 
@@ -316,13 +318,136 @@ The fact that private investors have a lot of capital in the projects ensures th
 
 The program participation criteria define which census tracts are eligible, and will greatly shape where the program dollars (tax credits) are allocated.
 
+####Recipient and Non-Recipient Tracts:
+
+Here is the hard part about evaluating economic development investments - they try to target the projects that have the greatest potential to succeed, so by design you have sorted the sample. It’s similar to the challenge of trying to decide if Harvard provides a better education than a high-performing public university. Harvard has selected students that have the highest grades, test scores, early-life achievements, and privilege. Who can you compare this sample to? You have no similar counterfactual!
+
+In this instance, NMTC projects target poor communities, so by design we expect that program participants (tracts) and non-participants are different.
+
+The LIHTC program is different because affordable housing units can be built anywhere, they just need to cap rents for residents. IN PRACTICE they tend to go in poor communities because the capped rent will not be that different from the rent they could have received, and the lower rents help keep buildings are high occupancy rates. The government
+
+We can look at some descriptive statistics from 2000 to determine if we have an apples to oranges type of comparison:
+
+```{r}
+### POVERTY RATES
+gridExtra::grid.arrange( PLOTS$pov_rate_2000$nmtc, 
+                         PLOTS$pov_rate_2000$lihtc, 
+                         nrow = 1 )
+
+```
+
+New Market Tax Credit recipients appear to be quite distinct, located in poorer tracts. We see the LIHTC projects tend to favor tracts with higher poverty than non-recipient tracts, but a large proportion of the projects are still located in tracts with low to moderate levels of poverty.
+
+```{r}
+### HOME VALUES
+gridExtra::grid.arrange( PLOTS$mhv_2000$nmtc, 
+                         PLOTS$mhv_2000$lihtc, 
+                         nrow = 1 )
+
+```
+
+#### Apples to Oranges:
+
+When comparing recipient tracts to non-recipient tracts we can see very clearly that they are different. The degree depends on the program, NMTC seem to be very distinctive, and LIHTC still different but not as pronounced.
+
+Here are some more summary statistics comparing the two:
+
+#### Household Income 2000:
+
+```{r}
+### HOUSEHOLD INCOME COMPARISONIN 2000:
+### PROGRAM RECIPIENTS VS NON-RECIPIENT TRACTS
+# Tracts that received LIHTC
+mean( d$hinc00[ d$num.lihtc > 0 ] )
+
+# Tracts that did not 
+mean( d$hinc00[ d$num.lihtc == 0 ] )
+
+# Tracts that received NMTC
+mean( d$hinc00[ d$num.nmtc > 0 ] )
+
+# Tracts that did not 
+mean( d$hinc00[ d$num.nmtc == 0 ] )
+
+
+```
+
+#### Home Value 2000:
+
+```{r}
+### MEDIAN HOME VALUE COMPARISON IN 2000
+# Tracts that received LIHTC
+mean( d$mhv.00[ d$num.lihtc > 0 ], na.rm=T )
+
+# Tracts that did not 
+mean( d$mhv.00[ d$num.lihtc == 0 ], na.rm=T )
+
+# Tracts that received NMTC
+mean( d$mhv.00[ d$num.nmtc > 0 ], na.rm=T )
+
+# Tracts that did not 
+mean( d$mhv.00[ d$num.nmtc == 0 ], na.rm=T )
+
+```
+
+#### Poverty Rates 2000:
+```{r}
+### POVERTY RATE COMPARISONS
+# Tracts that received LIHTC
+summary( d$pov.rate.00[ d$num.lihtc > 0 ] ) %>% pander()
+
+# Tracts that did not 
+summary( d$pov.rate.00[ d$num.lihtc == 0 ] ) %>% pander()
+
+# Tracts that received NMTC
+summary( d$pov.rate.00[ d$num.nmtc > 0 ] ) %>% pander()
+
+# Tracts that did not 
+summary( d$pov.rate.00[ d$num.nmtc == 0 ] ) %>% pander()
+
+```
+
+And examining the DV of MHV growth rates to get a sense of the distribution of the outcome prior to running regression models:
+
+```{r}
+### MHV Growth Rates (DV in Model)
+gridExtra::grid.arrange( PLOTS$mhv_growth$lihtc, 
+                         PLOTS$mhv_growth$nmtc, 
+                         nrow = 1 )
+
+```
+
+LIHTC on the left is a little ambiguous because there is more density for program participant tracts in the right tail (evidence of higher growth for the treatment), but also some more density in the peak left of the distribution for non-participant tracts. Visually it’s hard to assess.
+
+NMTC, on the other hand, look better off because of the large amount of density in the right-hand tail.
+
+We can confirm these with some descriptive statistics of home value growth rates:
+
+```{r}
+# Tracts that received LIHTC
+summary( d$growth[ d$num.lihtc > 0 ] ) %>% pander()
+
+# Tracts that did not 
+summary( d$growth[ d$num.lihtc == 0 ] ) %>% pander()
+
+# Tracts that received NMTC
+summary( d$growth[ d$num.nmtc > 0 ] ) %>% pander()
+
+# Tracts that did not
+summary( d$growth[ d$num.nmtc == 0 ] ) %>% pander()
+
+```
+
+Home value growth rates for LIHTC program participant and non-participant tracts are almost the same.
+
+Home value growth rates for NMTC participants are significant higher than non-participant tracts. These are **unconditional means** with no real counterfactual, so we still need to create an evaluation framework. But they offer some suggestive evidence.
 
 
 # Report & Interpret
 Report and interpret the main results from the models. Are the programs effective at catalyzing neighborhood improvement? We are assuming median home value captures the increased market demand that reflects the desirability of improvements.
 
 ### NMTC
-```{r, results = 'asis', warning=FALSE}
+```{r}
 
 # create the difference in difference model
 # note: treat = B1, post = B2, treat*post = B3
@@ -338,7 +463,7 @@ Houses, on average, had a 51% increase during the treatment period (2000 - 2010)
 
 
 ### LIHTC
-```{r, results = 'asis', warning=FALSE}
+```{r}
 
 # create the difference in difference model
 # note: treat = B1, post = B2, treat*post = B3
