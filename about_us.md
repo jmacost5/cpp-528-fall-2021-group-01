@@ -6,6 +6,7 @@ team:
     img: ../assets/img/about/alev_img.JPG
     desc: Alev has a BS in Political Science/Spanish and a LLM in Human Rights 
           Law. She is currently enrolled in masters of Program Evaluation and Data           Analytics degree at ASU.
+    github: https://github.com/ayildiz84
   - name: Erin McIntyre
     img: ../assets/img/about/erin_about_img.jpg
     desc: Erin has a BS in Psychology and will graduate with her MS in Program               Evaluation and Data Analytics December 2021. She is passionate about               research design, musical theatre, and teaching. 
