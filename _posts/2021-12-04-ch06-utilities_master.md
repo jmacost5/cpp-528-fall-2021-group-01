@@ -464,7 +464,7 @@ d$mhv.change <- mhv.change
 d$mhv.growth <- mhv.growth 
 ```
 
-### Create data sets
+## Create data sets
 
 ```
 d.full <- d
@@ -545,7 +545,7 @@ d.lab05$id2 <- gsub( "[^0-9]", "", d.lab05$tractid )
 d.lab05$id2 <- as.numeric( d.lab05$id2 )
 ```
 
-### Aggregate federal programs such that there is one record per tract 
+# Aggregate federal programs such that there is one record per tract 
 
 ```
 lihtc.dollars <-
@@ -571,7 +571,7 @@ d.lab05 <- merge( d.lab05, nmtc.dollars, by.x="id2", by.y="X2010.Census.Tract", 
 d.lab05 <- merge( d.lab05, lihtc.dollars, by.x="id2", by.y="fips2010", all.x=T )
 ```
 
-#### More cleaning
+### Recode tracts and manipulate variables
 
 ```
 # recode tracts that had no grants from NA to 0
@@ -692,17 +692,17 @@ d.lab05 <-
 
 ```
 
-#### More cleaning
+### More cleaning
 
 ```
 # inflation adjust income  
 d.lab05$hinc00 <- INFLATION_RATE * d.lab05$hinc00
 
-# Create a true/false code for recipient tracts ----
+# Create a true/false code for recipient tracts 
 d.lab05$LIHTC <- ifelse( d.lab05$num.lihtc > 0, "YES", "NO" )
 d.lab05$NMTC <- ifelse( d.lab05$num.nmtc > 0, "YES", "NO" )
 
-# create a growth column within the data frame ----
+# create a growth column within the data frame 
 # omit cases with growth rates above 200%
 d.lab05$growth <- d.lab05$mhv.growth
 d.lab05$growth[ d.lab05$growth > 200 ] <- NA
@@ -741,6 +741,8 @@ PLOTS <-
 ```
 
 ## Prepare NMTC data
+
+The transformations to create data set d3 are needed to run a difference-in-difference regression model. 
 
 ```
 # log the variables
@@ -795,6 +797,8 @@ d3$p.unemp <- d0$p.unemp
 ```
 
 ## Prepare LIHTC data
+
+The transformations to create data set 13 are needed to run a difference-in-difference regression model. 
 
 ```
 # create a variable that identifies if a tract received LIHTC funding
