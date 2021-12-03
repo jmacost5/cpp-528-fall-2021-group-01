@@ -26,6 +26,33 @@ import::here("%>%",
              .character_only = TRUE)
 
 ```
+# Overview of Programs
+
+#### About the New Market Tax Credits Program
+
+The NMTC Program enables economically distressed communities to leverage private investment capital by providing investors with a federal tax credit. All NMTC investments must meet statutory qualifications for their investors to be able to claim the tax credit. The vast majority of NMTC investments are made within statutorily defined “Low-Income Communities.” Low-Income Communities are census tracts with a poverty rate of 20 percent or greater, or a median family income at or below 80 percent of the applicable area median family income. In addition to investments located in Low-Income Communities, investments can qualify for NMTCs by using other statutory provisions designed to target certain areas or populations, including provisions for Rural Counties, and Low-Income Targeted Populations.
+
+Through the first 15 application rounds of the NMTC Program, the CDFI Fund has made 1,178 awards, allocating a total of $57.5 billion in tax credit authority to CDEs through a competitive application process.
+
+[Data download website](https://github.com/DS4PS/cpp-528-spr-2020/blob/master/labs/data/raw/NMTC/nmtc-sheet-01.csv)  
+
+[Source](https://watts-college.github.io/cpp-528-fall-2021/labs/lab-05-tutorial.html)  
+
+[Additional Information](https://www.cdfifund.gov/programs-training/programs/new-markets-tax-credit)  
+
+
+#### About the Low Income Housing Tax Credits Program
+
+The Low-Income Housing Tax Credit (LIHTC) is the most important resource for creating affordable housing in the United States today. The LIHTC database, created by HUD and available to the public since 1997, contains information on 47,511 projects and 3.13 million housing units placed in service between 1987 and 2017. 
+
+According to the [National Housing Law Project](https://www.nhlp.org/resources/how-the-lihtc-program-works/), the program provides tax credits to developers based on an application process and goals laid out in the qualified action plan. Developers agree to rent the units at below-market rates.
+
+[Data download website](https://github.com/DS4PS/cpp-528-spr-2020/blob/master/labs/data/raw/LIHTC/LIHTCPUB.csv)  
+
+[Source](https://watts-college.github.io/cpp-528-fall-2021/labs/lab-05-tutorial.html)  
+
+[Additional Information](https://www.nhlp.org/resource-center/low-income-housing-tax-credits/)  
+
 
 # Estimate impact of each program
 Use the difference-in-difference framework introduced in the tutorial to estimate the impact of each federal program: the NMTC and the LIHTC.
@@ -33,9 +60,9 @@ Use the difference-in-difference framework introduced in the tutorial to estimat
 Use your baseline model predicting tract change from Lab 04 as the starting point.
 Create a log-linear diff-in-diff model following these steps and add your control variables from Lab 04
 
+NMTC data was added to the dataset using the following code found in the data manifest:
 
-
-```{r, echo=FALSE}
+```{r}
 
 ### NMTC
 
@@ -93,8 +120,8 @@ Create a log-linear diff-in-diff model following these steps and add your contro
 ```
 
 
-
-```{r, echo=FALSE}
+LIHTC data was added to the dataset with the following code found in the data manifest:
+```{r}
 
 ### LIHTC
 
@@ -159,7 +186,7 @@ Create a log-linear diff-in-diff model following these steps and add your contro
 Report and interpret the main results from the models. Are the programs effective at catalyzing neighborhood improvement? We are assuming median home value captures the increased market demand that reflects the desirability of improvements.
 
 ### NMTC
-```{r, results = 'asis', echo = FALSE, warning=FALSE}
+```{r, results = 'asis', warning=FALSE}
 
 # create the difference in difference model
 # note: treat = B1, post = B2, treat*post = B3
@@ -175,7 +202,7 @@ Houses, on average, had a 51% increase during the treatment period (2000 - 2010)
 
 
 ### LIHTC
-```{r, results = 'asis', echo=FALSE, warning=FALSE}
+```{r, results = 'asis', warning=FALSE}
 
 # create the difference in difference model
 # note: treat = B1, post = B2, treat*post = B3
