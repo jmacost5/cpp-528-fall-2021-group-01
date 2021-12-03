@@ -22,6 +22,7 @@ library( knitr )
 library( pander )
 library( stargazer )
 library( scales )
+library( tidycensus )
 # set randomization seed ----
 set.seed( 1234 )
 # load necessary functions and objects ----
@@ -43,6 +44,16 @@ import::here("S_TYPE",
 
 # Part 1 - Data
 
+Preview the data sets (**d**, **df**, and **cbsa_stats_df**).
+
+**d** contains select variables from the census tract data. The data set was cleaned and created in the `utilities_master.R file`. 
+
+```{r}
+head(d) %>% pander()
+
+```
+
+**df** was created using the *mhv.00*, *mhv.10*, *mhv.change*, and *mhv.growth* variables from data set **d**. 
 
 ```{r}
 
@@ -50,11 +61,7 @@ head(df) %>% pander()
 
 ```
 
-```{r}
-
-head(d) %>% pander()
-
-```
+**cbsa_stats_df** displays the median median home value change and growth for each metropolitan area.
 
 ```{r}
 
@@ -62,8 +69,9 @@ head(cbsa_stats_df) %>% pander()
 
 ```
 
+Look at the summary statistics for **df**. 
 
-```{r}
+```{r, results='asis'}
 
 stargazer( df, 
            type=S_TYPE, 
@@ -72,11 +80,14 @@ stargazer( df,
 
 ```
 
+Complete one final step to clean the data. 
+
+  1) Omit cases that have a median home value less than $10,000 in 2000.
+
+  2) Omit cases with growth rates above 200%.
+
 
 ```{r}
-# Omit cases that have a median home value less than $10,000 in 2000.
-# Omit cases with growth rates above 200%.
-
 d_clean <-
   d %>% 
   filter(mhv.00 > 10000) %>% 
@@ -89,15 +100,29 @@ head(d_clean) %>% pander()
 
 # Part 2 - Predict MHV Change
 
+The next step is to create a regression model using control variables which can predict changes in median home value. There are a few tests which need
+to be completed before finalizing the regression model to predict MHV change. The code below will review the following steps:
+
+ 1) Select control variables.
+
+ 2) Check for variable skew and perform log transformation if needed.
+
+ 3) Check for multicolinearity.
+
+ 4) Add a metro-level control.
+
+
+ 
+ Check variables available for the regression model.
 
 ```{r}
 
-# Check variables available for regression model
 colnames(d)
 
 ```
 
-  
+Select variables to predict MHV change. Compare the scatter plots of the variables.
+
 
 ```{r scatter plot 1}
 # Select predictors of change in MHV or mhv.growth
@@ -113,10 +138,13 @@ pairs(d1, panel = panel.cor, lower.panel = panel.smooth )
 
 ```
 
+Many scatter plots are clustered to one side, do not produce a linear path, or have outliers. These plots indicate that the data is skewed. 
+The data must be manipulated to create a model of better fit. 
+
+To do this, perform log transformations to get rid of varibale skew. Compare the scatter plots again. 
 
 
 ```{r scatter plot 2}
-# Perform log transformation to get rid of varibale skew.
 
 # reduce data density for visualization
 set.seed( 1234 )
@@ -137,11 +165,16 @@ pairs(d2, panel = panel.cor, lower.panel = panel.smooth )
 
 ```
 
+These scatter plots look a bit better. 
+
+Next, test for multicollinearity by running a regression model comparing selected variables. 
+*hinc00* and *p.col* were not selected due to their high correlation with *pov.rate* and *p.prof*.
+These variables measure similar outcomes and do not add any new information.
 
 
-```{r muticollinearity test 1}
+```{r muticollinearity test 1, results='asis'}
 
-# Test for multicollinearity
+# multicollinearity test 1
 
 m1 <- lm( mhv.growth ~  pov.rate, data=d_predict )
 m2 <- lm( mhv.growth ~  p.unemp, data=d_predict )
@@ -156,12 +189,16 @@ stargazer( m1, m2, m3, m4, m5,
 
 ```
 
+The coefficient for *p.unemp* drops significantly from m1 to m5. This indicates that the variable contains redundant
+information.
 
-```{r multicollinearity test 2}
-# Remove p.unemp and run the regression model again. 
+Remove *p.unemp* and run the regression model again.
 
+```{r multicollinearity test 2, results='asis'}
+# Create a new model with p.unemp removed.
 m6 <- lm( mhv.growth ~  pov.rate + p.white + p.prof, data=d_predict )
 
+# Run the regression model with m6 instead of m5 and do not include m2.
 stargazer( m1, m3, m4, m6,
            type=S_TYPE, digits=2,
            omit.stat = c("rsq","f") )
@@ -169,7 +206,11 @@ stargazer( m1, m3, m4, m6,
 
 ```
 
-```{r final regression model}
+Variables may produce different effects in different tracts. 
+Add a metro-level control to anchor the dependent variable (*mhv.growth*) and account for context.
+This will be the final data manipulation.
+
+```{r final regression model, results='asis'}
 # Add a metro-level control
 
 d_fixed <- 
@@ -204,13 +245,31 @@ stargazer( m1, m2, m3, m4,
 
 # Reflection
 
+The higher the poverty rate in a metro area, the more growth they will
+experience in median home value. Specifically, a 1% growth in poverty
+rate results in a 12.93% growth in median home value. This result makes
+the most sense based on what we know about gentrification. Median home
+value will grow at a quicker rate (or higher percentage) in a
+metropolitan area where the poverty rate was already high compared to a
+richer area.
 
-**The higher the poverty rate in a metro area, the more growth they will experience in median home value. Specifically, a 1% growth in poverty rate results in a 12.93% growth in median home value. This result makes the most sense based on what we know about gentrification. Median home value will grow at a quicker rate (or higher percentage) in a metropolitan area where the poverty rate was already high compared to a richer area.**
+The higher the percentage of whites in the population in 2000, the
+less growth in median home value a tract or metro area will experience.
+Specifically, a 1% increase in percent white results in a 14.82%
+decrease in median home value growth. However, upon adding the cbsa
+variable to create a metro-level fixed effect, the coefficient decreases
+immensely. This indicates that the percent of white in the population
+has different effects on median home value growth depending on the
+tract. This should be investigated further.
 
-**The higher the percentage of whites in the population in 2000, the less growth in median home value a tract or metro area will experience. Specifically, a 1% increase in percent white results in a 14.82% decrease in median home value growth. However, upon adding the cbsa variable to create a metro-level fixed effect, the coefficient decreases immensely. This indicates that the percent of white in the population has different effects on median home value growth depending on the tract. This should be investigated further.**
+The higher the percentage of professional employees in the population
+in 2000, the more growth they will experience in median home value.
+Specifically, a 1% increase in percent professional will result in a
+4.27% growth in median home value. This result makes less sense since it
+conceptually contradicts the trend seen with poverty rates. The increase
+in the coefficient in the fourth model is also concerning. This
+indicates some sort of difference in the effects of percent professional
+on mhv.growth in separate tracts.
 
-**The higher the percentage of professional employees in the population in 2000, the more growth they will experience in median home value. Specifically, a 1% increase in percent professional will result in a 4.27% growth in median home value. This result makes less sense since it conceptually contradicts the trend seen with poverty rates. The increase in the coefficient in the fourth model is also concerning. This indicates some sort of difference in the effects of percent professional on mhv.growth in separate tracts.**
-
-**It is also interesting to note that all the control variables selected are significant.**
-
-
+It is also interesting to note that all the control variables selected
+are significant.
