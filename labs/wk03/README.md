@@ -143,6 +143,14 @@ we will pick one city that we can use as examples in your report. we will create
 
 The lab from CPP 528 that covers creating Dorling cartograms is located [here](https://ds4ps.org/cpp-529-master/labs/lab-04-instructions.html)
 
+## Files overview
+**create_dorling_amp.R**: an R Markdown file to create the dorling cartogram used within the lab03-peck_final.Rmd file.
+
+**lab03-peck_final.Rmd**: An rmd file containing code to accomplish the overview. Functions and datasets used in the code are located in an R file ("analysis/utilities_master.R") which is loaded using the import::here() function.
+
+**lab03-peck_final.html**: a knitted html file of the Rmd file. 
+
+**sf_dorling.geojson**: a geojson file used to retrieve the dorling cartogram.
 
 ### Reference
 
