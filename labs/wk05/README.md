@@ -1,5 +1,17 @@
 
+# Overview
 In this lab, we added data from two tax incentive programs - the New Market Tax Credit and the Low Income Housing Tax Credit - to see whether the federal programs are having an impact on housing markets. The lab uses the city of San Francisco, CA as a reference point, utilizing the difference-in-difference model to analyze the impact (or lack thereof) of each program within the city of San Francisco.
+
+This last step in your project will walk you through adding data from two federal programs designed to help low-income communities.
+
+## Evaluating Program Impact
+The treatment in our evaluation is whether a tract received one of the large federal tax credit programs that are designed to crowd private capital into poor neighborhoods.
+
+We can think about the treatment in two ways: binary (were programs awarded to or located in a tract, or now?), or levels (was impact related to the amount of treatment they received?
+
+## Files
+**Lab-05-peck_final.rmd**: An rmd file with the steps used for evaluating program impact.
+**Lab-05-peck_final.html**: An html file knitted from the rmd file.
 
 ### References
 
