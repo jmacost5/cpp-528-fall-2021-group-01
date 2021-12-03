@@ -97,7 +97,7 @@ d <- filter( d, urban == "urban" )
 
 ### Identify Common Variables
 
-I have created a function to compare variables from two datasets:
+The vars function can be used to compare variables from two datasets:
 
 ``` r
 vars <- compare_dfs( df1=d1, df2=d2 )
@@ -2053,9 +2053,9 @@ How do changes in home value differ between the 1990-2000 period and
 
 *There is a notable difference in how home values changed during the two
 timeframes. In the first decade (1990 - 2010), home values actually
-decreased, although minimally (less than `$`5000 on average, when
+decreased, although minimally (less than $5000 on average, when
 accounting for inflation). In the second decade (2000 - 2010), home
-values increased by an average of `$`36,000. The changes in the 90’s
+values increased by an average of $36,000. The changes in the 90’s
 decade were more evenly distributed, whereas in the 2000’s the
 distribution was right-skewed, indicating more high-end outliers.*
 
@@ -3778,8 +3778,7 @@ largest gains occur in tracts with above or below-average home prices in
 ![](../assets/img/2021-11-01-ch02-descriptive_analysis_files/figure-gfm/unnamed-chunk-27-1.png)<!-- -->
 ![](../assets/img/2021-11-01-ch02-descriptive_analysis_files/figure-gfm/unnamed-chunk-27-2.png)<!-- -->
 
-*The largest changes occur in tracts with above-average home prices in
-1990. Tracts with below-average prices continued to drop while those
+*The largest changes occur in tracts with above-average home prices in 1990. Tracts with below-average prices continued to drop while those
 with higher prices increased.*
 
 ### Gentrification
@@ -3824,11 +3823,12 @@ my_colors <- my_colors[as.numeric(class_of_city)]
 
 # Plot to view, can change bg color code: https://txwes.libguides.com/c.php?g=978475&p=7075536
 plot(sf.sp, col=my_colors ,  bg = "#FFFFFF")
+zm()
 ```
 
 ![](../assets/img/2021-11-01-ch02-descriptive_analysis_files/figure-gfm/unnamed-chunk-29-1.png)<!-- -->
 
 The tracts with the highest percentage growth between 1990 and 2000, as
-seen by the darkest colors (the brown and orange tracts) are right in
+seen by the darkest colors (the brown and orange tracts), are right in
 the heart of San Francisco close to what is known as the financial
 district, and Chinatown.
