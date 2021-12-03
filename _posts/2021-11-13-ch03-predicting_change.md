@@ -5,8 +5,8 @@ subtitle: "Creating a Hedonic Pricing Model to predict neighborhood change."
 
 In this chapter, control variables will be selected to create a regression model using median home value (MHV) growth as a dependent variable. 
 The reason for choosing MHV growth is explained in our [Lab 04 Lecture](https://watts-college.github.io/cpp-528-fall-2021/sched/week-04/);
-
-    *The main insight is that home price is a variable that aggregates a tremendous amount of information about characteristics of houses, neighborhoods, and cities. We can use regression to separate out these difference attributes at different levels, and see they each contributes to the market value of a home.*
+     *The main insight is that home price is a variable that aggregates a tremendous amount of information about characteristics of houses, neighborhoods, and cities. We can 
+     use regression to separate out these difference attributes at different levels, and see they each contributes to the market value of a home.*
    
 
 ``` r
