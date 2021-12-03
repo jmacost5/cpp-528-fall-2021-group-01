@@ -6,9 +6,6 @@
 #
 
 
-# Set stargazer type
-s.type <- "html"
-
 # Lab 02 Functions--------------------------------------------------------------
 
 # create function to return current date info 
@@ -343,7 +340,8 @@ sf.pop <-
 # load necessary constants ----
 
 # stargazer settings
-S_TYPE <- "text"
+
+S_TYPE <- "html"
 
 # inflation rate
 INFLATION_RATE <- 1.28855 
