@@ -133,15 +133,6 @@ sudo gem install jekyll bundler
 ```
 
 
-
-#### Install all packages used in the report using renv Package .
-
-```
-### to download the specific versions of the packages used in your project run below chunk :
-
-renv::restore()  
-
-```
 ## Installing Requierd Pacakges 
 
  ```Pacakges
@@ -180,6 +171,16 @@ install.packages( tidyverse)      # tidyverse makes data science faster, easier 
 install.packages( gtools)         # developing, updating, and maintaining R and R packages
 install.packages( maptools )      # spatial object manipulation 
 ```
+
+### Install all packages used in the report using renv Package .
+
+```
+### to download the specific versions of the packages used in your project run below chunk :
+
+renv::restore()  
+
+```
+
 
 ## References 
 
