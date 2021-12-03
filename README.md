@@ -132,10 +132,12 @@ brew install ruby@2.7
 sudo gem install jekyll bundler
 ```
 
-### Install all packages used in the report using renv Package 
+
+
+#### Install all packages used in the report using renv Package .
 
 ```
-### to download the specific versions of the packages used in your project
+### to download the specific versions of the packages used in your project run below chunk :
 
 renv::restore()  
 
