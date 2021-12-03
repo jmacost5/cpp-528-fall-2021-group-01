@@ -152,7 +152,11 @@ sudo gem install jekyll bundler
 
 ## Installing Required Pacakges 
 
-To install the specific versions of the packages used in this project use the `renv::restore()' funtion.
+To install the specific versions of the packages used in this project use the renv::restore() function.
+
+```
+renv::restore()
+```
 
 Alternatively, copy the following code which lists all of the packages necessary for this project.
 
