@@ -152,7 +152,8 @@ sudo gem install jekyll bundler
 
 ## Installing Required Pacakges 
 
-To install the specific versions of the packages used in this project use the renv::restore() function.
+
+This repository contains a `renv.lock` file that stores packages and their dependencies. To install the specific versions of the packages stored in that file, use the renv::restore() function.
 
 ```
 renv::restore()
