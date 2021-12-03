@@ -61,7 +61,7 @@ head(cbsa_stats_df) %>% pander()
 ```
 
 
-```{r}
+```{r, results='asis'}
 
 stargazer( df, 
            type=S_TYPE, 
@@ -137,7 +137,7 @@ pairs(d2, panel = panel.cor, lower.panel = panel.smooth )
 
 
 
-```{r muticollinearity test 1}
+```{r muticollinearity test 1, results='asis'}
 
 # Test for multicollinearity
 
@@ -155,7 +155,7 @@ stargazer( m1, m2, m3, m4, m5,
 ```
 
 
-```{r multicollinearity test 2}
+```{r multicollinearity test 2, results='asis'}
 # Remove p.unemp and run the regression model again. 
 
 m6 <- lm( mhv.growth ~  pov.rate + p.white + p.prof, data=d_predict )
@@ -167,7 +167,7 @@ stargazer( m1, m3, m4, m6,
 
 ```
 
-```{r final regression model}
+```{r final regression model, results='asis'}
 # Add a metro-level control
 
 d_fixed <- 
