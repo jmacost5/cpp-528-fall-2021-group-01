@@ -1,14 +1,16 @@
---- 
-Title: Data Manifest
-Subtitle: "Functions and data steps used in analysis. Taken from *utilities_master.R*"
---
+---
+title: Data Manifest
+subtitle: "Functions and data steps used in analysis. Taken from *utilities_master.R*"
+---
 
+```
 # Set stargazer type
 s.type <- "html"
+```
 
 # Lab 02 Functions--------------------------------------------------------------
 
-# create function ----
+## Create example function
 ```
 today <- function() {
 
@@ -21,7 +23,7 @@ today <- function() {
 ```
 
 
-# Function One---
+## Function One
 
 This function filters the data by categories.
 
@@ -38,7 +40,7 @@ cat_filter <- function(data , search.cat ){
 }
 ```
 
-# Function Two---
+## Function Two
 
 Function that searches variable descriptions for a specific string and returns any variables that match. For example, if I searched for "income" I would want variables like median household income and per capita income.
 
@@ -50,7 +52,7 @@ search_description <- function(data , keywords) {
 }
 ```
 
-# Function Three---
+## Function Three
 
 Function to filter variables by time periods. Specifically, the user will specify the time periods of interest for the study and the function will identify all variables that have measures for those periods. 
 
@@ -226,7 +228,7 @@ extract_metadata <- function( file.name )
 
 ```
 
-# Make final metadata file.
+## Make final metadata file.
 
 ```
 create_final_metadata_file = function(file_names, crosswalk) {
@@ -297,7 +299,7 @@ compare_dfs <- function( df1, df2 )
 }
 ```
 
-# Function to control plot() formatting 
+## Function to control plot() formatting 
 
 ```
 jplot <- function( x1, x2, lab1="", lab2="", draw.line=T, ... )
@@ -319,7 +321,7 @@ jplot <- function( x1, x2, lab1="", lab2="", draw.line=T, ... )
 }
 ```
 
-# Wrangle data to create shapefile for chloropleth map
+## Wrangle data to create shapefile for chloropleth map
 
 ```
 # load data
@@ -347,18 +349,22 @@ sf.pop <-
 
 # Lab 04 Functions--------------------------------------------------------------
 
-# load necessary packages ----
+```
+# load necessary packages 
 `%>%` <- magrittr::`%>%`
+```
 
-# load necessary constants ----
+```
+# load necessary constants 
 
 # stargazer settings
 S_TYPE <- "text"
 
 # inflation rate
 INFLATION_RATE <- 1.28855 
+```
 
-# Load custom functions ----
+## Load custom functions
 
 ```
 # Helper functions for the **pairs()** correlation table 
@@ -413,7 +419,7 @@ jplot <- function( x1, x2, lab1="", lab2="", draw.line=T, ... )
 }
 ```
 
-# Load necessary data ---
+## Load necessary data
 
 ```
 # remember to use the here::here() function
@@ -428,7 +434,7 @@ d <- merge( d1, d2, by="tractid" )
 d <- merge( d, md, by="tractid" )
 ```
 
-# Clean data---
+## Clean data
 
 ```
 # filter rural districts
@@ -458,7 +464,7 @@ d$mhv.change <- mhv.change
 d$mhv.growth <- mhv.growth 
 ```
 
-## Create data sets
+### Create data sets
 
 ```
 d.full <- d
@@ -513,7 +519,7 @@ cbsa_stats_df <-
 
 # Lab 05 Functions--------------------------------------------------------------
 
-# Load Data---
+## Load Data
 
 ```
 # obtain NMTC data
@@ -528,9 +534,9 @@ lihtc <- read.csv( LIHTC_URL, stringsAsFactors=F )
 d.lab05 <- d.full
 ```
 
-# Create the Difference In Difference dataset---
+## Create the Difference In Difference dataset
 
-## Create a key that will allow us to obtain federal data for each tract 
+### Create a key that will allow us to obtain federal data for each tract 
 ```
 # remove anything not a number from the string
 d.lab05$id2 <- gsub( "[^0-9]", "", d.lab05$tractid )
@@ -539,7 +545,7 @@ d.lab05$id2 <- gsub( "[^0-9]", "", d.lab05$tractid )
 d.lab05$id2 <- as.numeric( d.lab05$id2 )
 ```
 
-## Aggregate federal programs such that there is one record per tract 
+### Aggregate federal programs such that there is one record per tract 
 
 ```
 lihtc.dollars <-
@@ -559,13 +565,13 @@ nmtc.dollars <-
   dplyr::summarize( num.nmtc = dplyr::n(), nmtc.total = sum( amount, na.rm=T ) )
 ```
 
-## Merge federal data onto census tracts
+### Merge federal data onto census tracts
 ```
 d.lab05 <- merge( d.lab05, nmtc.dollars, by.x="id2", by.y="X2010.Census.Tract", all.x=T )
 d.lab05 <- merge( d.lab05, lihtc.dollars, by.x="id2", by.y="fips2010", all.x=T )
 ```
 
-More cleaning
+#### More cleaning
 
 ```
 # recode tracts that had no grants from NA to 0
@@ -604,7 +610,7 @@ d.lab05$mhv.growth <- mhv.growth
 d.lab05.full <- d.lab05
 ```
 
-## Select a few variables 
+### Select a few variables 
 
 ```
 d.lab05 <- dplyr::select( d.lab05.full, 
@@ -631,7 +637,7 @@ d.lab05 <- dplyr::select( d.lab05.full,
 ) # end select
 ```
 
-## Add control variables
+### Add control variables
 
 ```
 d.lab05 <- 
@@ -652,7 +658,7 @@ d.lab05 <-
   na.omit(use = "everything")
 ```
 
-## Create new variables by cbsa
+### Create new variables by cbsa
 
 ```
 d.lab05 <-
@@ -686,7 +692,7 @@ d.lab05 <-
 
 ```
 
-More cleaning
+#### More cleaning
 
 ```
 # inflation adjust income  
@@ -702,7 +708,7 @@ d.lab05$growth <- d.lab05$mhv.growth
 d.lab05$growth[ d.lab05$growth > 200 ] <- NA
 ```
 
-## Store plots in a list for easy access 
+### Store plots in a list for easy access 
 
 ```
 PLOTS <-
@@ -734,7 +740,7 @@ PLOTS <-
   )
 ```
 
-# Prepare NMTC data
+## Prepare NMTC data
 
 ```
 # log the variables
@@ -759,7 +765,7 @@ d2 <- data.frame( y=y2, treat=nmtc.treat, post=1 )
 d3 <- rbind( d1, d2 )
 ```
 
-# Controls 
+### Controls 
 
 ```
 #p.vac
@@ -788,7 +794,7 @@ d0 <- d0 %>% tidyr::gather(key = "variable-name", value = "p.unemp")
 d3$p.unemp <- d0$p.unemp
 ```
 
-# Prepare LIHTC data
+## Prepare LIHTC data
 
 ```
 # create a variable that identifies if a tract received LIHTC funding
@@ -804,7 +810,7 @@ l3 <- rbind( l1, l2 )
 
 ```
 
-# Controls 
+### Controls 
 
 ```
 #p.vac
