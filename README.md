@@ -14,9 +14,9 @@ April Peck: https://github.com/AprilPeck
 
 ## Overview Of Project for Change in the Neighborhood
 
-This project uses census data to analyze program effectiveness. We'll conduct a thorough evaluation of the program's effectiveness. We'll look at whether two huge government initiatives aimed at revitalizing blighted areas in American cities have been effective.
+This project uses census data to analyze program effectiveness. A thorough evaluation of program effectiveness is conducted by analyzing the impact of two U.S. tax credit programs.
 
-The majority of the parts are devoted to explaining our approach to the audience and guiding them through the results generation process. This project is more similar a code-through than the final report since the style of the chapters are instructive. All chapters can be found in the [Table of Contents](https://r-class.github.io/cpp-528-fall-2021-group-01/) on the project website. These chapters erve the purpose of making the technique as visible as possible, as well as to make it simple for others to replicate and extend the work.
+The majority of this project is devoted explaining our approach to the audience and guiding them through the results generation process. This project is more similar a code-through than a final report since the style of the chapters are instructive. All chapters can be found in the [Table of Contents](https://r-class.github.io/cpp-528-fall-2021-group-01/) on the project website. These chapters serve the purpose of making the technique as visible as possible, as well as to make it simple for others to replicate and extend the work.
 
 Steps for this project include gathering the data needed for the research, running various models, and writing a final report outlining our findings on the impact of two programs: NMTC and LIHTC. We'll look at general patterns in neighborhood transformation from 2000 to 2010, then see if the communities targeted by the programs have had any greater success than they would have had without government subsidies.
 
@@ -39,15 +39,17 @@ The Low-Income Housing Tax Credit (LIHTC) is the most important resource for cre
   - Results and Conclusion
 
 
-#### Source of truth for data cleaning:
+#### Data Sources:
 
-Data Files is used in this Project can be found below links to be downloaded and exctracted :
+Data files used in this project were taken from the following resources:
 
 [Harmonized Census Data Part-01](https://watts-college.github.io/cpp-528-fall-2021/data/LTDB_Std_All_Sample.zip)
 
 [Harmonized Census Data Part-02](https://watts-college.github.io/cpp-528-fall-2021/data/LTDB_Std_All_fullcount.zip)
 
 [Codebook](https://watts-college.github.io/cpp-528-fall-2021/data/LTDB-codebook.pdf)
+
+Orginal and manuipulated data files are located in the `data` folder.
 
 
 ### Overview Of Project Code
