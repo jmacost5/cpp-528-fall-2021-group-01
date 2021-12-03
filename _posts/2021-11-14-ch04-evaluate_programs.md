@@ -1846,18 +1846,18 @@ houses in the control group.
 
 ## References
 
-- HUD User Datasets , "LOW-INCOME HOUSING TAX CREDIT (LIHTC)" , 2018 , Web. 15 November 2021. Available from "https://www.huduser.gov/portal/datasets/lihtc.html"
-
-- OFFICE OF POLICY DEVELOPMENT AND RESEARCH (PD&R), "Income limit information for LIHTC projects" , April 1, 2021  , Web. 15 November 2021. Available from "https://www.huduser.gov/portal/datasets/il.html#2021_faq"
-
 - Community Development Financial Institutions Fund, "New Markets Tax Credit (NMTC) Public Data Release", November 2019. Available from "https://github.com/DS4PS/cpp-528-spr-2020/blob/master/labs/data/raw/NMTC/2019%20NMTC%20Public%20Data%20Release_FY_17-comments%20incorporated_BL%20Edits%20incorporated_Final.pdf"
 
 - Community Develoopment Financial Institutions Fund, "New Markets Tax Credit Program", 2021, available from https://www.cdfifund.gov/programs-training/programs/new-markets-tax-credit
+
+- HUD User Datasets , "LOW-INCOME HOUSING TAX CREDIT (LIHTC)" , 2018 , Web. 15 November 2021. Available from "https://www.huduser.gov/portal/datasets/lihtc.html"
 
 - National Housing Law Project, "How the LIGHTS program works", 7 September 2017. Available from "https://www.nhlp.org/resources/how-the-lihtc-program-works/"
 
 - National Housing Law Project, "Low-income Housing Tax Credits", 2022. Available from "https://www.nhlp.org/resource-center/low-income-housing-tax-credits/" 
 
 - Novocradac , "Affordable Housing Resource Center" , 1993 , Web. 16 November 2021, Available from "https://www.novoco.com/resource-centers/affordable-housing-tax-credits/lihtc-basics/about-lihtc"
+
+- OFFICE OF POLICY DEVELOPMENT AND RESEARCH (PD&R), "Income limit information for LIHTC projects" , April 1, 2021  , Web. 15 November 2021. Available from "https://www.huduser.gov/portal/datasets/il.html#2021_faq"
 
 - Watts-College , "Tutorial on Adding Federal Program Data" , October 29, 2021 , Web. 16 November 2021. Available from "https://watts-college.github.io/cpp-528-fall-2021/labs/lab-05-tutorial.html"
