@@ -34,7 +34,7 @@ library( zoom )
 s.type <- "html"
 ```
 
-The following steps were used to load the data used in this page:
+The following steps were used to load the data and custom functions used in this page:
 
 ``` r
 # load function source files
