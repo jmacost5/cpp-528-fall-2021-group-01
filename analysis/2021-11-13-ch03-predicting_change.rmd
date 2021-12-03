@@ -11,7 +11,7 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-```{r load packages, message=FALSE, warning=FALSE}
+```{r load packages, warning=FALSE, message=FALSE}
 
 # load necessary packages ----
 library( dplyr )
