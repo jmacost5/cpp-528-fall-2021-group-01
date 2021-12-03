@@ -2575,8 +2575,13 @@ It is also interesting to note that all the control variables selected
 are significant.
 
 
-### Citations
+## References
 
-(https://watts-college.github.io/cpp-528-fall-2021/sched/week-04/)
+- Monson, Matt, Cornell MBA and PRE . "Valuation Using Hedonic Pricing Models" , 2009,.Web. 7 November 2021. [PDF file]. Available from "https://watts-college.github.io/cpp-528-fall-2021/articles/home-value-change/valuation-using-hedonic-pricing.pdf"
 
-(https://watts-college.github.io/cpp-528-fall-2021/labs/lab-04-tutorial.html)
+- "Hedonic Pricing Method" , 1/1/2015  , Web. 7 November 2021. [PDF file]. Available from "https://watts-college.github.io/cpp-528-fall-2021/articles/home-value-change/hedonic-pricing-method.pdf"
+
+- Tutorial on Predicting Mhv Change. (November 6, 2021). Reading. Retrieved November 2021, from "https://watts-college.github.io/cpp-528-fall-2021/labs/lab-04-tutorial.html"
+
+- Stowers, C. (n.d.). Hedonic pricing models. Watts. Retrieved November 2021, from "https://watts-college.github.io/cpp-528-fall-2021/sched/week-04/"
+
