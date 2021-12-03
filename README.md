@@ -28,9 +28,11 @@ The New Market Tax Credit (NMTC) is a type of tax credit aimed to spur economic 
 
 The Low-Income Housing Tax Credit (LIHTC) is the most important resource for creating affordable housing in the United States today. The program provides tax credits to developers based on an application process and goals laid out in the qualified action plan. Developers agree to rent the units at below-market rates.
 
-**Research Question:  Has each government program been successful in assisting troubled towns with economic development?**
+### Research Question:  
 
-**This project includes the following chapters:**
+**Has each government program been successful in assisting troubled towns with economic development?**
+
+### Project Chapters
 
   - Data Management - Metrics of Neighborhood Change
   - Descriptive Analysis of Neighborhood Change
@@ -39,7 +41,7 @@ The Low-Income Housing Tax Credit (LIHTC) is the most important resource for cre
   - Results and Conclusion
 
 
-#### Data Sources:
+### Data Sources:
 
 Data files used in this project were taken from the following resources:
 
@@ -49,7 +51,7 @@ Data files used in this project were taken from the following resources:
 
 [Codebook](https://watts-college.github.io/cpp-528-fall-2021/data/LTDB-codebook.pdf)
 
-Orginal and manuipulated data files are located in the `data` folder.
+Orginal and manipulated data files are located in the `data` folder.
 
 
 ### Overview Of Project Code
@@ -81,7 +83,7 @@ import::here("S_TYPE",
              .character_only = TRUE)
 ```
 
-**Data Cleaning Steps:** 
+## Data Cleaning Steps: 
 
 - Inspecting Data : Missing value codes were removed to avoid problems.
 
