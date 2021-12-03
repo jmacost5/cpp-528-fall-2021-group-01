@@ -545,7 +545,7 @@ d.lab05$id2 <- gsub( "[^0-9]", "", d.lab05$tractid )
 d.lab05$id2 <- as.numeric( d.lab05$id2 )
 ```
 
-# Aggregate federal programs such that there is one record per tract 
+### Aggregate federal programs such that there is one record per tract 
 
 ```
 lihtc.dollars <-
