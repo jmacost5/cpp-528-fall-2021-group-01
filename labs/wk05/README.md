@@ -1,4 +1,5 @@
 
+In this lab, we added data from two tax incentive programs - the New Market Tax Credit and the Low Income Housing Tax Credit - to see whether the federal programs are having an impact on housing markets. The lab uses the city of San Francisco, CA as a reference point, utilizing the difference-in-difference model to analyze the impact (or lack thereof) of each program within the city of San Francisco.
 
 ### References
 
