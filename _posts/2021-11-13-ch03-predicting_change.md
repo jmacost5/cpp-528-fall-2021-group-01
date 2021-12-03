@@ -36,7 +36,7 @@ import::here("S_TYPE",
 
 Preview the data sets (**d**, **df**, and **cbsa_stats_df**).
 
-**d** contains select variables from the census tract data. The data set was cleaned and created in the **utilities_master.R file**. 
+**d** contains select variables from the census tract data. The data set was cleaned and created in the `utilities_master.R file`. 
 
 ``` r
 head(d) %>% pander()
@@ -301,10 +301,10 @@ pairs(d1, panel = panel.cor, lower.panel = panel.smooth )
 
 ![](../assets/img/2021-11-13-ch03-predicting_change_files/figure-gfm/scatter%20plot%201-1.png)<!-- -->
 
-There is skew . . .
+Many scatter plots are clustered to one side, do not produce a linear path, or have outliers. These plots indicate that the data is skewed. 
+The data must be manipulated to create a model of better fit. 
 
-
-Perform log transformations to get rid of varibale skew. Compare the scatter plots again. 
+To do this, perform log transformations to get rid of varibale skew. Compare the scatter plots again. 
 
 ``` r
 
@@ -330,9 +330,12 @@ pairs(d2, panel = panel.cor, lower.panel = panel.smooth )
 
 These scatter plots look a bit better. 
 
-Next, test for multicollinearity by running a regression model comparing selected variables. (mention why hinc00 and p.col were not selected)
+Next, test for multicollinearity by running a regression model comparing selected variables. 
+*hinc00* and *p.col* were not selected due to their high correlation with *pov.rate* and *p.prof*.
+These variables measure similar outcomes and do not add any new information.
 
 ``` r
+# multicollinearity test 1
 m1 <- lm( mhv.growth ~  pov.rate, data=d_predict )
 m2 <- lm( mhv.growth ~  p.unemp, data=d_predict )
 m3 <- lm( mhv.growth ~  p.white, data=d_predict )
@@ -374,7 +377,9 @@ stargazer( m1, m2, m3, m4, m5,
     ## Note:                                                                                  *p<0.1; **p<0.05; ***p<0.01
 
 
-The coefficient for *p.unemp* drops significantly from m1 to m5. This indicates that (quote from lab instructions?). 
+The coefficient for *p.unemp* drops significantly from m1 to m5. This indicates that the variable contains redundant
+information.
+
 Remove *p.unemp* and run the regression model again.
 
 ``` r
@@ -414,7 +419,9 @@ stargazer( m1, m3, m4, m6,
     ## Note:                                                               *p<0.1; **p<0.05; ***p<0.01
 
 
-Now, add a metro-level control to (quote lab instructions)
+Variables may produce different effects in different tracts. 
+Add a metro-level control to anchor the dependent variable (*mhv.growth*) and account for context.
+This will be the final data manipulation.
 
 
 ``` r
