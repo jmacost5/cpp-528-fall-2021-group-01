@@ -1,6 +1,16 @@
-# CPP 528 Template
+# CPP 528 Group 1 
 
-Template GitHub repo for CPP 528.
+This repository was created by Group 1 for the 2021 CPP 528 Project Management class.
+
+## Contributing Authors and Contact Information:
+
+Alez Yildiz: 
+
+Erin McIntyre:
+
+Ahmed Rashwan:
+
+April Peck: 
 
 ## Overview Of Project for Change in the Neighborhood
 
