@@ -1,4 +1,4 @@
-# CPP 528 Group 1 
+# CPP 528 Group 1 Project
 
 This repository was created by Group 1 for the 2021 CPP 528 Project Management class.
 
@@ -14,31 +14,32 @@ April Peck: https://github.com/AprilPeck
 
 ## Overview Of Project for Change in the Neighborhood
 
-We'll conduct a thorough evaluation of the program's effectiveness. We'll look at whether two huge government initiatives aimed at revitalizing blighted areas in American cities have been effective.
+This project uses census data to analyze program effectiveness. We'll conduct a thorough evaluation of the program's effectiveness. We'll look at whether two huge government initiatives aimed at revitalizing blighted areas in American cities have been effective.
 
-The majority of the parts will be devoted to explaining the approach to the audience and guiding them through the results generation process. The style of these chapters will be more instructive or code-through than the final report. The purpose of those parts is to make the technique as visible as feasible, as well as to make it simple for others to replicate and extend the work.
+The majority of the parts are devoted to explaining our approach to the audience and guiding them through the results generation process. This project is more similar a code-through than the final report since the style of the chapters are instructive. All chapters can be found in the [Table of Contents](https://r-class.github.io/cpp-528-fall-2021-group-01/) on the project website. These chapters erve the purpose of making the technique as visible as possible, as well as to make it simple for others to replicate and extend the work.
 
-We'll gather the data needed for the research, run various models, and write a final report outlining our findings on the impact of two programs, We'll look at general patterns in neighborhood transformation from 2000 to 2010, then see if the communities targeted by the programs have had any greater success than they would have had without the billions in government subsidies.
+Steps for this project include gathering the data needed for the research, running various models, and writing a final report outlining our findings on the impact of two programs: NMTC and LIHTC. We'll look at general patterns in neighborhood transformation from 2000 to 2010, then see if the communities targeted by the programs have had any greater success than they would have had without government subsidies.
 
-**Low-Income Housing Tax Credits (Program 1)**
+**Tax Credits for New Markets (Program 1)**
 
-Low-income housing tax credits (LIHTC) are one of the most common policy tools used in the United States to encourage the building of new affordable housing units.
+The New Market Tax Credit (NMTC) is a type of tax credit aimed to spur economic development in underserved areas by encouraging private-sector investment. The NMTC Program enables economically distressed communities to leverage private investment capital by providing investors with a federal tax credit. All NMTC investments must meet statutory qualifications for their investors to be able to claim the tax credit.
 
-**Tax Credits for New Markets (Program 2)**
+**Low-Income Housing Tax Credits (Program 2)**
 
-New Market Tax Credits (NMTC) are a type of tax credit aimed to spur economic development in underserved areas by encouraging private-sector investment.
+The Low-Income Housing Tax Credit (LIHTC) is the most important resource for creating affordable housing in the United States today. The program provides tax credits to developers based on an application process and goals laid out in the qualified action plan. Developers agree to rent the units at below-market rates.
 
-**This Project will help to Answer this Research Question:  Has each government program been successful in assisting troubled towns with economic development?**
+**Research Question:  Has each government program been successful in assisting troubled towns with economic development?**
 
-**This Project will Present the following chapters :**
+**This project includes the following chapters:**
 
-- Descriptive analysis of neighborhood change
-- Predicting median home value change, 2000 to 2010
-- Adding federal program data to your predictive models
-- Test reproducible work flow with a parameter change
+  - Data Management - Metrics of Neighborhood Change
+  - Descriptive Analysis of Neighborhood Change
+  - Predicting Median Home Value Change
+  - Evaluation of Tax Credits
+  - Results and Conclusion
 
 
-#### Source of truth for your data cleaning:
+#### Source of truth for data cleaning:
 
 Data Files is used in this Project can be found below links to be downloaded and exctracted :
 
@@ -78,15 +79,17 @@ import::here("S_TYPE",
              .character_only = TRUE)
 ```
 
-**Important Data Cleaning Steps we need follow :** 
+**Data Cleaning Steps:** 
 
-- Inspecting Data : To Avoid problems with missing data coded will need to make sure to remove missing value codes, which will cause issues with any analysis .
+- Inspecting Data : Missing value codes were removed to avoid problems.
 
-- Tidy Up Dataframes : We'd want to standardize datasets across all years so that they're all clean, have the same structure, and use the same variable names.
+- Tidy Up Dataframes : Datasets were standardized across all years to ensure they are all clean, have the same structure, and use the same variable names.
 
-- Creating Meta-Data Table : Each file has redundant meta-data in it. We can eliminate it to make merges easier, and we can combine all of the meta-data (county and census tract information) into a single file for convenience.
+- Creating Meta-Data Table : Each file has redundant meta-data in it. Redundant data was eliminated and all meta-data (county and census tract information) was combined into a single file for convenience.
 
-- You can find more about [Data Steps Requierd](https://watts-college.github.io/cpp-528-fall-2021/labs/PROJECT-DATA-STEPS.html) Or Find Project [Utilities Master File](https://github.com/R-Class/cpp-528-fall-2021-group-01/blob/main/analysis/utilities_master.R) to load necessary Functions used thorough this project 
+Some data cleaning instructions provided by course instructors can be found here: [Data Steps](https://watts-college.github.io/cpp-528-fall-2021/labs/PROJECT-DATA-STEPS.html) 
+
+All data cleaning steps and functions used for the project are stored in the [Utilities Master File](https://github.com/R-Class/cpp-528-fall-2021-group-01/blob/main/analysis/utilities_master.R).
 
 
 #### Reading Data As RDS Format 
@@ -143,7 +146,12 @@ sudo gem install jekyll bundler
 ```
 
 
-## Installing Requierd Pacakges 
+## Installing Required Pacakges 
+
+To install the specific versions of the packages used in this project use the `renv::restore()' funtion.
+
+Alternatively, copy the following code which lists all of the packages necessary for this project.
+
 
  ```Pacakges
 # Data wrangling 
@@ -180,15 +188,6 @@ install.packages( cartogram )     # spatial maps w/ tract size bias reduction
 install.packages( tidyverse)      # tidyverse makes data science faster, easier and more fun with
 install.packages( gtools)         # developing, updating, and maintaining R and R packages
 install.packages( maptools )      # spatial object manipulation 
-```
-
-#### Install all packages used in the report using renv Package .
-
-```
-### to download the specific versions of the packages used in your project run below chunk :
-
-renv::restore()  
-
 ```
 
 
