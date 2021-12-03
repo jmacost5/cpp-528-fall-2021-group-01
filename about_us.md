@@ -9,6 +9,7 @@ team:
   - name: Erin McIntyre
     img: ../assets/img/about/erin_about_img.jpg
     desc: Erin has a BS in Psychology and will graduate with her MS in Program               Evaluation and Data Analytics December 2021. She is passionate about               research design, musical theatre, and teaching. 
+    github: https://github.com/ekmcintyre
   - name: Ahmed Rashwan
     img: ../assets/img/about/Ahmeds.jpeg
     desc: Graduate Of Software Engineering, Enrolled to masters of data analytics            program at ASU   
