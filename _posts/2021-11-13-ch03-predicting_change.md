@@ -521,7 +521,11 @@ predict MHV change. The code below will review the following steps:
 
 4)  Add a metro-level control.
 
-Check variables available for the regression model.
+For more information on the reasoning behind these data steps, visit 
+the [Lab 04 Tutorial](https://watts-college.github.io/cpp-528-fall-2021/labs/lab-04-tutorial.html).
+
+
+First, check variables available for the regression model.
 
 ``` r
 # Check variables available for regression model
