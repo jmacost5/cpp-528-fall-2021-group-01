@@ -1,3 +1,4 @@
+This lab focuses on utilizing a source file for data processing steps. We created a single source file for lab 04 and lab 05 which loads and wrangles the data to be used in each lab. Since we used Erin's lab 04 and April's lab 05, we kept all files for both members. For the final lab 04 and lab 05 files, we used the utilities_master file in the analysis folder to load and wrangle the data.
 
 ### References
 
