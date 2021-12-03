@@ -3,10 +3,6 @@ title: Data Manifest
 subtitle: "Functions and data steps used in analysis. Taken from *utilities_master.R*"
 ---
 
-```
-# Set stargazer type
-s.type <- "html"
-```
 
 # Lab 02 Functions--------------------------------------------------------------
 
@@ -358,7 +354,8 @@ sf.pop <-
 # load necessary constants 
 
 # stargazer settings
-S_TYPE <- "text"
+
+S_TYPE <- "html"
 
 # inflation rate
 INFLATION_RATE <- 1.28855 
