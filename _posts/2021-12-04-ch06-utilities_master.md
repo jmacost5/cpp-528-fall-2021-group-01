@@ -1,9 +1,7 @@
-#
-# Author:   Cristian Nuno
-# Maintainers: April Peck, Ahmed Rashwan, Erin McIntyre, Alev Yildiz
-# Date:     March 14, 2021
-# Purpose:  Create a function that will be sourced within another file
-#
+--- 
+Title: Data Manifest
+Subtitle: "Functions and data steps used in analysis. Taken from *utilities_master.R*"
+--
 
 # Set stargazer type
 s.type <- "html"
@@ -11,51 +9,52 @@ s.type <- "html"
 # Lab 02 Functions--------------------------------------------------------------
 
 # create function ----
+```
 today <- function() {
+
   # store today's date
   today_date <- format(Sys.time(), '%B %d, %Y')
+  
   # return today's date back to Global Environment
   return(today_date)
 }
+```
 
 
-# ONE: Filter variables by theme or group. Write a function that takes as an argument one or more 
-# of the groups that you just created in the concordance file under the “category” field and returns 
-# all of the variables associated with that group.
+# Function One---
 
-# filter data by category ----
+This function filters the data by categories.
+
+```
+# will need to load (tidyverse) library 
+# search.cat will work in combination of multiple search terms 
+# search.cat <- c("first search term" ,"second search term" , "third search term" )
+# example = search.cat <- c("family" , "nationality")
 
 cat_filter <- function(data , search.cat ){
   cat_filter <- data%>%
     filter(category == search.cat )
+  return(cat_filter)
 }
+```
 
-# TWO: Create a function that searches variable descriptions for a specific string and returns 
-# any variables that match. For example, if I searched for “income” I would want variables like 
-# median household income and per capita income.
+# Function Two---
 
-# search for data with keyword ----
+Function that searches variable descriptions for a specific string and returns any variables that match. For example, if I searched for "income" I would want variables like median household income and per capita income.
 
+```
 search_description <- function(data , keywords) {
   search_description <- grepl(keywords , data$definition , ignore.case =T )
+  search.keywords <- data[search_description , c("root", "category" ,"definition" )]
+  return(search.keywords)
 }
+```
 
+# Function Three---
 
-# THREE: Create a function to filter variables by time periods. Specifically, the user will 
-# specify the time periods of interest for the study and the function will identify all variables 
-# that have measures for those periods. For example, I if I want to use the data for a study that 
-# covers 1990, 2000, and 2010 which variables are available for all three periods?
+Function to filter variables by time periods. Specifically, the user will specify the time periods of interest for the study and the function will identify all variables that have measures for those periods. 
 
-# Note that column names contain the time periods, so similar to the previous function you can use 
-# grepl() to identify all columns that meet your critera. Once you have selected the appropriate columns 
-# you need to write a logical statement that checks variable availability for each year. We do not care 
-# whether the measure comes from the full Census, the long form sample, or the ACS as long as at least 
-# one measure is availabe for each of the specified time periods.
-
-# Return a table with all of the variables that meet the criteria.
-
-# search by year(s) ----
-
+```
 search_years <- function(data, years)
 {
   
@@ -80,7 +79,7 @@ search_years <- function(data, years)
   
   # select data to keep
   df.years <- data %>%
-  select(root, root2, category, definition, contains(years))
+    select(root, root2, category, definition, contains(years))
   
   #subset data to keep root, root2, and the columns that contain the names of our time period
   #data_cleaned <- data[, c(grepl( paste( c( time.periods, columns), collapse = "|"), colnames(data) )) ]
@@ -118,15 +117,12 @@ search_years <- function(data, years)
   
   return(data_final)
   
-  
 }
-# End of Lab 02 Functions--------------------------------------------------------------
-
-# End of Lab 02 Functions--------------------------------------------------------------
-
+```
 
 # Lab 03 Functions--------------------------------------------------------------
 
+```
 build_year <- function( fn1, fn2, year )
 {
   
@@ -144,8 +140,9 @@ build_year <- function( fn1, fn2, year )
   saveRDS( d3, here::here( file.name ) )
   
 }
+```
 
-
+```
 # store relevant raw data files
 relevant_files = list.files(here::here("data/raw"), pattern = "(s|S)td.*.csv")
 
@@ -173,8 +170,9 @@ for (year in YEARS) {
     "sample" = sample_file
   )
 }
+```
 
-
+```
 obtain_crosswalk = function() {
   # store crosswalk URL
   URL <- "https://data.nber.org/cbsa-msa-fips-ssa-county-crosswalk/cbsatocountycrosswalk.csv"
@@ -199,8 +197,9 @@ obtain_crosswalk = function() {
   # return to user
   return(cw)
 }
+```
 
-
+```
 extract_metadata <- function( file.name )
 {
   # store the file path as a character vector
@@ -225,7 +224,11 @@ extract_metadata <- function( file.name )
   return( d )
 }
 
-# make final metadata file
+```
+
+# Make final metadata file.
+
+```
 create_final_metadata_file = function(file_names, crosswalk) {
   # filter the crosswalk
   # note: unique ID still persists through the FIPS column
@@ -261,8 +264,9 @@ create_final_metadata_file = function(file_names, crosswalk) {
   # save metadata
   saveRDS( md_complete_with_cw, here::here( "data/rodeo/LTDB-META-DATA.rds" ) )
 }
+```
 
-
+```
 # find common variables that are in two datasets
 compare_dfs <- function( df1, df2 )
 {
@@ -291,9 +295,11 @@ compare_dfs <- function( df1, df2 )
   
   return( dd )
 }
+```
 
+# Function to control plot() formatting 
 
-# function to control plot() formatting 
+```
 jplot <- function( x1, x2, lab1="", lab2="", draw.line=T, ... )
 {
   
@@ -311,9 +317,11 @@ jplot <- function( x1, x2, lab1="", lab2="", draw.line=T, ... )
     lines( lowess(x2[ok]~x1[ok]), col="red", lwd=3 ) }
   
 }
-
+```
 
 # Wrangle data to create shapefile for chloropleth map
+
+```
 # load data
 crosswalk <- read.csv( "https://raw.githubusercontent.com/DS4PS/cpp-529-master/master/data/cbsatocountycrosswalk.csv",  stringsAsFactors=F, colClasses="character" )
 
@@ -334,7 +342,7 @@ sf.pop <-
   rename( POP=estimate )
 #sanfran.pop$GEOID<-substr(sanfran.pop$GEOID,2,length(sf.pop$GEOID)) # remove leading 0's
 
-# End of Lab 03 Functions--------------------------------------------------------------
+```
 
 
 # Lab 04 Functions--------------------------------------------------------------
@@ -350,8 +358,9 @@ S_TYPE <- "text"
 # inflation rate
 INFLATION_RATE <- 1.28855 
 
-# load custom functions ----
+# Load custom functions ----
 
+```
 # Helper functions for the **pairs()** correlation table 
 panel.cor <- function(x, y, digits=2, prefix="", cex.cor)
 {
@@ -381,7 +390,9 @@ panel.smooth <- function (x, y, col = par("col"), bg = NA, pch = par("pch"),
     lines(stats::lowess(x[ok], y[ok], f = span, iter = iter), 
           col = col.smooth, lwd=2, ...)
 }
+```
 
+```
 # custom plot
 jplot <- function( x1, x2, lab1="", lab2="", draw.line=T, ... )
 {
@@ -400,8 +411,11 @@ jplot <- function( x1, x2, lab1="", lab2="", draw.line=T, ... )
     lines( lowess(x2[ok]~x1[ok]), col="red", lwd=3 ) }
   
 }
+```
 
-# load necessary data ----
+# Load necessary data ---
+
+```
 # remember to use the here::here() function
 d1 <- readRDS( here::here( "data/rodeo/LTDB-2000.rds" ) )
 d2 <- readRDS( here::here( "data/rodeo/LTDB-2010.rds" ) )
@@ -412,7 +426,11 @@ d2 <- dplyr::select( d2, - year )
 
 d <- merge( d1, d2, by="tractid" )
 d <- merge( d, md, by="tractid" )
+```
 
+# Clean data---
+
+```
 # filter rural districts
 d <- dplyr::filter( d, urban == "urban" )
 
@@ -438,9 +456,14 @@ d$mhv.00 <- mhv.00
 d$mhv.10 <- mhv.10
 d$mhv.change <- mhv.change
 d$mhv.growth <- mhv.growth 
+```
 
+## Create data sets
+
+```
 d.full <- d
-
+```
+```
 d <- dplyr::select( d, tractid, 
                     mhmval00, mhmval12, 
                     hinc00, 
@@ -467,15 +490,17 @@ d <-
                  mhv.change.00.to.10 = mhmval12 - mhmval00,
                  p.mhv.change = 100 * (mhmval12 - mhmval00) / mhmval00,
                  pov.rate = 100 * npov00 / dpov00 )
+```
 
-
-
+```
 # create mini data frame
 df <- data.frame( MedianHomeValue2000=mhv.00, 
                   MedianHomeValue2010=mhv.10, 
                   MHV.Change.00.to.10=mhv.change,
                   MHV.Growth.00.to.12=mhv.growth )
-
+ ```
+ 
+ ```
 # average growth in median home value for the city
 cbsa_stats_df <- 
   d %>%
@@ -483,11 +508,14 @@ cbsa_stats_df <-
   dplyr::summarize( metro.mhv.change = median( mhv.change, na.rm=T ),
                     metro.mhv.growth = 100 * median( mhv.growth, na.rm=T ) ) %>%
   dplyr::ungroup() 
+```
 
-# End of Lab 04 Functions-------------------------------------------------------
 
 # Lab 05 Functions--------------------------------------------------------------
 
+# Load Data---
+
+```
 # obtain NMTC data
 NMTC_URL <- "https://raw.githubusercontent.com/DS4PS/cpp-528-spr-2020/master/labs/data/raw/NMTC/nmtc-sheet-01.csv"
 nmtc <- read.csv( NMTC_URL, stringsAsFactors=F )
@@ -498,18 +526,22 @@ lihtc <- read.csv( LIHTC_URL, stringsAsFactors=F )
 
 # load census data
 d.lab05 <- d.full
+```
 
-# Create the Difference In Difference dataset
+# Create the Difference In Difference dataset---
 
-
-# create a key that will allow us to obtain federal data for each tract ----
+## Create a key that will allow us to obtain federal data for each tract 
+```
 # remove anything not a number from the string
 d.lab05$id2 <- gsub( "[^0-9]", "", d.lab05$tractid )
 
 # fix IDs so they are match
 d.lab05$id2 <- as.numeric( d.lab05$id2 )
+```
 
-# aggregate federal programs such that there is one record per tract ----
+## Aggregate federal programs such that there is one record per tract 
+
+```
 lihtc.dollars <-
   lihtc %>% 
   dplyr::filter( yr_alloc >= 2000 & yr_alloc <= 2010 ) %>%
@@ -525,13 +557,18 @@ nmtc.dollars <-
   dplyr::filter( Origination.Year >= 2000 & Origination.Year <= 2010 ) %>%
   dplyr::group_by( X2010.Census.Tract ) %>% 
   dplyr::summarize( num.nmtc = dplyr::n(), nmtc.total = sum( amount, na.rm=T ) )
+```
 
-# merge federal data onto census tracts ----
+## Merge federal data onto census tracts
+```
 d.lab05 <- merge( d.lab05, nmtc.dollars, by.x="id2", by.y="X2010.Census.Tract", all.x=T )
 d.lab05 <- merge( d.lab05, lihtc.dollars, by.x="id2", by.y="fips2010", all.x=T )
+```
 
+More cleaning
 
-# recode tracts that had no grants from NA to 0 ---
+```
+# recode tracts that had no grants from NA to 0
 d.lab05$num.nmtc[ is.na(d.lab05$num.nmtc) ] <- 0
 d.lab05$nmtc.total[ is.na(d.lab05$nmtc.total) ] <- 0
 
@@ -556,7 +593,8 @@ mhv.00[ mhv.00 < 10000 ] <- NA
 # change in MHV in percent
 mhv.growth <- 100 * ( mhv.change / mhv.00 )
 
-# add variables to the main data frame ----
+
+# add variables to the main data frame 
 d.lab05$mhv.00 <- mhv.00
 d.lab05$mhv.10 <- mhv.10
 d.lab05$mhv.change <- mhv.change
@@ -564,8 +602,11 @@ d.lab05$mhv.growth <- mhv.growth
 
 # save copy of full d.lab05
 d.lab05.full <- d.lab05
+```
 
-# select a few variables ----
+## Select a few variables 
+
+```
 d.lab05 <- dplyr::select( d.lab05.full, 
                           
                           tractid, cbsa, cbsaname,            # ids / units of analysis
@@ -588,8 +629,11 @@ d.lab05 <- dplyr::select( d.lab05.full,
                           num.lihtc, lihtc.total             # aggregated by census tract
                           
 ) # end select
+```
 
-# add control variables
+## Add control variables
+
+```
 d.lab05 <- 
   d.lab05 %>%
   dplyr::mutate( p.hs.00 = 100 * (hs00+col00) / ag25up00,
@@ -606,8 +650,11 @@ d.lab05 <-
                  pov.rate.12 = 100 * npov12 / dpov12) %>%
   # remove any NA or Inf values
   na.omit(use = "everything")
+```
 
-# create new variables by cbsa ----
+## Create new variables by cbsa
+
+```
 d.lab05 <-
   d.lab05 %>%
   dplyr::group_by( cbsaname ) %>%
@@ -637,8 +684,12 @@ d.lab05 <-
     # increase in the proportion of whites in tract 
     increase.p.white = p.white.10 - p.white.00  )
 
+```
 
-# inflation adjust income  ----
+More cleaning
+
+```
+# inflation adjust income  
 d.lab05$hinc00 <- INFLATION_RATE * d.lab05$hinc00
 
 # Create a true/false code for recipient tracts ----
@@ -649,8 +700,11 @@ d.lab05$NMTC <- ifelse( d.lab05$num.nmtc > 0, "YES", "NO" )
 # omit cases with growth rates above 200%
 d.lab05$growth <- d.lab05$mhv.growth
 d.lab05$growth[ d.lab05$growth > 200 ] <- NA
+```
 
-# store plots in a list for easy access ----
+## Store plots in a list for easy access 
+
+```
 PLOTS <-
   list(
     "pov_rate_2000" = list(
@@ -678,8 +732,11 @@ PLOTS <-
         ggplot2::ggtitle("Comparision of MHV Growth 2000 to 2010: \nRecipients vs Non-Recipients")
     )
   )
+```
 
-# prepare NMTC data
+# Prepare NMTC data
+
+```
 # log the variables
 y1 <- log( d.lab05$mhv.00 )
 y2 <- log( d.lab05$mhv.10 )
@@ -700,9 +757,11 @@ d2 <- data.frame( y=y2, treat=nmtc.treat, post=1 )
 
 # stack the two time periods together
 d3 <- rbind( d1, d2 )
+```
 
-# controls ---
+# Controls 
 
+```
 #p.vac
 d0 <- data.frame( lp.vac.00 = lp.vac.00, lp.vac.10 = lp.vac.10)
 
@@ -727,8 +786,11 @@ d0 <- d0 %>% tidyr::gather(key = "variable-name", value = "p.unemp")
 
 # diff-in-diff data
 d3$p.unemp <- d0$p.unemp
+```
 
-# prepare LIHTC data
+# Prepare LIHTC data
+
+```
 # create a variable that identifies if a tract received LIHTC funding
 lihtc.treat <- as.numeric( d.lab05$num.lihtc > 0 )
 
@@ -740,8 +802,11 @@ l2 <- data.frame( y=y2, treat=lihtc.treat, post=1 )
 # stack the two time periods together
 l3 <- rbind( l1, l2 )
 
-# controls ---
+```
 
+# Controls 
+
+```
 #p.vac
 l0 <- data.frame( lp.vac.00 = lp.vac.00, lp.vac.10 = lp.vac.10)
 
@@ -770,5 +835,4 @@ l0 <- l0 %>% tidyr::gather(key = "variable_name",
 
 # diff-in-diff data
 l3$p.unemp <- l0$p.unemp
-
-# End of Lab 05 Functions-------------------------------------------------------
+```
