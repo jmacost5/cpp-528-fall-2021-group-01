@@ -7,7 +7,7 @@ output:
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE, results = 'asis')
 ```
 
 ```{r, eval=FALSE}
@@ -16,24 +16,27 @@ knitr::opts_chunk$set(echo = TRUE)
 install.packages("here")
 
 ```
-### Runing Needed Packages 
-```{r , warning=FALSE}
+
+### Running Needed Packages 
+
+```{r, results='hide'}
 
 # load necessary packages
 library( tidyverse )
 library( here )
 library( pander )
-
+library( tidycensus )
 
 ```
 
 ### Part 1: Data Concordance
-```{r , , warning=FALSE}
+
+```{r}
 # Reading data files from specific file paths in my desktop
 
 
 # store data dictionary file path
-DD_FILEPATH <- here::here("data/rodeo/Ahmeds-ltdb_data_dictionary.csv")
+DD_FILEPATH <- here::here("data/raw/Ahmeds-ltdb_data_dictionary.csv")
 
 # import data dictionary
 dd <- read.csv(DD_FILEPATH , header=T,fill=T , stringsAsFactors=F)
@@ -41,7 +44,7 @@ head(dd) %>% pander()
 
 ```
 
-```{r , , warning=FALSE}
+```{r}
 
 # rename columns to lower case in both data frames 
 
@@ -54,16 +57,17 @@ ltdb.data <- as.data.frame( sapply( dd, tolower) )
 dd[ c(1:5,15:17), ] %>% pander()
 
 ```
+
 ### Part 2: Build a Variable Filter
 
 
-### Loading funtions from utilities.R file
+### Loading functions from utilities.R file
 
-```{r , warning=FALSE}
+```{r, results='hide'}
 
-# Loading funtions from source files
+# Loading functions from source files
 
-source(here::here("analysis/utilities.R"))
+source(here::here("analysis/utilities_master.R"))
 
 ```
 
