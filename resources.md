@@ -1,6 +1,6 @@
 ---
 title: Resources
-subtitle: Links to helpful resources.
+subtitle: "Links to helpful resources."
 ---
 
   1) [Group 1 GitHub Repository](https://github.com/R-Class/cpp-528-fall-2021-group-01)
