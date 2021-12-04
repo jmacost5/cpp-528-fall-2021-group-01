@@ -1354,8 +1354,7 @@ F Statistic
 
 </table>
 
-Houses, on average, had a 51% increase during the treatment period (2000
-- 2010). Although the post-treatment coefficient is different than 1, it
+Houses, on average, had a 51% increase during the treatment period (2000 - 2010). Although the post-treatment coefficient is different than 1, it
 is not statistically significant, indicating the NMTC program is not
 effective.
 
