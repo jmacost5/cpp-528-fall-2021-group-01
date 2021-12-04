@@ -3,7 +3,7 @@ title: Executive Summary
 subtitle: Summarizing Group 1's Project Management Deliverables
 ---
 
-  ### **Overview / Research Question Program Details**  
+### **Overview / Research Question Program Details**  
   
 The following analysis aims to explain the dynamics of neighborhood changes in US metro areas between 1990 and 2010; then examine whether neighborhoods targeted by the           programs have achieved any more success than they would have without the billion of dollars in federal subsidies. For the project, the team has been hired by the federal         government to provide a rigorous assessment of program impact. We will assess whether two large federal programs designed to revitalize distressed neighborhoods in US cities     have been successful. Low Income Housing Tax Credits (LIHTC) are one of the primary policy instruments used to incentivize the construction of new affordable housing units in   the United States. New Market Tax Credits (NMTC) are mechanisms designed to catalyze economic development in distressed communities by attrating investments from private         developers.
 
