@@ -119,7 +119,7 @@ projects, LIHTC location choices are driven by market dynamics, but
 affordable housing projects are more likely to end up in low-income
 communities.
 
-#### Recipient and Non-Recipient Tracts:
+#### Recipient and Non-Recipient Tracts
 
 Here is the hard part about evaluating economic development investments: they try to target the projects that have the greatest potential to
 succeed, so by design you have sorted the sample. It’s similar to the
