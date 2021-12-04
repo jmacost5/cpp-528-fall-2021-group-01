@@ -7,9 +7,10 @@ output: html_document
 
 ```{r setup, echo=FALSE}
 knitr::opts_chunk$set(echo = TRUE, message = FALSE)
+```
 
 
-
+```{r, warning=FALSE, message=FALSE}
 # load packages
 library( cartogram )  # spatial maps w/ tract size bias reduction
 library( colorspace )
@@ -42,7 +43,7 @@ s.type <- "html"
 
 The following steps were used to load the data used in this page:
 
-```{r}
+```{r, warning=FALSE, message=FALSE, results='hide'}
 # load function source files
 # note: all of these are R objects that will be used throughout this .rmd file
 
