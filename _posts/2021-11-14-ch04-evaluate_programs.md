@@ -121,8 +121,7 @@ communities.
 
 #### Recipient and Non-Recipient Tracts:
 
-Here is the hard part about evaluating economic development investments
-- they try to target the projects that have the greatest potential to
+Here is the hard part about evaluating economic development investments: they try to target the projects that have the greatest potential to
 succeed, so by design you have sorted the sample. It’s similar to the
 challenge of trying to decide if Harvard provides a better education
 than a high-performing public university. Harvard has selected students
