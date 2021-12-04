@@ -93,6 +93,8 @@ head( d ) %>% pander()
 
 source(here::here("analysis/Ahmeds.utilities.Rj"))
 
+This file requires a census api key. It should run with the one provided in the geojson file, but if you require one, you can obtain one [here](https://api.census.gov/data/key_signup.html).
+
 #### Part 1 -  Descriptive analysis demonstrated in the tutorial but do it for periods 1990 to 2000 instead of the 2000 to 2010 
 
 ### Data
