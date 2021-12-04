@@ -114,7 +114,10 @@ source(here::here("analysis/utilities.R"))
 
 For More info about [here package](https://here.r-lib.org)
 
+#### Files
 
+**lab-02-rashwan.Rmd**: an rmd file with steps to create data dictionary used throughout the project, anddemonstrating how to use custom filter functions pulled from analysis/utilities_master.r file.
+**lab-02-rashwan.html**: a knitted html file of the lab-02-rashwan.Rmd file.
 
 ## References 
 
